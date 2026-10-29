@@ -1,0 +1,40 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<01:55,  7.60it/s]Loading weights:   5%|█▏                     | 44/883 [00:00<00:03, 224.85it/s]Loading weights:  11%|██▍                    | 95/883 [00:00<00:02, 342.12it/s]Loading weights:  17%|███▋                  | 147/883 [00:00<00:01, 392.19it/s]Loading weights:  23%|████▉                 | 200/883 [00:00<00:01, 436.29it/s]Loading weights:  29%|██████▍               | 256/883 [00:00<00:01, 476.46it/s]Loading weights:  35%|███████▌              | 305/883 [00:00<00:01, 464.57it/s]Loading weights:  40%|████████▊             | 353/883 [00:00<00:01, 442.58it/s]Loading weights:  45%|█████████▉            | 398/883 [00:01<00:01, 296.33it/s]Loading weights:  49%|██████████▊           | 434/883 [00:01<00:01, 242.99it/s]Loading weights:  64%|██████████████▏       | 568/883 [00:01<00:00, 456.45it/s]Loading weights:  83%|██████████████████▏   | 729/883 [00:01<00:00, 703.65it/s]Loading weights: 100%|██████████████████████| 883/883 [00:01<00:00, 527.00it/s]
+
+======================================================================
+PART 2: REAL TEST REVIEWS (Permutation Causality Test)
+======================================================================
+
+--- Testing Gold: direct_imperative ---
+
+Review: "My first visit to the Indianapolis Zoo left me pleasantly surprised. A..."
+  [Original (A=direct, B=modal)] -> Letter 'A' => Class: direct imperative
+  [Swapped (A=modal, B=direct) ] -> Letter 'A' => Class: modal deontic
+  [Inverted (E=direct, B=interr] -> Letter 'E' => Class: direct imperative
+
+Review: "Gianni's Pizza is a backdoor walkout Italian house on the bottom floor..."
+  [Original (A=direct, B=modal)] -> Letter 'A' => Class: direct imperative
+  [Swapped (A=modal, B=direct) ] -> Letter 'A' => Class: modal deontic
+  [Inverted (E=direct, B=interr] -> Letter 'E' => Class: direct imperative
+
+Review: "I had been wanting to try this place for a while, and for the first ti..."
+  [Original (A=direct, B=modal)] -> Letter 'C' => Class: conditional
+  [Swapped (A=modal, B=direct) ] -> Letter 'B' => Class: direct imperative
+  [Inverted (E=direct, B=interr] -> Letter 'E' => Class: direct imperative
+
+--- Testing Gold: modal_deontic ---
+
+Review: "cool stuff it helped out with my little project the only thing i disli..."
+  [Original (A=direct, B=modal)] -> Letter 'A' => Class: direct imperative
+  [Swapped (A=modal, B=direct) ] -> Letter 'B' => Class: direct imperative
+  [Inverted (E=direct, B=interr] -> Letter 'E' => Class: direct imperative
+
+Review: "Yikes. This brand/company is selling the idea of a "mystery internatio..."
+  [Original (A=direct, B=modal)] -> Letter 'A' => Class: direct imperative
+  [Swapped (A=modal, B=direct) ] -> Letter 'A' => Class: modal deontic
+  [Inverted (E=direct, B=interr] -> Letter 'E' => Class: direct imperative
+
+Review: "***Update*** I am writing this update only because Lane Clegg of Resid..."
+  [Original (A=direct, B=modal)] -> Letter 'A' => Class: direct imperative
+  [Swapped (A=modal, B=direct) ] -> Letter 'A' => Class: modal deontic
+  [Inverted (E=direct, B=interr] -> Letter 'E' => Class: direct imperative

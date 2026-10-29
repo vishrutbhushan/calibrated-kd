@@ -1,0 +1,17 @@
+
+=======================================================
+Distilling Qwen3-4B on NLI | Mode: CALIBRATED
+=======================================================
+Verbalizers token mapping: [('A', 32), ('B', 33), ('C', 34)]
+Loading Base Student Model /home/vishrut/.cache/huggingface/hub/models--Qwen--Qwen3-4B/snapshots/1cfa9a7208912126459214e8b04321603b3df60c in BF16...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:30,  4.39it/s]Loading weights:   6%|█▌                      | 25/398 [00:00<00:04, 92.19it/s]Loading weights:  12%|██▊                    | 48/398 [00:00<00:02, 137.65it/s]Loading weights:  17%|███▊                   | 67/398 [00:00<00:02, 154.56it/s]Loading weights:  23%|█████▎                 | 91/398 [00:00<00:01, 175.84it/s]Loading weights:  29%|██████▎               | 114/398 [00:00<00:01, 190.39it/s]Loading weights:  34%|███████▌              | 137/398 [00:00<00:01, 201.20it/s]Loading weights:  41%|█████████             | 165/398 [00:00<00:01, 223.10it/s]Loading weights:  48%|██████████▌           | 190/398 [00:01<00:00, 227.50it/s]Loading weights:  54%|███████████▊          | 214/398 [00:01<00:00, 218.45it/s]Loading weights:  60%|█████████████         | 237/398 [00:01<00:00, 217.00it/s]Loading weights:  65%|██████████████▎       | 259/398 [00:01<00:00, 208.88it/s]Loading weights:  71%|███████████████▌      | 281/398 [00:01<00:00, 205.57it/s]Loading weights:  76%|████████████████▋     | 302/398 [00:01<00:00, 202.22it/s]Loading weights:  81%|█████████████████▉    | 324/398 [00:01<00:00, 202.25it/s]Loading weights:  87%|███████████████████▏  | 346/398 [00:01<00:00, 203.32it/s]Loading weights:  92%|████████████████████▎ | 368/398 [00:01<00:00, 204.26it/s]Loading weights:  98%|█████████████████████▌| 390/398 [00:02<00:00, 207.59it/s]Loading weights: 100%|██████████████████████| 398/398 [00:02<00:00, 192.75it/s]
+trainable params: 33,030,144 || all params: 4,055,498,240 || trainable%: 0.8145
+Pre-distillation Test: Acc = 81.67% | F1 = 81.87% | Counts = [104, 110, 86]
+
+Beginning Distillation (2 epochs, 56 optimizer steps)...
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+Epoch 1/2 | KL Loss = 2.0124 | Test Acc = 61.00% | Macro-F1 = 49.89% | Pred Counts = [200, 0, 100]
+Epoch 2/2 | KL Loss = 0.4682 | Test Acc = 63.33% | Macro-F1 = 50.88% | Pred Counts = [166, 0, 134]
+
+[✓] Results saved to /home/vishrut/annotator-bias-fingerprints/results/nli_distillation_calibrated_results.json

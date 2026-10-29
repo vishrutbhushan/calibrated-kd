@@ -1,0 +1,20 @@
+{
+  "mode": "raw",
+  "dataset": "NLI",
+  "pre_acc": 0.8166666666666667,
+  "pre_f1": 0.818671124363724,
+  "pre_counts": [
+    104,
+    110,
+    86
+  ],
+  "final_test_acc": 0.6933333333333334,
+  "final_test_f1": 0.6404978298297576,
+  "final_pred_counts": [
+    154,
+    28,
+    118
+  ],
+  "epochs": 2,
+  "lr": 5e-05
+}

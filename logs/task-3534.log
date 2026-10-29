@@ -1,0 +1,8 @@
+'[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets
+Retrying in 1s [Retry 1/5].
+'[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets
+Retrying in 2s [Retry 2/5].
+'[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets
+Retrying in 4s [Retry 3/5].
+'[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets
+Retrying in 8s [Retry 4/5].

@@ -1,0 +1,25 @@
+{
+  "mode": "calibrated",
+  "dataset": "Emotion",
+  "num_classes": 6,
+  "class_names": [
+    "Sadness",
+    "Joy",
+    "Love",
+    "Anger",
+    "Fear",
+    "Surprise"
+  ],
+  "test_acc": 43.333333333333336,
+  "test_f1": 39.03411882235412,
+  "test_counts": [
+    75,
+    52,
+    41,
+    104,
+    27,
+    1
+  ],
+  "surprise_count": 1,
+  "love_count": 41
+}

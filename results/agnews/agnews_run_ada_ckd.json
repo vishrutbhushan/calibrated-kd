@@ -1,0 +1,12 @@
+{
+  "variant": "ada_ckd",
+  "test_acc": 73.8,
+  "test_f1": 70.79956569602608,
+  "test_counts": [
+    313,
+    244,
+    377,
+    66
+  ],
+  "scitech_count": 66
+}

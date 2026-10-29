@@ -1,0 +1,56 @@
+Loading google/gemma-3-4b-it in BF16...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<08:02,  1.83it/s]Loading weights:   2%|▍                       | 17/883 [00:00<00:26, 32.97it/s]Loading weights:   4%|▊                       | 31/883 [00:00<00:15, 55.70it/s]Loading weights:   6%|█▍                      | 52/883 [00:00<00:09, 86.49it/s]Loading weights:   7%|█▊                      | 66/883 [00:01<00:08, 97.43it/s]Loading weights:   9%|██▏                    | 82/883 [00:01<00:07, 111.37it/s]Loading weights:  12%|██▌                   | 103/883 [00:01<00:05, 136.11it/s]Loading weights:  13%|██▉                   | 119/883 [00:01<00:05, 136.39it/s]Loading weights:  15%|███▎                  | 135/883 [00:01<00:05, 142.41it/s]Loading weights:  18%|███▉                  | 156/883 [00:01<00:04, 157.07it/s]Loading weights:  20%|████▎                 | 173/883 [00:01<00:04, 146.23it/s]Loading weights:  22%|████▊                 | 193/883 [00:01<00:04, 156.81it/s]Loading weights:  24%|█████▏                | 210/883 [00:01<00:04, 159.36it/s]Loading weights:  26%|█████▋                | 227/883 [00:02<00:04, 142.11it/s]Loading weights:  27%|██████                | 242/883 [00:02<00:04, 143.94it/s]Loading weights:  29%|██████▍               | 259/883 [00:02<00:04, 146.61it/s]Loading weights:  31%|██████▊               | 274/883 [00:02<00:04, 135.20it/s]Loading weights:  33%|███████▏              | 288/883 [00:02<00:04, 136.15it/s]Loading weights:  34%|███████▌              | 304/883 [00:02<00:04, 139.16it/s]Loading weights:  36%|███████▉              | 319/883 [00:02<00:04, 137.44it/s]Loading weights:  38%|████████▎             | 335/883 [00:02<00:04, 136.20it/s]Loading weights:  40%|████████▊             | 352/883 [00:02<00:04, 129.10it/s]Loading weights:  42%|█████████▏            | 368/883 [00:03<00:03, 129.62it/s]Loading weights:  43%|█████████▌            | 384/883 [00:03<00:03, 136.51it/s]Loading weights:  45%|█████████▉            | 398/883 [00:03<00:03, 132.91it/s]Loading weights:  47%|██████████▎           | 412/883 [00:03<00:03, 128.92it/s]Loading weights:  48%|██████████▌           | 425/883 [00:03<00:03, 127.62it/s]Loading weights:  50%|██████████▉           | 438/883 [00:03<00:03, 125.78it/s]Loading weights:  56%|████████████▍         | 497/883 [00:03<00:01, 251.74it/s]Loading weights:  66%|██████████████▍       | 581/883 [00:03<00:00, 405.73it/s]Loading weights:  77%|████████████████▉     | 680/883 [00:03<00:00, 568.99it/s]Loading weights:  90%|███████████████████▊  | 793/883 [00:04<00:00, 727.23it/s]Loading weights: 100%|██████████████████████| 883/883 [00:04<00:00, 212.98it/s]
+Verbalizers token mapping: [('A', 236776), ('B', 236799), ('C', 236780)]
+
+======================================================================
+COMPUTING XNLI NULL VECTORS
+======================================================================
+Language: EN
+  Null Logits [A, B, C]: [38.25, 38.0, 29.75]
+  Null Probs  [A, B, C]: ['56.21%', '43.78%', '0.01%']
+Language: HI
+  Null Logits [A, B, C]: [17.25, 28.12, 17.0]
+  Null Probs  [A, B, C]: ['0.00%', '100.00%', '0.00%']
+
+======================================================================
+EVALUATING REAL XNLI SAMPLES (150 Balanced Instances: 50/class)
+======================================================================
+
+==================== Language: EN ====================
+RAW Teacher Zero-Shot:
+  Accuracy:  80.00% | Macro-F1: 79.89%
+  Predicted Class Counts [Entailment, Neutral, Contradiction]: [59, 43, 48]
+  Confusion Matrix (Rows=Gold, Cols=Pred):
+[[43  5  2]
+ [15 33  2]
+ [ 1  5 44]]
+
+CALIBRATED Teacher Zero-Shot (CKD Formulation):
+  Accuracy:  80.00% | Macro-F1: 79.74%
+  Predicted Class Counts [Entailment, Neutral, Contradiction]: [59, 41, 50]
+  Confusion Matrix (Rows=Gold, Cols=Pred):
+[[43  5  2]
+ [15 32  3]
+ [ 1  4 45]]
+
+>>> NET GAIN FROM CALIBRATION: Accuracy +0.00% | Macro-F1 -0.14%
+
+==================== Language: HI ====================
+RAW Teacher Zero-Shot:
+  Accuracy:  70.67% | Macro-F1: 70.31%
+  Predicted Class Counts [Entailment, Neutral, Contradiction]: [65, 51, 34]
+  Confusion Matrix (Rows=Gold, Cols=Pred):
+[[44  3  3]
+ [15 33  2]
+ [ 6 15 29]]
+
+CALIBRATED Teacher Zero-Shot (CKD Formulation):
+  Accuracy:  58.00% | Macro-F1: 46.46%
+  Predicted Class Counts [Entailment, Neutral, Contradiction]: [82, 0, 68]
+  Confusion Matrix (Rows=Gold, Cols=Pred):
+[[45  0  5]
+ [29  0 21]
+ [ 8  0 42]]
+
+>>> NET GAIN FROM CALIBRATION: Accuracy -12.67% | Macro-F1 -23.85%

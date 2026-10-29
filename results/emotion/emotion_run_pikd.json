@@ -1,0 +1,25 @@
+{
+  "variant": "pikd",
+  "dataset": "Emotion",
+  "num_classes": 6,
+  "class_names": [
+    "Sadness",
+    "Joy",
+    "Love",
+    "Anger",
+    "Fear",
+    "Surprise"
+  ],
+  "test_acc": 40.666666666666664,
+  "test_f1": 37.292417845255414,
+  "test_counts": [
+    146,
+    42,
+    34,
+    54,
+    23,
+    1
+  ],
+  "surprise_count": 1,
+  "love_count": 34
+}

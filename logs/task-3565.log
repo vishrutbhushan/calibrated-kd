@@ -1,0 +1,36 @@
+Loading Teacher model (Gemma-3-4B-it)...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<04:37,  3.18it/s]Loading weights:   3%|▊                       | 30/883 [00:00<00:09, 89.31it/s]Loading weights:   7%|█▌                     | 61/883 [00:00<00:05, 154.49it/s]Loading weights:  11%|██▍                    | 94/883 [00:00<00:03, 203.61it/s]Loading weights:  14%|███                   | 121/883 [00:00<00:03, 221.69it/s]Loading weights:  17%|███▋                  | 148/883 [00:00<00:03, 229.25it/s]Loading weights:  21%|████▌                 | 182/883 [00:00<00:02, 252.60it/s]Loading weights:  24%|█████▎                | 212/883 [00:01<00:02, 257.90it/s]Loading weights:  28%|██████▏               | 250/883 [00:01<00:02, 282.70it/s]Loading weights:  32%|██████▉               | 280/883 [00:01<00:02, 275.98it/s]Loading weights:  36%|███████▊              | 315/883 [00:01<00:01, 288.76it/s]Loading weights:  39%|████████▌             | 345/883 [00:01<00:01, 281.29it/s]Loading weights:  43%|█████████▍            | 381/883 [00:01<00:01, 299.00it/s]Loading weights:  48%|██████████▍           | 421/883 [00:01<00:01, 317.14it/s]Loading weights:  51%|███████████▎          | 453/883 [00:01<00:01, 286.28it/s]Loading weights:  61%|█████████████▍        | 537/883 [00:01<00:00, 430.75it/s]Loading weights:  72%|███████████████▊      | 633/883 [00:02<00:00, 570.52it/s]Loading weights:  85%|██████████████████▋   | 751/883 [00:02<00:00, 738.81it/s]Loading weights: 100%|█████████████████████▉| 879/883 [00:02<00:00, 889.61it/s]Loading weights: 100%|██████████████████████| 883/883 [00:02<00:00, 386.22it/s]
+Verbalizers token mapping: [('A', 236776), ('B', 236799), ('C', 236780), ('D', 236796), ('E', 236788), ('F', 236811), ('G', 236823), ('H', 236814), ('I', 236777), ('J', 236863), ('K', 236855), ('L', 236798), ('M', 236792), ('N', 236797)]
+
+===========================================================================
+STEP 1: DBPEDIA-14 NULL BIAS EXISTENCE CHECK
+===========================================================================
+  A [Company               ]: Logit =  14.38 | Prior Prob =  59.21%
+  B [EducationalInstitution]: Logit =  11.00 | Prior Prob =   2.03%
+  C [Artist                ]: Logit =  11.56 | Prior Prob =   3.56%
+  D [Athlete               ]: Logit =   9.12 | Prior Prob =   0.31%
+  E [OfficeHolder          ]: Logit =   9.88 | Prior Prob =   0.66%
+  F [MeanOfTransportation  ]: Logit =   8.44 | Prior Prob =   0.16%
+  G [Building              ]: Logit =   9.38 | Prior Prob =   0.40%
+  H [NaturalPlace          ]: Logit =   9.62 | Prior Prob =   0.51%
+  I [Village               ]: Logit =  11.44 | Prior Prob =   3.14%
+  J [Animal                ]: Logit =   8.94 | Prior Prob =   0.26%
+  K [Plant                 ]: Logit =   9.62 | Prior Prob =   0.51%
+  L [Album                 ]: Logit =  10.88 | Prior Prob =   1.79%
+  M [Film                  ]: Logit =  11.75 | Prior Prob =   4.29%
+  N [WrittenWork           ]: Logit =  13.44 | Prior Prob =  23.19%
+-> Null Skew Gap (Max - Min Logit): 5.94 logits
+-> Favored: Option A (Company) with 59.21%
+-> Imbalance Ratio: 379.0x
+===========================================================================
+
+Evaluating on 280 balanced test samples (20 per class)...
+
+===========================================================================
+STEP 2: DIRECT INFERENCE COMPARISON (RAW vs CALIBRATED)
+===========================================================================
+Raw Teacher:        Acc = 73.21% | Macro-F1 = 73.25%
+Calibrated Teacher: Acc = 74.29% | Macro-F1 = 73.67%
+Delta:              Acc Shift = +1.07% | F1 Shift = +0.42%
+===========================================================================

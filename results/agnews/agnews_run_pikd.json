@@ -1,0 +1,12 @@
+{
+  "variant": "pikd",
+  "test_acc": 73.6,
+  "test_f1": 70.63786452138652,
+  "test_counts": [
+    312,
+    242,
+    380,
+    66
+  ],
+  "scitech_count": 66
+}

@@ -1,0 +1,22 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+
+# Large model weights & checkpoints
+models/checkpoints/
+*.bin
+*.pt
+*.safetensors
+
+# OS / Editor files
+.DS_Store
+.vscode/
+.idea/

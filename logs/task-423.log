@@ -1,0 +1,132 @@
+Resuming from checkpoint: 4 / 1000 already translated.
+Total to translate in praxis_train_1000.csv: 996 items (max chars 800, max items 3, model gemini-3.8-flash).
+Created 828 dynamic batches.
+[1/828] Batch of 1 items (1481 chars) IDs: ['praxis_study_06308'] ... OK (25.6s) | Progress: 5/1000
+[2/828] Batch of 2 items (755 chars) IDs: ['praxis_study_06225', 'praxis_study_00901'] ... OK (21.6s) | Progress: 7/1000
+[3/828] Batch of 1 items (141 chars) IDs: ['praxis_study_04300'] ... OK (9.9s) | Progress: 8/1000
+[4/828] Batch of 1 items (752 chars) IDs: ['praxis_study_08657'] ... OK (22.4s) | Progress: 9/1000
+[5/828] Batch of 1 items (723 chars) IDs: ['praxis_study_07867'] ... OK (16.7s) | Progress: 10/1000
+[6/828] Batch of 1 items (567 chars) IDs: ['praxis_study_10810'] ... OK (17.9s) | Progress: 11/1000
+[7/828] Batch of 1 items (1632 chars) IDs: ['praxis_study_07727'] ... OK (39.6s) | Progress: 12/1000
+[8/828] Batch of 3 items (457 chars) IDs: ['praxis_study_05357', 'praxis_study_02858', 'praxis_study_11413'] ... OK (14.8s) | Progress: 15/1000
+[9/828] Batch of 1 items (468 chars) IDs: ['praxis_study_11564'] ... OK (17.4s) | Progress: 16/1000
+[10/828] Batch of 1 items (835 chars) IDs: ['praxis_study_11907'] ... OK (28.9s) | Progress: 17/1000
+[11/828] Batch of 1 items (812 chars) IDs: ['praxis_study_05967'] ... OK (30.0s) | Progress: 18/1000
+[12/828] Batch of 3 items (373 chars) IDs: ['praxis_study_10655', 'praxis_study_10725', 'praxis_study_04660'] ... OK (30.9s) | Progress: 21/1000
+[13/828] Batch of 1 items (565 chars) IDs: ['praxis_study_07511'] ... OK (18.6s) | Progress: 22/1000
+[14/828] Batch of 1 items (782 chars) IDs: ['praxis_study_00567'] ... OK (22.2s) | Progress: 23/1000
+[15/828] Batch of 1 items (331 chars) IDs: ['praxis_study_11542'] ... OK (17.6s) | Progress: 24/1000
+[16/828] Batch of 1 items (583 chars) IDs: ['praxis_study_07833'] ... OK (19.9s) | Progress: 25/1000
+[17/828] Batch of 1 items (2081 chars) IDs: ['praxis_study_09947'] ... OK (34.2s) | Progress: 26/1000
+[18/828] Batch of 1 items (1472 chars) IDs: ['praxis_study_05084'] ... OK (38.3s) | Progress: 27/1000
+[19/828] Batch of 2 items (91 chars) IDs: ['praxis_study_01906', 'praxis_study_04723'] ... OK (8.1s) | Progress: 29/1000
+[20/828] Batch of 1 items (1139 chars) IDs: ['praxis_study_07881'] ... OK (30.6s) | Progress: 30/1000
+  [INFO] Flushed 30 translated rows to praxis_train_1000.csv
+[21/828] Batch of 3 items (536 chars) IDs: ['praxis_study_08121', 'praxis_study_01548', 'praxis_study_05635'] ... OK (17.1s) | Progress: 33/1000
+[22/828] Batch of 1 items (2396 chars) IDs: ['praxis_study_02142'] ... OK (38.2s) | Progress: 34/1000
+[23/828] Batch of 1 items (664 chars) IDs: ['praxis_study_04663'] ... OK (17.8s) | Progress: 35/1000
+[24/828] Batch of 1 items (1026 chars) IDs: ['praxis_study_05763'] ... OK (26.9s) | Progress: 36/1000
+[25/828] Batch of 1 items (874 chars) IDs: ['praxis_study_02564'] ... OK (12.3s) | Progress: 37/1000
+[26/828] Batch of 1 items (232 chars) IDs: ['praxis_study_06167'] ... OK (13.3s) | Progress: 38/1000
+[27/828] Batch of 1 items (1314 chars) IDs: ['praxis_study_09315'] ... OK (26.5s) | Progress: 39/1000
+[28/828] Batch of 2 items (634 chars) IDs: ['praxis_study_11196', 'praxis_study_08646'] ... OK (21.8s) | Progress: 41/1000
+[29/828] Batch of 1 items (604 chars) IDs: ['praxis_study_02446'] ... OK (15.2s) | Progress: 42/1000
+[30/828] Batch of 1 items (1034 chars) IDs: ['praxis_study_00780'] ... OK (25.3s) | Progress: 43/1000
+[31/828] Batch of 1 items (438 chars) IDs: ['praxis_study_01108'] ... OK (16.2s) | Progress: 44/1000
+[32/828] Batch of 1 items (547 chars) IDs: ['praxis_study_11494'] ... OK (17.5s) | Progress: 45/1000
+[33/828] Batch of 1 items (441 chars) IDs: ['praxis_study_00811'] ... OK (17.1s) | Progress: 46/1000
+[34/828] Batch of 2 items (725 chars) IDs: ['praxis_study_11698', 'praxis_study_05270'] ... OK (22.3s) | Progress: 48/1000
+[35/828] Batch of 1 items (582 chars) IDs: ['praxis_study_06831'] ... OK (10.0s) | Progress: 49/1000
+[36/828] Batch of 1 items (696 chars) IDs: ['praxis_study_01838'] ... OK (13.4s) | Progress: 50/1000
+[37/828] Batch of 1 items (401 chars) IDs: ['praxis_study_06145'] ... OK (17.8s) | Progress: 51/1000
+[38/828] Batch of 1 items (2925 chars) IDs: ['praxis_study_05585'] ... OK (52.8s) | Progress: 52/1000
+[39/828] Batch of 1 items (493 chars) IDs: ['praxis_study_08341'] ... OK (18.9s) | Progress: 53/1000
+[40/828] Batch of 1 items (1998 chars) IDs: ['praxis_study_06586'] ... OK (31.6s) | Progress: 54/1000
+  [INFO] Flushed 54 translated rows to praxis_train_1000.csv
+[41/828] Batch of 1 items (1661 chars) IDs: ['praxis_study_04027'] ... OK (27.8s) | Progress: 55/1000
+[42/828] Batch of 2 items (631 chars) IDs: ['praxis_study_08306', 'praxis_study_07003'] ... OK (22.0s) | Progress: 57/1000
+[43/828] Batch of 1 items (958 chars) IDs: ['praxis_study_03729'] ... OK (29.2s) | Progress: 58/1000
+[44/828] Batch of 1 items (889 chars) IDs: ['praxis_study_11593'] ... OK (25.3s) | Progress: 59/1000
+[45/828] Batch of 1 items (1504 chars) IDs: ['praxis_study_02073'] ... OK (36.7s) | Progress: 60/1000
+[46/828] Batch of 1 items (279 chars) IDs: ['praxis_study_08482'] ... OK (10.4s) | Progress: 61/1000
+[47/828] Batch of 1 items (992 chars) IDs: ['praxis_study_04657'] ... OK (22.3s) | Progress: 62/1000
+[48/828] Batch of 1 items (1136 chars) IDs: ['praxis_study_04694'] ... OK (27.2s) | Progress: 63/1000
+[49/828] Batch of 2 items (581 chars) IDs: ['praxis_study_08125', 'praxis_study_06359'] ... OK (16.1s) | Progress: 65/1000
+[50/828] Batch of 1 items (406 chars) IDs: ['praxis_study_00847'] ... OK (12.7s) | Progress: 66/1000
+[51/828] Batch of 1 items (849 chars) IDs: ['praxis_study_01031'] ... OK (24.6s) | Progress: 67/1000
+[52/828] Batch of 2 items (399 chars) IDs: ['praxis_study_08117', 'praxis_study_11810'] ... OK (15.6s) | Progress: 69/1000
+[53/828] Batch of 1 items (2056 chars) IDs: ['praxis_study_09470'] ... OK (36.3s) | Progress: 70/1000
+[54/828] Batch of 1 items (132 chars) IDs: ['praxis_study_08319'] ... OK (11.1s) | Progress: 71/1000
+[55/828] Batch of 1 items (1305 chars) IDs: ['praxis_study_03416'] ... OK (24.8s) | Progress: 72/1000
+[56/828] Batch of 2 items (308 chars) IDs: ['praxis_study_00088', 'praxis_study_05290'] ... OK (15.0s) | Progress: 74/1000
+[57/828] Batch of 1 items (1961 chars) IDs: ['praxis_study_01101'] ... OK (51.5s) | Progress: 75/1000
+[58/828] Batch of 1 items (1327 chars) IDs: ['praxis_study_02723'] ... OK (21.1s) | Progress: 76/1000
+[59/828] Batch of 1 items (659 chars) IDs: ['praxis_study_07230'] ... OK (18.2s) | Progress: 77/1000
+[60/828] Batch of 1 items (1671 chars) IDs: ['praxis_study_05624'] ... OK (46.5s) | Progress: 78/1000
+  [INFO] Flushed 78 translated rows to praxis_train_1000.csv
+[61/828] Batch of 1 items (2128 chars) IDs: ['praxis_study_08578'] ... OK (61.6s) | Progress: 79/1000
+[62/828] Batch of 1 items (633 chars) IDs: ['praxis_study_05409'] ... OK (19.2s) | Progress: 80/1000
+[63/828] Batch of 1 items (1501 chars) IDs: ['praxis_study_00349'] ... OK (26.5s) | Progress: 81/1000
+[64/828] Batch of 2 items (533 chars) IDs: ['praxis_study_00815', 'praxis_study_09087'] ... OK (20.1s) | Progress: 83/1000
+[65/828] Batch of 1 items (1599 chars) IDs: ['praxis_study_03733'] ... OK (30.4s) | Progress: 84/1000
+[66/828] Batch of 2 items (477 chars) IDs: ['praxis_study_06341', 'praxis_study_02210'] ... OK (20.6s) | Progress: 86/1000
+[67/828] Batch of 2 items (773 chars) IDs: ['praxis_study_05835', 'praxis_study_03273'] ... OK (28.3s) | Progress: 88/1000
+[68/828] Batch of 1 items (1842 chars) IDs: ['praxis_study_11667'] ... OK (32.9s) | Progress: 89/1000
+[69/828] Batch of 1 items (146 chars) IDs: ['praxis_study_01871'] ... OK (7.6s) | Progress: 90/1000
+[70/828] Batch of 1 items (687 chars) IDs: ['praxis_study_05380'] ... OK (20.1s) | Progress: 91/1000
+[71/828] Batch of 2 items (796 chars) IDs: ['praxis_study_08388', 'praxis_study_07096'] ... OK (21.7s) | Progress: 93/1000
+[72/828] Batch of 2 items (789 chars) IDs: ['praxis_study_02171', 'praxis_study_11458'] ... OK (21.3s) | Progress: 95/1000
+[73/828] Batch of 1 items (2066 chars) IDs: ['praxis_study_10928'] ... OK (34.4s) | Progress: 96/1000
+[74/828] Batch of 3 items (776 chars) IDs: ['praxis_study_02947', 'praxis_study_07097', 'praxis_study_11787'] ... OK (20.1s) | Progress: 99/1000
+[75/828] Batch of 1 items (473 chars) IDs: ['praxis_study_05496'] ... OK (16.3s) | Progress: 100/1000
+[76/828] Batch of 1 items (566 chars) IDs: ['praxis_study_11836'] ... OK (19.1s) | Progress: 101/1000
+[77/828] Batch of 1 items (384 chars) IDs: ['praxis_study_03210'] ... OK (13.7s) | Progress: 102/1000
+[78/828] Batch of 2 items (598 chars) IDs: ['praxis_study_06592', 'praxis_study_11203'] ... OK (14.7s) | Progress: 104/1000
+[79/828] Batch of 1 items (1129 chars) IDs: ['praxis_study_11222'] ... OK (34.5s) | Progress: 105/1000
+[80/828] Batch of 1 items (758 chars) IDs: ['praxis_study_10654'] ... OK (25.8s) | Progress: 106/1000
+  [INFO] Flushed 106 translated rows to praxis_train_1000.csv
+[81/828] Batch of 1 items (119 chars) IDs: ['praxis_study_11578'] ... OK (8.0s) | Progress: 107/1000
+[82/828] Batch of 1 items (903 chars) IDs: ['praxis_study_10735'] ... OK (16.5s) | Progress: 108/1000
+[83/828] Batch of 2 items (727 chars) IDs: ['praxis_study_03691', 'praxis_study_11326'] ... OK (15.7s) | Progress: 110/1000
+[84/828] Batch of 2 items (733 chars) IDs: ['praxis_study_11933', 'praxis_study_05299'] ... OK (17.8s) | Progress: 112/1000
+[85/828] Batch of 1 items (1700 chars) IDs: ['praxis_study_09197'] ... OK (30.8s) | Progress: 113/1000
+[86/828] Batch of 1 items (1238 chars) IDs: ['praxis_study_06030'] ... OK (21.9s) | Progress: 114/1000
+[87/828] Batch of 1 items (282 chars) IDs: ['praxis_study_01017'] ... OK (14.7s) | Progress: 115/1000
+[88/828] Batch of 1 items (1066 chars) IDs: ['praxis_study_03335'] ... OK (30.7s) | Progress: 116/1000
+[89/828] Batch of 3 items (609 chars) IDs: ['praxis_study_09077', 'praxis_study_01700', 'praxis_study_02955'] ... OK (28.0s) | Progress: 119/1000
+[90/828] Batch of 1 items (727 chars) IDs: ['praxis_study_08107'] ... OK (24.0s) | Progress: 120/1000
+[91/828] Batch of 1 items (830 chars) IDs: ['praxis_study_04422'] ... OK (21.4s) | Progress: 121/1000
+[92/828] Batch of 1 items (960 chars) IDs: ['praxis_study_04977'] ... OK (28.6s) | Progress: 122/1000
+[93/828] Batch of 1 items (2307 chars) IDs: ['praxis_study_02059'] ... OK (38.9s) | Progress: 123/1000
+[94/828] Batch of 1 items (1633 chars) IDs: ['praxis_study_02513'] ... OK (29.1s) | Progress: 124/1000
+[95/828] Batch of 1 items (760 chars) IDs: ['praxis_study_11656'] ... OK (19.2s) | Progress: 125/1000
+[96/828] Batch of 1 items (876 chars) IDs: ['praxis_study_10984'] ... OK (29.5s) | Progress: 126/1000
+[97/828] Batch of 1 items (434 chars) IDs: ['praxis_study_09875'] ... OK (12.9s) | Progress: 127/1000
+[98/828] Batch of 1 items (2901 chars) IDs: ['praxis_study_10686'] ... OK (50.5s) | Progress: 128/1000
+[99/828] Batch of 2 items (770 chars) IDs: ['praxis_study_10137', 'praxis_study_08113'] ... OK (24.8s) | Progress: 130/1000
+[100/828] Batch of 1 items (310 chars) IDs: ['praxis_study_01122'] ... OK (10.1s) | Progress: 131/1000
+  [INFO] Flushed 131 translated rows to praxis_train_1000.csv
+[101/828] Batch of 1 items (1447 chars) IDs: ['praxis_study_06573'] ... OK (38.5s) | Progress: 132/1000
+[102/828] Batch of 1 items (761 chars) IDs: ['praxis_study_02215'] ... OK (28.9s) | Progress: 133/1000
+[103/828] Batch of 1 items (1651 chars) IDs: ['praxis_study_04326'] ... OK (31.4s) | Progress: 134/1000
+[104/828] Batch of 2 items (779 chars) IDs: ['praxis_study_09601', 'praxis_study_00654'] ... OK (14.2s) | Progress: 136/1000
+[105/828] Batch of 1 items (1046 chars) IDs: ['praxis_study_10643'] ... OK (27.9s) | Progress: 137/1000
+[106/828] Batch of 1 items (732 chars) IDs: ['praxis_study_00949'] ... OK (21.0s) | Progress: 138/1000
+[107/828] Batch of 1 items (107 chars) IDs: ['praxis_study_06693'] ... OK (11.8s) | Progress: 139/1000
+[108/828] Batch of 1 items (728 chars) IDs: ['praxis_study_08448'] ... OK (12.6s) | Progress: 140/1000
+[109/828] Batch of 2 items (727 chars) IDs: ['praxis_study_02178', 'praxis_study_07156'] ... OK (24.8s) | Progress: 142/1000
+[110/828] Batch of 2 items (674 chars) IDs: ['praxis_study_11749', 'praxis_study_08110'] ... OK (15.6s) | Progress: 144/1000
+[111/828] Batch of 1 items (270 chars) IDs: ['praxis_study_10841'] ... OK (12.4s) | Progress: 145/1000
+[112/828] Batch of 1 items (601 chars) IDs: ['praxis_study_00806'] ... OK (19.3s) | Progress: 146/1000
+[113/828] Batch of 2 items (574 chars) IDs: ['praxis_study_09362', 'praxis_study_09975'] ... OK (17.4s) | Progress: 148/1000
+[114/828] Batch of 1 items (465 chars) IDs: ['praxis_study_01390'] ... OK (9.3s) | Progress: 149/1000
+[115/828] Batch of 1 items (1202 chars) IDs: ['praxis_study_11706'] ... OK (29.2s) | Progress: 150/1000
+[116/828] Batch of 1 items (1781 chars) IDs: ['praxis_study_08105'] ... OK (33.5s) | Progress: 151/1000
+[117/828] Batch of 1 items (888 chars) IDs: ['praxis_study_11870'] ... OK (32.1s) | Progress: 152/1000
+[118/828] Batch of 3 items (341 chars) IDs: ['praxis_study_09641', 'praxis_study_04607', 'praxis_study_00327'] ... OK (16.5s) | Progress: 155/1000
+[119/828] Batch of 1 items (812 chars) IDs: ['praxis_study_00477'] ... OK (25.6s) | Progress: 156/1000
+[120/828] Batch of 1 items (3929 chars) IDs: ['praxis_study_11947'] ... OK (63.2s) | Progress: 157/1000
+  [INFO] Flushed 157 translated rows to praxis_train_1000.csv
+[121/828] Batch of 1 items (1141 chars) IDs: ['praxis_study_09441'] ... OK (20.0s) | Progress: 158/1000
+[122/828] Batch of 1 items (198 chars) IDs: ['praxis_study_00403'] ... OK (9.2s) | Progress: 159/1000
+[123/828] Batch of 1 items (771 chars) IDs: ['praxis_study_10377'] ... 

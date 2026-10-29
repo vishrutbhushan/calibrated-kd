@@ -1,0 +1,12 @@
+
+===========================================================================
+RUNNING STANDALONE VARIANT: ADA_CKD
+===========================================================================
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:31,  4.34it/s]Loading weights:   7%|█▌                      | 26/398 [00:00<00:03, 94.42it/s]Loading weights:  13%|███                    | 52/398 [00:00<00:02, 151.21it/s]Loading weights:  19%|████▍                  | 77/398 [00:00<00:01, 183.63it/s]Loading weights:  26%|█████▋                | 102/398 [00:00<00:01, 198.06it/s]Loading weights:  32%|███████               | 127/398 [00:00<00:01, 213.95it/s]Loading weights:  39%|████████▋             | 157/398 [00:00<00:01, 232.27it/s]Loading weights:  46%|██████████            | 182/398 [00:00<00:00, 230.34it/s]Loading weights:  53%|███████████▌          | 210/398 [00:01<00:00, 244.62it/s]Loading weights:  59%|█████████████         | 236/398 [00:01<00:00, 233.79it/s]Loading weights:  67%|██████████████▋       | 265/398 [00:01<00:00, 248.85it/s]Loading weights:  73%|████████████████      | 291/398 [00:01<00:00, 236.97it/s]Loading weights:  80%|█████████████████▋    | 319/398 [00:01<00:00, 248.49it/s]Loading weights:  87%|███████████████████   | 345/398 [00:01<00:00, 242.80it/s]Loading weights:  93%|████████████████████▍ | 370/398 [00:01<00:00, 244.23it/s]Loading weights:  99%|█████████████████████▉| 396/398 [00:01<00:00, 248.49it/s]Loading weights: 100%|██████████████████████| 398/398 [00:01<00:00, 216.71it/s]
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+Epoch 1/2 | Loss = 2.2001 | Test Acc = 72.00% | Macro-F1 = 67.44% | Counts = [297, 250, 411, 42]
+Epoch 2/2 | Loss = 0.2841 | Test Acc = 73.80% | Macro-F1 = 70.80% | Counts = [313, 244, 377, 66]
+
+[✓] Finished ADA_CKD: Acc=73.80% | F1=70.80% | Counts=[313, 244, 377, 66]
+[✓] Saved to /home/vishrut/annotator-bias-fingerprints/results/agnews_run_ada_ckd.json

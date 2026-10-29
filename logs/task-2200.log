@@ -1,0 +1,25 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<02:19,  2.84it/s]Loading weights:   4%|▉                       | 16/398 [00:00<00:09, 42.37it/s]Loading weights:   8%|█▊                      | 31/398 [00:00<00:05, 71.11it/s]Loading weights:  11%|██▋                     | 44/398 [00:00<00:04, 82.70it/s]Loading weights:  15%|███▍                   | 60/398 [00:00<00:03, 103.07it/s]Loading weights:  18%|████▏                  | 73/398 [00:00<00:02, 110.26it/s]Loading weights:  22%|████▉                  | 86/398 [00:01<00:02, 114.34it/s]Loading weights:  25%|█████▋                 | 99/398 [00:01<00:02, 114.44it/s]Loading weights:  29%|██████▎               | 114/398 [00:01<00:02, 121.87it/s]Loading weights:  32%|███████               | 127/398 [00:01<00:02, 114.87it/s]Loading weights:  36%|███████▉              | 144/398 [00:01<00:01, 127.66it/s]Loading weights:  40%|████████▋             | 158/398 [00:01<00:01, 126.37it/s]Loading weights:  43%|█████████▍            | 171/398 [00:01<00:01, 125.09it/s]Loading weights:  47%|██████████▍           | 188/398 [00:01<00:01, 126.16it/s]Loading weights:  51%|███████████▏          | 202/398 [00:01<00:01, 125.50it/s]Loading weights:  55%|████████████▏         | 220/398 [00:02<00:01, 134.41it/s]Loading weights:  59%|████████████▉         | 235/398 [00:02<00:01, 125.72it/s]Loading weights:  63%|█████████████▉        | 252/398 [00:02<00:01, 133.20it/s]Loading weights:  67%|██████████████▊       | 268/398 [00:02<00:00, 139.88it/s]Loading weights:  71%|███████████████▋      | 283/398 [00:02<00:00, 135.23it/s]Loading weights:  75%|████████████████▍     | 297/398 [00:02<00:00, 132.26it/s]Loading weights:  79%|█████████████████▎    | 313/398 [00:02<00:00, 132.49it/s]Loading weights:  82%|██████████████████▏   | 328/398 [00:02<00:00, 137.09it/s]Loading weights:  86%|██████████████████▉   | 342/398 [00:02<00:00, 132.69it/s]Loading weights:  89%|███████████████████▋  | 356/398 [00:03<00:00, 117.12it/s]Loading weights:  93%|████████████████████▌ | 371/398 [00:03<00:00, 125.44it/s]Loading weights:  96%|█████████████████████▏| 384/398 [00:03<00:00, 120.79it/s]Loading weights: 100%|██████████████████████| 398/398 [00:03<00:00, 116.20it/s]
+=================================================================
+STUDENT INFERENCE: RAW vs CALIBRATED AT TEST TIME
+=================================================================
+
+Language: EN
+  Raw Student:        Acc = 25.33% | Macro-F1 = 24.98%
+  Calibrated Student: Acc = 22.00% | Macro-F1 = 17.99%
+
+Language: HI
+  Raw Student:        Acc = 24.67% | Macro-F1 = 23.87%
+  Calibrated Student: Acc = 22.67% | Macro-F1 = 19.44%
+
+Language: MR
+  Raw Student:        Acc = 20.67% | Macro-F1 = 20.02%
+  Calibrated Student: Acc = 20.67% | Macro-F1 = 19.41%
+
+Language: TA
+  Raw Student:        Acc = 23.33% | Macro-F1 = 23.58%
+  Calibrated Student: Acc = 24.00% | Macro-F1 = 22.12%
+
+Language: ML
+  Raw Student:        Acc = 24.67% | Macro-F1 = 23.13%
+  Calibrated Student: Acc = 23.33% | Macro-F1 = 20.41%

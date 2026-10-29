@@ -1,0 +1,9 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<03:10,  4.64it/s]Loading weights:   5%|█                      | 42/883 [00:00<00:05, 163.96it/s]Loading weights:   9%|██▏                    | 82/883 [00:00<00:03, 241.63it/s]Loading weights:  14%|███                   | 121/883 [00:00<00:02, 289.60it/s]Loading weights:  18%|████                  | 161/883 [00:00<00:02, 317.15it/s]Loading weights:  24%|█████▎                | 212/883 [00:00<00:01, 376.55it/s]Loading weights:  29%|██████▎               | 253/883 [00:00<00:01, 381.50it/s]Loading weights:  33%|███████▎              | 293/883 [00:00<00:01, 380.75it/s]Loading weights:  38%|████████▎             | 333/883 [00:01<00:01, 370.94it/s]Loading weights:  42%|█████████▏            | 371/883 [00:01<00:01, 368.08it/s]Loading weights:  46%|██████████▏           | 409/883 [00:01<00:01, 360.30it/s]Loading weights:  58%|████████████▊         | 514/883 [00:01<00:00, 557.49it/s]Loading weights: 100%|██████████████████████| 883/883 [00:01<00:00, 597.84it/s]
+
+=== COMPARISON ON 25 BALANCED SAMPLES (5/class) ===
+Golds:            {'direct_imperative': 5, 'modal_deontic': 5, 'optative': 5, 'conditional': 5, 'interrogative': 5}
+Zero-shot:        {'direct_imperative': 1, 'modal_deontic': 16, 'optative': 0, 'conditional': 2, 'interrogative': 6}
+With Exemplars:   {'direct_imperative': 0, 'modal_deontic': 17, 'optative': 8, 'conditional': 0, 'interrogative': 0}
+Accuracy Zero-shot:      16.0%
+Accuracy With Exemplars: 40.0%

@@ -1,0 +1,41 @@
+Loading google/gemma-3-4b-it in BF16...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<07:42,  1.91it/s]Loading weights:   2%|▍                       | 18/883 [00:00<00:23, 36.66it/s]Loading weights:   4%|▊                       | 31/883 [00:00<00:14, 57.34it/s]Loading weights:   6%|█▍                      | 52/883 [00:00<00:09, 91.55it/s]Loading weights:   8%|█▋                     | 67/883 [00:00<00:07, 104.04it/s]Loading weights:   9%|██                     | 81/883 [00:01<00:07, 112.84it/s]Loading weights:  11%|██▍                    | 95/883 [00:01<00:06, 118.28it/s]Loading weights:  12%|██▋                   | 109/883 [00:01<00:06, 121.69it/s]Loading weights:  15%|███▏                  | 130/883 [00:01<00:05, 143.68it/s]Loading weights:  17%|███▋                  | 146/883 [00:01<00:05, 145.51it/s]Loading weights:  18%|████                  | 162/883 [00:01<00:05, 143.85it/s]Loading weights:  20%|████▍                 | 178/883 [00:01<00:04, 147.04it/s]Loading weights:  22%|████▉                 | 197/883 [00:01<00:04, 158.16it/s]Loading weights:  24%|█████▎                | 214/883 [00:01<00:04, 147.84it/s]Loading weights:  27%|█████▊                | 234/883 [00:02<00:04, 161.16it/s]Loading weights:  28%|██████▎               | 251/883 [00:02<00:04, 151.43it/s]Loading weights:  31%|██████▊               | 271/883 [00:02<00:03, 163.33it/s]Loading weights:  33%|███████▏              | 288/883 [00:02<00:03, 155.90it/s]Loading weights:  34%|███████▌              | 304/883 [00:02<00:03, 148.36it/s]Loading weights:  36%|███████▉              | 320/883 [00:02<00:03, 143.32it/s]Loading weights:  38%|████████▍             | 338/883 [00:02<00:03, 145.69it/s]Loading weights:  40%|████████▊             | 353/883 [00:02<00:03, 136.79it/s]Loading weights:  42%|█████████▏            | 369/883 [00:03<00:03, 134.23it/s]Loading weights:  44%|█████████▋            | 387/883 [00:03<00:03, 143.73it/s]Loading weights:  46%|██████████            | 403/883 [00:03<00:03, 141.93it/s]Loading weights:  47%|██████████▍           | 418/883 [00:03<00:03, 132.69it/s]Loading weights:  49%|██████████▊           | 432/883 [00:03<00:03, 131.17it/s]Loading weights:  54%|███████████▉          | 477/883 [00:03<00:01, 215.50it/s]Loading weights:  64%|██████████████        | 563/883 [00:03<00:00, 391.31it/s]Loading weights:  76%|████████████████▌     | 667/883 [00:03<00:00, 568.28it/s]Loading weights:  88%|███████████████████▎  | 777/883 [00:03<00:00, 704.17it/s]Loading weights: 100%|██████████████████████| 883/883 [00:03<00:00, 221.29it/s]
+Candidate Token IDs for [' A', ' B', ' C', ' D', ' E']: {'A': 562, 'B': 603, 'C': 565, 'D': 622, 'E': 645}
+
+======================================================================
+PART 1: NULL PROMPT TEST (Review: N/A)
+======================================================================
+
+Configuration: Original (B=modal_deontic, A=direct_imperative)
+  Option A (direct imperative): Logit = 22.00 | Prob = 96.67%
+  Option B (modal deontic): Logit = 15.75 | Prob = 0.19%
+  Option C (conditional): Logit = 16.50 | Prob = 0.40%
+  Option D (optative): Logit = 15.69 | Prob = 0.18%
+  Option E (interrogative): Logit = 18.38 | Prob = 2.58%
+  >>> Winner: Letter 'A' (direct imperative) with 96.67%
+
+Configuration: Swapped (B=direct_imperative, A=modal_deontic)
+  Option A (modal deontic): Logit = 20.25 | Prob = 21.22%
+  Option B (direct imperative): Logit = 21.50 | Prob = 74.07%
+  Option C (optative): Logit = 17.62 | Prob = 1.54%
+  Option D (conditional): Logit = 17.12 | Prob = 0.93%
+  Option E (interrogative): Logit = 18.00 | Prob = 2.24%
+  >>> Winner: Letter 'B' (direct imperative) with 74.07%
+
+Configuration: Inverted (B=interrogative, E=direct_imperative)
+  Option A (conditional): Logit = 17.88 | Prob = 0.66%
+  Option B (interrogative): Logit = 15.94 | Prob = 0.10%
+  Option C (modal deontic): Logit = 17.75 | Prob = 0.59%
+  Option D (optative): Logit = 16.75 | Prob = 0.22%
+  Option E (direct imperative): Logit = 22.88 | Prob = 98.44%
+  >>> Winner: Letter 'E' (direct imperative) with 98.44%
+
+======================================================================
+PART 2: REAL TEST REVIEWS
+======================================================================
+Traceback (most recent call last):
+  File "/home/vishrut/annotator-bias-fingerprints/scratch/test_verbalizer_permutation.py", line 92, in <module>
+    if r["language"] == "en":
+       ~^^^^^^^^^^^^
+KeyError: 'language'

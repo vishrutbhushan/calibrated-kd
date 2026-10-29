@@ -1,0 +1,79 @@
+
+================================================================================
+LOADING MODEL: Qwen/Qwen3-4B
+================================================================================
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<02:06,  3.14it/s]Loading weights:   4%|▊                       | 14/398 [00:00<00:09, 42.41it/s]Loading weights:   7%|█▌                      | 26/398 [00:00<00:05, 63.71it/s]Loading weights:  10%|██▎                     | 38/398 [00:00<00:04, 75.25it/s]Loading weights:  13%|███▏                    | 52/398 [00:00<00:03, 91.88it/s]Loading weights:  17%|███▊                   | 67/398 [00:00<00:03, 105.98it/s]Loading weights:  20%|████▋                  | 81/398 [00:00<00:02, 111.31it/s]Loading weights:  25%|█████▋                 | 98/398 [00:01<00:02, 118.03it/s]Loading weights:  29%|██████▎               | 115/398 [00:01<00:02, 129.09it/s]Loading weights:  32%|███████▏              | 129/398 [00:01<00:02, 131.14it/s]Loading weights:  36%|███████▉              | 144/398 [00:01<00:02, 122.59it/s]Loading weights:  40%|████████▋             | 158/398 [00:01<00:01, 125.90it/s]Loading weights:  44%|█████████▋            | 176/398 [00:01<00:01, 136.88it/s]Loading weights:  48%|██████████▌           | 190/398 [00:01<00:01, 130.51it/s]Loading weights:  51%|███████████▎          | 204/398 [00:01<00:01, 121.53it/s]Loading weights:  55%|████████████          | 218/398 [00:02<00:01, 118.55it/s]Loading weights:  58%|████████████▊         | 231/398 [00:02<00:01, 120.95it/s]Loading weights:  62%|█████████████▌        | 246/398 [00:02<00:01, 128.16it/s]Loading weights:  65%|██████████████▎       | 259/398 [00:02<00:01, 126.30it/s]Loading weights:  68%|███████████████       | 272/398 [00:02<00:00, 126.59it/s]Loading weights:  72%|███████████████▊      | 286/398 [00:02<00:00, 123.57it/s]Loading weights:  76%|████████████████▋     | 301/398 [00:02<00:00, 127.93it/s]Loading weights:  79%|█████████████████▎    | 314/398 [00:02<00:00, 126.33it/s]Loading weights:  83%|██████████████████▎   | 331/398 [00:02<00:00, 130.21it/s]Loading weights:  87%|███████████████████▏  | 346/398 [00:03<00:00, 132.59it/s]Loading weights:  91%|████████████████████  | 363/398 [00:03<00:00, 138.48it/s]Loading weights:  95%|████████████████████▊ | 377/398 [00:03<00:00, 138.04it/s]Loading weights:  98%|█████████████████████▌| 391/398 [00:03<00:00, 132.63it/s]Loading weights: 100%|██████████████████████| 398/398 [00:03<00:00, 117.89it/s]
+
+--- 1. NLI (MNLI / XNLI - 3 Classes) on Qwen/Qwen3-4B ---
+  Option A [Entailment    ]: Logit =   2.78  |  Null Prob =   0.24%
+  Option B [Contradiction ]: Logit =   0.21  |  Null Prob =   0.02%
+  Option C [Neutral       ]: Logit =   8.81  |  Null Prob =  99.74%
+-> Null Skew Gap: 8.60 logits | Ratio: 5418.9x
+-> Favored: Option C (Neutral) | Starved: Option B (Contradiction)
+
+--- 2. Emotion (6 Classes: Sadness, Joy, Love, Anger, Fear, Surprise) on Qwen/Qwen3-4B ---
+  Option A [Sadness       ]: Logit =   5.19  |  Null Prob =  46.16%
+  Option B [Joy           ]: Logit =   1.79  |  Null Prob =   1.54%
+  Option C [Love          ]: Logit =   1.34  |  Null Prob =   0.98%
+  Option D [Anger         ]: Logit =   2.83  |  Null Prob =   4.36%
+  Option E [Fear          ]: Logit =   4.72  |  Null Prob =  28.88%
+  Option F [Surprise      ]: Logit =   4.25  |  Null Prob =  18.08%
+-> Null Skew Gap: 3.85 logits | Ratio: 47.1x
+-> Favored: Option A (Sadness) | Starved: Option C (Love)
+
+--- 3. TREC-6 (6 Classes: Question Type Classification) on Qwen/Qwen3-4B ---
+  Option A [Abbreviation  ]: Logit =   3.56  |  Null Prob =   0.05%
+  Option B [Entity        ]: Logit =   7.12  |  Null Prob =   1.84%
+  Option C [Description   ]: Logit =  11.06  |  Null Prob =  94.50%
+  Option D [Human         ]: Logit =   4.62  |  Null Prob =   0.15%
+  Option E [Location      ]: Logit =   7.75  |  Null Prob =   3.44%
+  Option F [Numeric       ]: Logit =   2.31  |  Null Prob =   0.01%
+-> Null Skew Gap: 8.75 logits | Ratio: 6310.7x
+-> Favored: Option C (Description) | Starved: Option F (Numeric)
+
+--- 4. Stance Detection (SemEval-2016 - 3 Classes) on Qwen/Qwen3-4B ---
+  Option A [Favor         ]: Logit =  -0.04  |  Null Prob =   0.00%
+  Option B [Against       ]: Logit =  -0.51  |  Null Prob =   0.00%
+  Option C [None          ]: Logit =  11.06  |  Null Prob = 100.00%
+-> Null Skew Gap: 11.57 logits | Ratio: 106321.1x
+-> Favored: Option C (None) | Starved: Option B (Against)
+
+================================================================================
+LOADING MODEL: Qwen/Qwen2.5-3B-Instruct
+================================================================================
+Traceback (most recent call last):
+  File "/home/vishrut/annotator-bias-fingerprints/scripts/check_null_bias_qwen.py", line 167, in <module>
+    main()
+    ~~~~^^
+  File "/home/vishrut/annotator-bias-fingerprints/scripts/check_null_bias_qwen.py", line 154, in main
+    all_results[name] = evaluate_model(name, path)
+                        ~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/vishrut/annotator-bias-fingerprints/scripts/check_null_bias_qwen.py", line 96, in evaluate_model
+    model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+    ...<2 lines>...
+        local_files_only=True
+    )
+  File "/home/vishrut/annotator-bias-fingerprints/.venv/lib/python3.14/site-packages/transformers/models/auto/auto_factory.py", line 406, in from_pretrained
+    return model_class.from_pretrained(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path, *model_args, config=config, **hub_kwargs, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vishrut/annotator-bias-fingerprints/.venv/lib/python3.14/site-packages/transformers/modeling_utils.py", line 4251, in from_pretrained
+    checkpoint_files, sharded_metadata = _get_resolved_checkpoint_files(
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path=pretrained_model_name_or_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        tqdm_class=tqdm_class,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/vishrut/annotator-bias-fingerprints/.venv/lib/python3.14/site-packages/transformers/modeling_utils.py", line 627, in _get_resolved_checkpoint_files
+    raise OSError(
+    ...<2 lines>...
+    )
+OSError: Error no file named model.safetensors, or pytorch_model.bin, found in directory /home/vishrut/.cache/huggingface/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1.

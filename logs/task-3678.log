@@ -1,0 +1,12 @@
+
+===========================================================================
+RUNNING STANDALONE VARIANT: PIKD
+===========================================================================
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:28,  4.47it/s]Loading weights:   6%|█▌                      | 25/398 [00:00<00:03, 95.84it/s]Loading weights:  12%|██▊                    | 48/398 [00:00<00:02, 143.11it/s]Loading weights:  18%|████                   | 71/398 [00:00<00:01, 172.21it/s]Loading weights:  24%|█████▌                 | 97/398 [00:00<00:01, 199.26it/s]Loading weights:  31%|██████▊               | 124/398 [00:00<00:01, 218.98it/s]Loading weights:  37%|████████▏             | 148/398 [00:00<00:01, 217.09it/s]Loading weights:  44%|█████████▋            | 176/398 [00:00<00:00, 235.26it/s]Loading weights:  51%|███████████           | 201/398 [00:01<00:00, 238.02it/s]Loading weights:  57%|████████████▍         | 226/398 [00:01<00:00, 234.47it/s]Loading weights:  64%|██████████████        | 254/398 [00:01<00:00, 247.23it/s]Loading weights:  70%|███████████████▍      | 280/398 [00:01<00:00, 235.41it/s]Loading weights:  78%|█████████████████     | 309/398 [00:01<00:00, 250.63it/s]Loading weights:  84%|██████████████████▌   | 335/398 [00:01<00:00, 238.41it/s]Loading weights:  91%|████████████████████  | 363/398 [00:01<00:00, 248.96it/s]Loading weights:  98%|█████████████████████▌| 389/398 [00:01<00:00, 242.72it/s]Loading weights: 100%|██████████████████████| 398/398 [00:01<00:00, 216.10it/s]
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+Epoch 1/2 | Loss = 2.2205 | Test Acc = 72.00% | Macro-F1 = 67.65% | Counts = [312, 246, 397, 45]
+Epoch 2/2 | Loss = 0.2831 | Test Acc = 73.60% | Macro-F1 = 70.64% | Counts = [312, 242, 380, 66]
+
+[✓] Finished PIKD: Acc=73.60% | F1=70.64% | Counts=[312, 242, 380, 66]
+[✓] Saved to /home/vishrut/annotator-bias-fingerprints/results/agnews_run_pikd.json

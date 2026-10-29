@@ -1,0 +1,19 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<07:00,  2.10it/s]Loading weights:   2%|▍                       | 18/883 [00:00<00:21, 39.70it/s]Loading weights:   4%|▊                       | 32/883 [00:00<00:13, 63.91it/s]Loading weights:   6%|█▎                      | 50/883 [00:00<00:09, 88.15it/s]Loading weights:   8%|█▊                     | 70/883 [00:00<00:06, 116.24it/s]Loading weights:  10%|██▎                    | 89/883 [00:01<00:06, 130.90it/s]Loading weights:  12%|██▋                   | 108/883 [00:01<00:05, 140.42it/s]Loading weights:  14%|███▏                  | 127/883 [00:01<00:04, 152.50it/s]Loading weights:  16%|███▌                  | 144/883 [00:01<00:04, 153.36it/s]Loading weights:  18%|████                  | 161/883 [00:01<00:04, 153.84it/s]Loading weights:  21%|████▌                 | 183/883 [00:01<00:04, 163.41it/s]Loading weights:  23%|████▉                 | 200/883 [00:01<00:04, 161.38it/s]Loading weights:  25%|█████▌                | 221/883 [00:01<00:03, 170.62it/s]Loading weights:  27%|█████▉                | 239/883 [00:01<00:04, 155.63it/s]Loading weights:  29%|██████▍               | 258/883 [00:02<00:03, 164.05it/s]Loading weights:  31%|██████▉               | 277/883 [00:02<00:03, 154.72it/s]Loading weights:  34%|███████▍              | 299/883 [00:02<00:03, 160.71it/s]Loading weights:  36%|███████▊              | 316/883 [00:02<00:03, 152.51it/s]Loading weights:  38%|████████▍             | 338/883 [00:02<00:03, 167.34it/s]Loading weights:  40%|████████▊             | 356/883 [00:02<00:03, 159.16it/s]Loading weights:  43%|█████████▍            | 377/883 [00:02<00:03, 158.28it/s]Loading weights:  45%|█████████▊            | 394/883 [00:02<00:03, 155.58it/s]Loading weights:  47%|██████████▎           | 416/883 [00:03<00:02, 172.22it/s]Loading weights:  49%|██████████▊           | 434/883 [00:03<00:02, 160.90it/s]Loading weights:  57%|████████████▋         | 507/883 [00:03<00:01, 310.03it/s]Loading weights:  71%|███████████████▋      | 630/883 [00:03<00:00, 550.90it/s]Loading weights:  81%|█████████████████▊    | 716/883 [00:03<00:00, 636.26it/s]Loading weights:  94%|████████████████████▋ | 829/883 [00:03<00:00, 769.03it/s]Loading weights: 100%|██████████████████████| 883/883 [00:03<00:00, 245.37it/s]
+
+=== GENERATING EXACT WORDS (25 samples, 5/class) ===
+Golds:       {'direct_imperative': 5, 'modal_deontic': 5, 'optative': 5, 'conditional': 5, 'interrogative': 5}
+Predictions: {'direct_imperative': 0, 'modal_deontic': 6, 'optative': 4, 'conditional': 15, 'interrogative': 0}
+Accuracy: 24.0%
+
+Sample generations:
+Gold: direct_imperative  -> Generated: 'conditional<end_of_turn>' -> Matched: conditional
+Gold: direct_imperative  -> Generated: 'conditional<end_of_turn>' -> Matched: conditional
+Gold: direct_imperative  -> Generated: 'conditional<end_of_turn>' -> Matched: conditional
+Gold: direct_imperative  -> Generated: 'conditional\n<end_of_turn>' -> Matched: conditional
+Gold: direct_imperative  -> Generated: 'modal_deontic<end_of_turn>' -> Matched: modal_deontic
+Gold: modal_deontic      -> Generated: 'conditional\n<end_of_turn>' -> Matched: conditional
+Gold: modal_deontic      -> Generated: 'conditional\n<end_of_turn>' -> Matched: conditional
+Gold: modal_deontic      -> Generated: 'modal_deontic<end_of_turn>' -> Matched: modal_deontic
+Gold: modal_deontic      -> Generated: 'conditional\n<end_of_turn>' -> Matched: conditional
+Gold: modal_deontic      -> Generated: 'conditional<end_of_turn>' -> Matched: conditional

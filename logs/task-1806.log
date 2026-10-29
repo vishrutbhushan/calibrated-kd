@@ -1,0 +1,28 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<07:15,  2.03it/s]Loading weights:   1%|▎                       | 13/883 [00:00<00:31, 27.60it/s]Loading weights:   3%|▊                       | 30/883 [00:00<00:14, 57.31it/s]Loading weights:   6%|█▎                      | 49/883 [00:00<00:10, 82.15it/s]Loading weights:   7%|█▋                     | 66/883 [00:00<00:07, 102.32it/s]Loading weights:   9%|██▏                    | 83/883 [00:01<00:06, 115.50it/s]Loading weights:  11%|██▌                   | 101/883 [00:01<00:05, 130.44it/s]Loading weights:  13%|██▉                   | 118/883 [00:01<00:05, 130.58it/s]Loading weights:  15%|███▎                  | 135/883 [00:01<00:05, 139.85it/s]Loading weights:  18%|███▊                  | 155/883 [00:01<00:04, 150.46it/s]Loading weights:  20%|████▎                 | 173/883 [00:01<00:04, 145.60it/s]Loading weights:  22%|████▊                 | 192/883 [00:01<00:04, 153.92it/s]Loading weights:  24%|█████▎                | 212/883 [00:01<00:04, 155.86it/s]Loading weights:  27%|█████▊                | 234/883 [00:02<00:03, 167.27it/s]Loading weights:  28%|██████▎               | 251/883 [00:02<00:04, 148.54it/s]Loading weights:  31%|██████▊               | 273/883 [00:02<00:03, 156.68it/s]Loading weights:  33%|███████▏              | 290/883 [00:02<00:04, 145.42it/s]Loading weights:  35%|███████▋              | 309/883 [00:02<00:03, 151.66it/s]Loading weights:  37%|████████              | 325/883 [00:02<00:03, 145.60it/s]Loading weights:  39%|████████▍             | 340/883 [00:02<00:03, 145.82it/s]Loading weights:  40%|████████▊             | 355/883 [00:02<00:03, 139.61it/s]Loading weights:  43%|█████████▍            | 377/883 [00:03<00:03, 154.98it/s]Loading weights:  45%|█████████▊            | 393/883 [00:03<00:03, 146.18it/s]Loading weights:  46%|██████████▏           | 408/883 [00:03<00:03, 135.05it/s]Loading weights:  48%|██████████▌           | 422/883 [00:03<00:03, 133.20it/s]Loading weights:  49%|██████████▊           | 436/883 [00:03<00:03, 119.03it/s]Loading weights:  56%|████████████▎         | 492/883 [00:03<00:01, 223.18it/s]Loading weights:  70%|███████████████▍      | 619/883 [00:03<00:00, 486.88it/s]Loading weights:  83%|██████████████████▎   | 733/883 [00:03<00:00, 649.56it/s]Loading weights:  97%|█████████████████████▍| 859/883 [00:03<00:00, 811.46it/s]Loading weights: 100%|██████████████████████| 883/883 [00:03<00:00, 223.15it/s]
+Verbalizer IDs (A-E): [236776, 236799, 236780, 236796, 236788]
+
+Gold: direct_imperative
+Generated text: 'A\n<end_of_turn>'
+Top 10 tokens at boundary: ['A', 'B', 'C', 'D', 'E', 'None', 'А', 'F', 'I', ' A']
+Verbalizer probs (A, B, C, D, E): [0.9997, 0.0002, 0.0, 0.0, 0.0]
+
+Gold: interrogative
+Generated text: 'C\n<end_of_turn>'
+Top 10 tokens at boundary: ['C', 'E', 'B', 'D', 'A', 'I', '(', 'F', 'S', '�']
+Verbalizer probs (A, B, C, D, E): [0.0006, 0.0319, 0.6403, 0.0248, 0.3024]
+
+Gold: modal_deontic
+Generated text: 'B\n<end_of_turn>'
+Top 10 tokens at boundary: ['B', 'C', 'A', 'D', 'E', ' B', 'F', 'b', 'S', 'G']
+Verbalizer probs (A, B, C, D, E): [0.0, 1.0, 0.0, 0.0, 0.0]
+
+Gold: optative
+Generated text: 'C\n<end_of_turn>'
+Top 10 tokens at boundary: ['C', 'A', 'D', 'B', 'E', ' C', 'c', 'С', 'Correct', 'F']
+Verbalizer probs (A, B, C, D, E): [0.0, 0.0, 1.0, 0.0, 0.0]
+
+Gold: conditional
+Generated text: 'D\n<end_of_turn>'
+Top 10 tokens at boundary: ['D', 'C', 'A', 'E', 'B', 'F', 'G', 'H', ' D', 'S']
+Verbalizer probs (A, B, C, D, E): [0.0, 0.0, 0.0, 1.0, 0.0]

@@ -1,0 +1,12 @@
+{
+  "variant": "static_ckd",
+  "test_acc": 76.5,
+  "test_f1": 74.39558731376638,
+  "test_counts": [
+    226,
+    293,
+    392,
+    89
+  ],
+  "scitech_count": 89
+}

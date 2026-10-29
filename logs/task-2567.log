@@ -1,0 +1,10 @@
+
+=======================================================
+Distilling Qwen3-4B on AG News | Mode: RAW
+=======================================================
+Verbalizers token mapping: [('A', 32), ('B', 33), ('C', 34), ('D', 35)]
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:32,  4.31it/s]Loading weights:   6%|█▌                      | 25/398 [00:00<00:04, 89.23it/s]Loading weights:  12%|██▊                    | 49/398 [00:00<00:02, 139.60it/s]Loading weights:  19%|████▍                  | 77/398 [00:00<00:01, 184.53it/s]Loading weights:  25%|█████▌                | 101/398 [00:00<00:01, 200.63it/s]Loading weights:  32%|██████▉               | 126/398 [00:00<00:01, 209.26it/s]Loading weights:  38%|████████▍             | 152/398 [00:00<00:01, 222.30it/s]Loading weights:  45%|█████████▉            | 179/398 [00:00<00:00, 232.18it/s]Loading weights:  51%|███████████▏          | 203/398 [00:01<00:00, 224.14it/s]Loading weights:  58%|████████████▊         | 231/398 [00:01<00:00, 237.46it/s]Loading weights:  64%|██████████████▏       | 256/398 [00:01<00:00, 222.36it/s]Loading weights:  71%|███████████████▋      | 284/398 [00:01<00:00, 237.25it/s]Loading weights:  78%|█████████████████▏    | 311/398 [00:01<00:00, 239.97it/s]Loading weights:  84%|██████████████████▌   | 336/398 [00:01<00:00, 233.92it/s]Loading weights:  91%|████████████████████  | 363/398 [00:01<00:00, 241.74it/s]Loading weights:  97%|█████████████████████▍| 388/398 [00:01<00:00, 243.47it/s]Loading weights: 100%|██████████████████████| 398/398 [00:01<00:00, 211.21it/s]
+trainable params: 11,796,480 || all params: 4,034,264,576 || trainable%: 0.2924
+
+[Zero-Shot Student Pre-Train] Acc: 53.50% | Macro-F1: 52.16% | Preds: [131, 18, 15, 36]

@@ -1,0 +1,37 @@
+Loading Teacher model (Gemma-3-4B-it)...
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<11:42,  1.26it/s]Loading weights:   2%|▍                       | 17/883 [00:00<00:34, 25.25it/s]Loading weights:   3%|▊                       | 29/883 [00:01<00:22, 38.02it/s]Loading weights:   5%|█▏                      | 44/883 [00:01<00:14, 56.17it/s]Loading weights:   6%|█▌                      | 56/883 [00:01<00:12, 67.65it/s]Loading weights:   8%|█▉                      | 72/883 [00:01<00:09, 87.45it/s]Loading weights:  10%|██▎                     | 84/883 [00:01<00:08, 94.22it/s]Loading weights:  11%|██▌                    | 96/883 [00:01<00:07, 100.21it/s]Loading weights:  12%|██▋                   | 108/883 [00:01<00:07, 100.68it/s]Loading weights:  14%|███                   | 121/883 [00:01<00:07, 103.23it/s]Loading weights:  15%|███▍                  | 136/883 [00:01<00:06, 113.64it/s]Loading weights:  17%|███▋                  | 149/883 [00:02<00:06, 116.46it/s]Loading weights:  18%|████                  | 162/883 [00:02<00:06, 115.27it/s]Loading weights:  20%|████▎                 | 174/883 [00:02<00:06, 111.93it/s]Loading weights:  21%|████▋                 | 187/883 [00:02<00:06, 112.41it/s]Loading weights:  23%|█████                 | 201/883 [00:02<00:05, 117.38it/s]Loading weights:  24%|█████▎                | 213/883 [00:02<00:05, 112.74it/s]Loading weights:  25%|█████▌                | 225/883 [00:02<00:05, 113.12it/s]Loading weights:  27%|█████▉                | 238/883 [00:02<00:05, 115.76it/s]Loading weights:  28%|██████▎               | 251/883 [00:02<00:05, 110.57it/s]Loading weights:  30%|██████▋               | 269/883 [00:03<00:04, 126.42it/s]Loading weights:  32%|███████               | 283/883 [00:03<00:04, 130.14it/s]Loading weights:  34%|███████▍              | 297/883 [00:03<00:04, 128.62it/s]Loading weights:  35%|███████▋              | 310/883 [00:03<00:04, 124.32it/s]Loading weights:  37%|████████              | 324/883 [00:03<00:04, 127.26it/s]Loading weights:  38%|████████▍             | 338/883 [00:03<00:04, 127.13it/s]Loading weights:  40%|████████▋             | 351/883 [00:03<00:04, 108.05it/s]Loading weights:  41%|█████████             | 364/883 [00:03<00:04, 108.65it/s]Loading weights:  43%|█████████▎            | 376/883 [00:04<00:04, 105.70it/s]Loading weights:  44%|█████████▋            | 390/883 [00:04<00:04, 109.86it/s]Loading weights:  46%|██████████            | 402/883 [00:04<00:04, 103.13it/s]Loading weights:  47%|██████████▎           | 416/883 [00:04<00:04, 107.46it/s]Loading weights:  49%|██████████▋           | 431/883 [00:04<00:03, 114.83it/s]Loading weights:  53%|███████████▋          | 471/883 [00:04<00:02, 187.57it/s]Loading weights:  59%|████████████▉         | 518/883 [00:04<00:01, 260.93it/s]Loading weights:  70%|███████████████▎      | 615/883 [00:04<00:00, 451.03it/s]Loading weights:  79%|█████████████████▍    | 701/883 [00:04<00:00, 562.62it/s]Loading weights:  91%|███████████████████▉  | 801/883 [00:05<00:00, 683.13it/s]Loading weights: 100%|██████████████████████| 883/883 [00:05<00:00, 173.00it/s]
+Verbalizers token mapping: [('A', 236776), ('B', 236799), ('C', 236780)]
+
+===========================================================================
+STEP 1: TEACHER NULL BIAS EXISTENCE CHECK
+===========================================================================
+  Option A [Entailment    ]: Logit =   9.94 | Prior Prob =   1.74%
+  Option B [Neutral       ]: Logit =  13.94 | Prior Prob =  94.81%
+  Option C [Contradiction ]: Logit =  10.62 | Prior Prob =   3.45%
+-> Null Skew Gap (Max - Min Logit): 4.00 logits
+-> Favored Class: Option B (Neutral) with 94.81%
+-> Starved Class: Option A (Entailment) with 1.7365%
+-> Prior Imbalance Ratio: 54.6x
+===========================================================================
+
+Scoring 300 test samples with Teacher...
+
+===========================================================================
+STEP 2: DIRECT INFERENCE ACCURACY COMPARISON (RAW vs CALIBRATED)
+===========================================================================
+Test Set Ground Truth (N=300): [Entailment=100, Neutral=100, Contradiction=100]
+
+1. Raw Teacher Inference:
+   Accuracy: 57.33% | Macro-F1: 54.86%
+   Predicted Counts: [118, 55, 127] [Entailment: 118, Neutral: 55, Contradiction: 127]
+
+2. Calibrated Teacher Inference (Subtracting W_null):
+   Accuracy: 56.33% | Macro-F1: 50.20%
+   Predicted Counts: [147, 23, 130] [Entailment: 147, Neutral: 23, Contradiction: 130]
+
+---------------------------------------------------------------------------
+DIRECT INFERENCE DELTAS (Calibrated vs Raw):
+  Accuracy Shift:  -1.00%
+  Macro-F1 Shift:  -4.66%
+===========================================================================

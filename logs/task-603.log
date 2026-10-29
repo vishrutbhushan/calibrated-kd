@@ -1,0 +1,15 @@
+[737/748] Batch 738 OK (19.8s) | Progress: 986/1000 (23.4 items/min) IDs: ['praxis_study_10955']
+[738/748] Batch 744 OK (15.7s) | Progress: 987/1000 (23.4 items/min) IDs: ['praxis_study_11397']
+[739/748] Batch 742 OK (23.0s) | Progress: 989/1000 (23.4 items/min) IDs: ['praxis_study_10538', 'praxis_study_03352']
+[740/748] Batch 741 OK (23.7s) | Progress: 990/1000 (23.4 items/min) IDs: ['praxis_study_10622']
+  --> [SAVED] Flushed 990 rows to praxis_train_1000.csv
+[741/748] Batch 743 OK (19.0s) | Progress: 991/1000 (23.4 items/min) IDs: ['praxis_study_11948']
+[742/748] Batch 745 OK (16.9s) | Progress: 992/1000 (23.4 items/min) IDs: ['praxis_study_02558']
+[743/748] Batch 740 OK (32.0s) | Progress: 993/1000 (23.4 items/min) IDs: ['praxis_study_07889']
+[744/748] Batch 746 OK (10.3s) | Progress: 995/1000 (23.5 items/min) IDs: ['praxis_study_07417', 'praxis_study_09381']
+[745/748] Batch 713 OK (119.5s) | Progress: 996/1000 (23.5 items/min) IDs: ['praxis_study_11126']
+[746/748] Batch 739 OK (42.7s) | Progress: 997/1000 (23.4 items/min) IDs: ['praxis_study_10922']
+[747/748] Batch 747 OK (15.9s) | Progress: 998/1000 (23.5 items/min) IDs: ['praxis_study_04631']
+[748/748] Batch 748 OK (24.8s) | Progress: 1000/1000 (23.4 items/min) IDs: ['praxis_study_09336', 'praxis_study_08093']
+
+All parallel workers finished! Total translated: 1000 / 1000 in 35.9 min.

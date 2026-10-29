@@ -1,0 +1,33 @@
+usage: train_student_lora_qwen4b.py [-h] [--model_id MODEL_ID]
+                                    [--train_lang {en,hi,mr,ta,ml}]
+                                    [--batch_size BATCH_SIZE]
+                                    [--grad_accum GRAD_ACCUM]
+                                    [--epochs EPOCHS]
+                                    [--learning_rate LEARNING_RATE]
+                                    [--lora_r LORA_R]
+                                    [--lora_alpha LORA_ALPHA] [--seed SEED]
+                                    [--output_dir OUTPUT_DIR] [--skip_eval]
+                                    [--train_csv TRAIN_CSV]
+                                    [--test_csv TEST_CSV]
+                                    [--targets_npz TARGETS_NPZ]
+
+options:
+  -h, --help            show this help message and exit
+  --model_id MODEL_ID
+  --train_lang {en,hi,mr,ta,ml}
+                        Training language
+  --batch_size BATCH_SIZE
+  --grad_accum GRAD_ACCUM
+  --epochs EPOCHS
+  --learning_rate LEARNING_RATE
+  --lora_r LORA_R
+  --lora_alpha LORA_ALPHA
+  --seed SEED
+  --output_dir OUTPUT_DIR
+                        Output directory for LoRA adapter
+  --skip_eval           Skip final test evaluation
+  --train_csv TRAIN_CSV
+                        Path to training CSV
+  --test_csv TEST_CSV   Path to test CSV
+  --targets_npz TARGETS_NPZ
+                        Path to teacher targets NPZ

@@ -1,0 +1,20 @@
+{
+  "mode": "calibrated",
+  "dataset": "NLI",
+  "pre_acc": 0.8166666666666667,
+  "pre_f1": 0.818671124363724,
+  "pre_counts": [
+    104,
+    110,
+    86
+  ],
+  "final_test_acc": 0.6333333333333333,
+  "final_test_f1": 0.5087505087505088,
+  "final_pred_counts": [
+    166,
+    0,
+    134
+  ],
+  "epochs": 2,
+  "lr": 5e-05
+}
