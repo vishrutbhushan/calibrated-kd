@@ -1,0 +1,68 @@
+{
+  "mode": "raw",
+  "dataset": "TREC-6",
+  "num_classes": 6,
+  "class_names": [
+    "Abbreviation",
+    "Entity",
+    "Description",
+    "Human",
+    "Location",
+    "Numeric"
+  ],
+  "zero_shot": {
+    "acc": 0.662,
+    "f1": 0.6018522187352074,
+    "pred_counts": [
+      115,
+      20,
+      163,
+      56,
+      91,
+      55
+    ]
+  },
+  "final_epoch": {
+    "epoch": 2,
+    "test_acc": 0.782,
+    "test_f1": 0.7508375525497986,
+    "pred_counts": [
+      13,
+      48,
+      178,
+      40,
+      82,
+      139
+    ]
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8789013620559126,
+      "test_acc": 0.8,
+      "test_f1": 0.7713192100923917,
+      "pred_counts": [
+        11,
+        78,
+        171,
+        30,
+        73,
+        137
+      ]
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.42210602255770935,
+      "test_acc": 0.782,
+      "test_f1": 0.7508375525497986,
+      "pred_counts": [
+        13,
+        48,
+        178,
+        40,
+        82,
+        139
+      ]
+    }
+  ]
+}

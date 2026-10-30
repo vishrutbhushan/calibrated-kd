@@ -1,0 +1,22 @@
+{
+  "mode": "raw",
+  "dataset": "TREC-6",
+  "test_acc": 78.2,
+  "test_f1": 75.08375525497985,
+  "test_counts": [
+    13,
+    48,
+    178,
+    40,
+    82,
+    139
+  ],
+  "class_names": [
+    "Abbreviation",
+    "Entity",
+    "Description",
+    "Human",
+    "Location",
+    "Numeric"
+  ]
+}

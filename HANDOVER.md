@@ -93,6 +93,15 @@ To ensure scientific validity, the model pair and hyperparameter regime are fixe
   * Exactly **0.00% delta** (zero distortion).
 * **Next Action:** Generate dedicated standalone SST-2 figures (`figures/sst2/`) strictly when instructed.
 
+### Benchmark 4: TREC-6 (6-Class Question Classification) — ✅ COMPLETE
+* **Splits:** $N_{\text{train}} = 1,200$ (200/class) | $N_{\text{test}} = 500$ (Canonical test set)
+* **Classes:** `[Abbreviation, Entity, Description, Human, Location, Numeric]`
+* **Null Skew:** $\Delta_{\text{null}} = 7.97\text{ logits}$ (`Description` monopolizes 98.78% of null prior; 2,889.2× ratio vs `Numeric`)
+* **Results:**
+  * Standard KD (Old): 78.20% Acc | 75.08% Macro-F1 (`Description` bloated to 178 vs 138 truth; `Entity` starved to 48 vs 94 truth)
+  * Static CKD (New): **80.00% Acc (+1.80%)** | **77.12% Macro-F1 (+2.04%)** (`Entity` rescued to 58, **+20.8% gain**; `Description` suppressed to 159, **-10.7% closer to truth**)
+* **Dedicated Figures:** `figures/trec/` (`fig1` to `fig4`).
+
 ---
 
 ## 5. Repository Map
@@ -102,7 +111,7 @@ To ensure scientific validity, the model pair and hyperparameter regime are fixe
 ├── HANDOVER.md                    <-- THIS FILE (Read upon starting new chat)
 ├── README.md                      <-- Project reproduction & methodology
 ├── data/
-│   ├── benchmarks/                # CSV and Parquet files for AG News, Emotion, SST-2, NLI
+│   ├── benchmarks/                # CSV and Parquet files for AG News, Emotion, SST-2, TREC-6, NLI
 │   └── teacher_targets/           # Cached teacher logits & null vectors (.npz)
 ├── scripts/
 │   ├── prepare_data/              # Split generation & null bias diagnostic scripts
@@ -113,10 +122,12 @@ To ensure scientific validity, the model pair and hyperparameter regime are fixe
 │   ├── agnews/
 │   ├── emotion/
 │   ├── sst2/
+│   ├── trec/
 │   └── nli/
 ├── figures/                       # Dedicated Old vs New figures partitioned by dataset
 │   ├── agnews/
-│   └── emotion/
+│   ├── emotion/
+│   └── trec/
 ├── logs/                          # Background task output logs
 └── docs/                          # Detailed execution plan and research reports
 ```

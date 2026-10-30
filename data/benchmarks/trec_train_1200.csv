@@ -1,0 +1,1201 @@
+sample_id,text,label
+trec_train_0000,How was the element calcium named ?,2
+trec_train_0001,What European country is home to the beer-producing city of Budweis ?,4
+trec_train_0002,What is the use of a 24-hour clock instead of a 12-hour clock ?,2
+trec_train_0003,What causes the body to shiver in cold temperatures ?,2
+trec_train_0004,Who was the author of `` John Brown 's Body '' ?,3
+trec_train_0005,"What do the letters D.C. stand for in Washington , D.C. ?",0
+trec_train_0006,Where can I find information on George Bush ?,4
+trec_train_0007,How is silk screening done ?,2
+trec_train_0008,How do I make fuel bricks from recycled newspaper ?,2
+trec_train_0009,What film or films has Jude Law appeared in ?,1
+trec_train_0010,How many miles is it to Ohio from North Carolina ?,5
+trec_train_0011,What is a dental root canal ?,2
+trec_train_0012,What does MSG stand for ?,0
+trec_train_0013,When is Boxing Day ?,5
+trec_train_0014,Who invented the toothbrush ?,3
+trec_train_0015,Where can I find a list of `` classic '' books 5th and 6th graders should read ?,4
+trec_train_0016,What are liver enzymes ?,2
+trec_train_0017,What does BTU mean ?,0
+trec_train_0018,Who portrayed portly criminologist Carl Hyatt on Checkmate ?,3
+trec_train_0019,CPR is the abbreviation for what ?,0
+trec_train_0020,How long does it take for your blood to make one complete trip through the body ?,5
+trec_train_0021,What does the number `` 5 '' stand for on FUBU clothing ?,0
+trec_train_0022,"What are the first names of Rowan and Martin , the stars of TV 's Laugh-In ?",3
+trec_train_0023,What is a fear of being alone ?,1
+trec_train_0024,What was Connecticut 's first constitution called ?,1
+trec_train_0025,How long does it take light to reach the Earth from the Sun ?,5
+trec_train_0026,Who does the advertizing for Frito-Lay ?,3
+trec_train_0027,What is the longest place name in the U.S. ?,4
+trec_train_0028,What 's the American dollar equivalent for 8 pounds in the U.K. ?,5
+trec_train_0029,What is the acronym for the National Bureau of Investigation ?,0
+trec_train_0030,What city was President William McKinley shot in ?,4
+trec_train_0031,What does A&W of root beer fame stand for ?,0
+trec_train_0032,What is gymnophobia ?,2
+trec_train_0033,What actor 's autobiography is titled All My Yesterdays ?,3
+trec_train_0034,What does HIV stand for ?,0
+trec_train_0035,What country did King Gustav V reign over from 197 to 195 ?,4
+trec_train_0036,What is the speed of the Mississippi River ?,5
+trec_train_0037,What is the difference between a generator and an alternator ?,2
+trec_train_0038,"What game 's board shows the territories of Irkutsk , Yakutsk and Kamchatka ?",1
+trec_train_0039,What is the nickname for the state of Mississippi ?,4
+trec_train_0040,How many layers of yellow paint is a Faber Mongol pencil lucky enough to be sprayed with ?,5
+trec_train_0041,Who is the mayor of Marbella ?,3
+trec_train_0042,How much electricity does the brain need to work ?,5
+trec_train_0043,How many species of the Great White shark are there ?,5
+trec_train_0044,What is the plural of gulf ?,1
+trec_train_0045,What is Bill Gates of Microsoft E-mail address ?,4
+trec_train_0046,Where was George Washington born ?,4
+trec_train_0047,What is the city in which Maurizio Pellegrin lives called ?,4
+trec_train_0048,"What is the origin of the word , JJ .",2
+trec_train_0049,What sea did the Romans call mare nostrum ?,4
+trec_train_0050,How many people did Randy Craft kill ?,5
+trec_train_0051,Name Alvin 's brothers,3
+trec_train_0052,Who invented the radio ?,3
+trec_train_0053,What do Italians call Florence ?,1
+trec_train_0054,What is Betsy Ross famous for ?,2
+trec_train_0055,What films featured the character Popeye Doyle ?,1
+trec_train_0056,Whose first presidential order was : `` Let 's get this goddamn thing airborne '' ?,3
+trec_train_0057,What does NN O `` mean when used as a prefix in Irish surnames ?,0
+trec_train_0058,What does JESSICA mean ?,0
+trec_train_0059,Who banned Peter Rose from baseball for betting on games ?,3
+trec_train_0060,Who was President of Afghanistan in 1994 ?,3
+trec_train_0061,Who coined the term NN cyberspace `` in his novel NN Neuromancer '' ?,3
+trec_train_0062,How many years ago did the ship Titanic sink ?,5
+trec_train_0063,What is a virtual IP address ?,2
+trec_train_0064,What country and western singer is known as The Silver Fox ?,4
+trec_train_0065,What does IOC stand for ?,0
+trec_train_0066,How many Beatles ' records went #1 ?,5
+trec_train_0067,What does RCA stand for ?,0
+trec_train_0068,CNN is the abbreviation for what ?,0
+trec_train_0069,What game do Steve McQueen and Edward G. Robinson play in The Cincinnati Kid ?,1
+trec_train_0070,What is the smallest country in Africa ?,4
+trec_train_0071,"Who was named Admiral of the Ocean Seas and Viceroy and Governor General of all the islands he might discover , and also granted 10-?? of all profits of his voyage .",3
+trec_train_0072,What does the `` c '' stand for in the equation E=mc2 ?,0
+trec_train_0073,What is prepared mustard ?,2
+trec_train_0074,What is the date of Boxing Day ?,5
+trec_train_0075,What 's the only color Johnny Cash wears on stage ?,1
+trec_train_0076,What are the developmental stages of a swimmer ?,1
+trec_train_0077,Where can I look at a perpetual calendar ?,4
+trec_train_0078,When was the San Francisco fire ?,5
+trec_train_0079,What is the acreage of the Chappellet vineyard ?,5
+trec_train_0080,Hazmat stands for what ?,2
+trec_train_0081,"What do the letters CE stand for on so many products , particularly electrical , purchased now ?",0
+trec_train_0082,What is a rhomboideus minor ?,2
+trec_train_0083,Why are electric cars less efficient in the northeast than in California ?,2
+trec_train_0084,Who were the five Marx brothers ?,3
+trec_train_0085,What gaming devices were dubbed `` Mississippi marbles '' and `` Memphis dominoes '' ?,1
+trec_train_0086,How far can a man travel in outer space ?,5
+trec_train_0087,What city did the Flintstones live in ?,4
+trec_train_0088,What was Queen Victoria 's title regarding India ?,3
+trec_train_0089,What ocean is the largest in the world ?,4
+trec_train_0090,What type of food makes you fat ?,1
+trec_train_0091,How do you correctly say the word ` qigong ' ?,2
+trec_train_0092,What two European countries entered the War of American Independence against the British ?,4
+trec_train_0093,Who was The Pride of the Yankees ?,3
+trec_train_0094,What song served as the closing theme of The Johnny Cash Show ?,1
+trec_train_0095,What is LMDS ?,0
+trec_train_0096,Who died 1 feet from where John F. Kennedy did ?,3
+trec_train_0097,What Russian city boasts the Hermitage Museum ?,4
+trec_train_0098,"What TV comediennes 's characters include former movie star Nora Desmond , secretary Mrs. Wiggins and a housewife named Eunice ?",3
+trec_train_0099,"How much would a black-and-white 1-cent stamp be worth , Thomas Jefferson on it , ?",5
+trec_train_0100,Where is Basque country located ?,4
+trec_train_0101,What are bear and bull markets ?,2
+trec_train_0102,What did Shostakovich write for Rostropovich ?,1
+trec_train_0103,What did the only repealed amendment to the U.S. Constitution deal with ?,2
+trec_train_0104,What is Stefan Edberg 's native country ?,4
+trec_train_0105,What does the abbreviation cwt. ?,0
+trec_train_0106,Who was the lead actress in the movie ` Sleepless in Seattle ' ?,3
+trec_train_0107,What is the oldest website on the Internet ?,4
+trec_train_0108,Why is black the color of mourning in the West ?,2
+trec_train_0109,How do I stop background noise in a car stereo ?,2
+trec_train_0110,What is the occupation of Nicholas Cage ?,3
+trec_train_0111,How many James Bond novels are there ?,5
+trec_train_0112,Who has the only speaking role in `` Silent Movie '' ?,3
+trec_train_0113,Who was the founding member of the Pink Floyd band ?,3
+trec_train_0114,Which city has the oldest relationship as a sister�city with Los Angeles ?,4
+trec_train_0115,What field sport did dentist William Beers promote and write a standard book of rules for ?,1
+trec_train_0116,What is RAM in the computer ?,0
+trec_train_0117,Why did several San Diego schools stop serving apples to students ?,2
+trec_train_0118,"Who was the mother of the man who would not be king , the duke of Windsor ?",3
+trec_train_0119,What is the web address of the list of e-mail addresses of members of the House of Representatives ?,4
+trec_train_0120,What did brontosauruses eat ?,1
+trec_train_0121,What is the abbreviation of the International Olympic Committee ?,0
+trec_train_0122,Who is Desmond Tutu ?,3
+trec_train_0123,What does MSG stand for ?,0
+trec_train_0124,What U.S. state borders Illinois to the north ?,4
+trec_train_0125,What former president 's daughter has written a book titled Murder in the White House ?,3
+trec_train_0126,What 's the most powerful card in Euchre ?,1
+trec_train_0127,What city has the world 's longest subway system ?,4
+trec_train_0128,How many boys play the game in Winslow Homer 's 1872 painting Snap the Whip ?,5
+trec_train_0129,How is energy created ?,2
+trec_train_0130,What is the fear of cockroaches called ?,1
+trec_train_0131,When was the Battle of Hastings ?,5
+trec_train_0132,How many colleges are in Wyoming ?,5
+trec_train_0133,"Where was the Ligurian Republic , 1797-185 , ?",4
+trec_train_0134,What is RAM in the computer ?,0
+trec_train_0135,"Who was shot in the back during a Poker game in Deadwood , the Dakota territory ?",3
+trec_train_0136,What horse did Zorro ride ?,1
+trec_train_0137,How can I find a list of celebrities ' real names ?,2
+trec_train_0138,What does the Statue of Liberty wear on her feet ?,1
+trec_train_0139,What does U.S.S.R. stand for ?,0
+trec_train_0140,What is the highest waterfall in the United States ?,4
+trec_train_0141,Name a technique widely used to detect birth defects ?,1
+trec_train_0142,How many Canadians emmigrate each year ?,5
+trec_train_0143,What U.S. state lived under six flags ?,4
+trec_train_0144,What city houses the U.S. headquarters of Procter and Gamble ?,4
+trec_train_0145,When did CNN go on the air ?,5
+trec_train_0146,Who were the `` filthiest people alive ? '',3
+trec_train_0147,What animals do you find in the stock market ?,1
+trec_train_0148,What kind of education do I need to become a flight attendant ?,1
+trec_train_0149,What U.S. state is Fort Knox in ?,4
+trec_train_0150,Name the disposable razor that `` costs about 19 cents . '',1
+trec_train_0151,Who painted the Sistine Chapel ?,3
+trec_train_0152,Who killed Gandhi ?,3
+trec_train_0153,What is a green bog ?,2
+trec_train_0154,How many types of dogs ' tails are there - three,5
+trec_train_0155,How is Answers.com different from KnowPost.com ?,2
+trec_train_0156,"What was introduced commercially by Bayer A.G. of Leverkusen , in 1899 ?",1
+trec_train_0157,What does JESSICA mean ?,0
+trec_train_0158,Who painted Mother and Child ?,3
+trec_train_0159,What does it mean `` Rupee Depreciates '' ?,2
+trec_train_0160,Who was the 16th President of the United States ?,3
+trec_train_0161,What does NASDAQ stand for ?,0
+trec_train_0162,How did the tradition of best man start ?,2
+trec_train_0163,What is the full name of the PLO ?,0
+trec_train_0164,What is the oldest profession ?,3
+trec_train_0165,"What schools in the Washington , DC NN NN VBP NN NN NN NN .",3
+trec_train_0166,What U.S. state records the least rainfall ?,4
+trec_train_0167,What language is mostly spoken in Brazil ?,1
+trec_train_0168,Who followed Caesar ?,3
+trec_train_0169,What function does a community 's water tower serve ?,2
+trec_train_0170,What are the two languages of Malta ?,1
+trec_train_0171,"How much would it cost to purchase a 2-foot-square party tent , with sides , ?",5
+trec_train_0172,What are the Nordic nations ?,4
+trec_train_0173,What college produced the most winning Super Bowl quarterbacks ?,3
+trec_train_0174,What mountainous region of the world is the Lhasa Apso dog native to ?,4
+trec_train_0175,What does CPR stand for ?,0
+trec_train_0176,How can I get some free technical information on Electric Vehicle ?,2
+trec_train_0177,What American poet wrote : `` Good fences make good neighbors '' ?,3
+trec_train_0178,Why were people recruited for the Vietnam War ?,2
+trec_train_0179,When was Dick Clark born ?,5
+trec_train_0180,What does Inuit and Eskimo mean ?,2
+trec_train_0181,What is the full name of the man who invented the multicolored game cube that has 42.3 quintillion potential combinations ?,3
+trec_train_0182,What was the name of the `` Little Rascals '' dog ?,1
+trec_train_0183,How much energy is released when oxygen and hydrogen mix ?,5
+trec_train_0184,Who was the first black golfer to tee off in the Masters ?,3
+trec_train_0185,What do the letters ZIP stand for in the phrase `` ZIP code '' ?,0
+trec_train_0186,What was the occupation of Mandy Rice-Davies ?,3
+trec_train_0187,Where is Tufts University ?,4
+trec_train_0188,What does the T.S. stand for in T.S. Eliot 's name ?,0
+trec_train_0189,What stadium do the Miami Dolphins play their home games in ?,4
+trec_train_0190,What happened during the Blackhawk Indian war of 1832 ?,2
+trec_train_0191,What does IQ stand for ?,0
+trec_train_0192,What does `` B.Y.O.B. '' mean ?,0
+trec_train_0193,What makes a clitoris sensitive ?,2
+trec_train_0194,What kind of animals were in the Paleozoic era ?,1
+trec_train_0195,What was the highest mountain on earth before Mount Everest was discovered ?,4
+trec_train_0196,Name the scar-faced bounty hunter of The Old West .,3
+trec_train_0197,What year did the United States pass the Copyright law ?,5
+trec_train_0198,What is the best way to remove wallpaper ?,1
+trec_train_0199,What does HIV stand for ?,0
+trec_train_0200,What Russian master spy lived in the U.S. under the name Emil Goldfus ?,3
+trec_train_0201,How many dots make up the symbol for `` because '' ?,5
+trec_train_0202,How can I find a phone number of someone if I only know their email address ?,2
+trec_train_0203,What country has the best defensive position in the board game Diplomacy ?,4
+trec_train_0204,CNN began broadcasting in what year ?,5
+trec_train_0205,What classical Spanish writer warned : `` All that glitters is not gold '' ?,3
+trec_train_0206,"What does R.E.M. stand for , as in the rock group R.E.M. ?",0
+trec_train_0207,How many children under 18 are victims of some sort of Physical Abuse each year ?,5
+trec_train_0208,Where can I find information about touring the Philippines ?,4
+trec_train_0209,What city is Logan Airport in ?,4
+trec_train_0210,What does HIV stand for ?,0
+trec_train_0211,What cocktail inspired John Doxat to write the book Stirred-Not Shaken ?,1
+trec_train_0212,Who was the author of the book about computer hackers called `` The Cuckoo 's Egg : Tracking a Spy Through the Maze of Computer Espionage '' ?,3
+trec_train_0213,What does CNN stand for ?,0
+trec_train_0214,What state does Martha Stewart live in ?,4
+trec_train_0215,How many Vietnamese were there in the Soviet Union ?,5
+trec_train_0216,Why do n't you guys have some sort of contest where you ask a question and whoever finds the answers wins a prize ?,2
+trec_train_0217,What does the six-footed Musca domestica become when it enters a house ?,1
+trec_train_0218,What is an annotated bibliography ?,2
+trec_train_0219,What does an average daycare provider get paid in New England ?,5
+trec_train_0220,How long does it take the typical hen to lay 19 dozen eggs ?,5
+trec_train_0221,What `` magic '' does Mandrake employ ?,1
+trec_train_0222,Name a movie about the Sioux Indians starring Kevin Costner .,1
+trec_train_0223,What is the quantity of American soldiers still unaccounted for from the Vietnam war ?,5
+trec_train_0224,What does the name `` Anthony '' mean ?,2
+trec_train_0225,How many degrees cooler is the inside of a cucumber than the air outside ?,5
+trec_train_0226,What 's the closest G2 Spectrum Yellow Dwarf to Earth ?,4
+trec_train_0227,What is Mikhail Gorbachev 's middle initial ?,0
+trec_train_0228,What is RAM in the computer ?,0
+trec_train_0229,Which is the wealthiest country in the world ?,4
+trec_train_0230,What dangles over the tongue from the palate ?,1
+trec_train_0231,What does NAFTA stand for ?,0
+trec_train_0232,What sport do you shag flies in ?,1
+trec_train_0233,What do you call a group of geese ?,1
+trec_train_0234,What was the only country you were allowed to drive into Israel from in 1979 ?,4
+trec_train_0235,What does CPR stand for ?,0
+trec_train_0236,What does the acronym CPR mean ?,0
+trec_train_0237,What country do the Galapagos Islands belong to ?,4
+trec_train_0238,What kind of books does Fodor 's publish ?,1
+trec_train_0239,"What is the latitude and longitude of El Paso , Texas ?",5
+trec_train_0240,What country 's national passenger rail system is called Via ?,4
+trec_train_0241,What does `` B.Y.O.B. '' mean ?,0
+trec_train_0242,What is DEET ?,0
+trec_train_0243,What European city do Nicois live in ?,4
+trec_train_0244,What organization 's offices were broken into at Watergate in 1972 ?,3
+trec_train_0245,What county is Chicago in ?,4
+trec_train_0246,How many questions are on this thing ?,5
+trec_train_0247,What crop failure caused the Irish Famine ?,1
+trec_train_0248,Name 11 famous martyrs .,3
+trec_train_0249,What is considered the costliest disaster the insurance industry has ever faced ?,1
+trec_train_0250,"What new middle school was built in Philadelphia , Pennsylvania last year ?",3
+trec_train_0251,Where can I buy a good snowboard for less than $200 ?,4
+trec_train_0252,"What does R.E.M. stand for , as in the rock group R.E.M. ?",0
+trec_train_0253,"Which came first , according to Genesis 1 : 2 : 22 - the chicken or the egg ?",1
+trec_train_0254,What company 's logo is a `` W '' in a circle ?,3
+trec_train_0255,Who is the founder of Scientology ?,3
+trec_train_0256,"What English word comes from the Old French covrefeu , meaning cover fire ?",1
+trec_train_0257,Why were the American soldiers in WWI called `` Doughboys '',2
+trec_train_0258,Who is the leading competitor of Trans Union Company ?,3
+trec_train_0259,What country received all the Nobel Prizes awarded in 1976 ?,4
+trec_train_0260,What actor married John F. Kennedy 's sister ?,3
+trec_train_0261,What TV game show once saw a contestant admit to picking his toes in the shower ?,1
+trec_train_0262,What is DTMF ?,0
+trec_train_0263,Who was Lauren Bacall 's first husband ?,3
+trec_train_0264,What country 's people are the top television watchers ?,4
+trec_train_0265,What is Eagle 's syndrome styloid process ?,2
+trec_train_0266,What is RCD ?,0
+trec_train_0267,What was the name of the movie that starred Sharon Stone and Arnold Schwarzenegger ?,1
+trec_train_0268,What is IOC an abbreviation of ?,0
+trec_train_0269,What is the size of the largest akita ?,5
+trec_train_0270,What 19th-century writer had a country estate on the Hudson dubbed Sunnyside ?,3
+trec_train_0271,What is the telephone number for the University of Kentucky ?,5
+trec_train_0272,What was known as the Spice Island ?,4
+trec_train_0273,What level of government or governmental agency is responsible for dealing with racism ?,3
+trec_train_0274,Who sings the themes for `` Dawson 's Creek '' and `` Felicity '' ?,3
+trec_train_0275,Where is Logan Airport ?,4
+trec_train_0276,What does a teaspoon of matter weigh in a black hole ?,5
+trec_train_0277,What city is served by Logan International Airport ?,4
+trec_train_0278,What does EKG stand for ?,0
+trec_train_0279,Where can I find a case on Individuals with Disabilities Education Act of 1991 ?,4
+trec_train_0280,Which city did Christian Crusaders fight to recapture from the Muslims ?,4
+trec_train_0281,What desert has the highest sand dunes ?,4
+trec_train_0282,What countries have the largest areas of forest ?,4
+trec_train_0283,What does G.M.T. stand for ?,0
+trec_train_0284,What do the letters ZIP stand for in the phrase `` ZIP code '' ?,0
+trec_train_0285,What is the fear of being loved ?,1
+trec_train_0286,How did Jayne Mansfield die ?,2
+trec_train_0287,What percentage of the body is muscle ?,5
+trec_train_0288,Which two products use a tiger as their symbol ?,1
+trec_train_0289,What video game hero do some of his fans call Chomper ?,3
+trec_train_0290,What is the daily requirement of folic acid for an expectant mother ?,2
+trec_train_0291,On which Hawaiian island is Pearl Harbor ?,4
+trec_train_0292,What is the abbreviation of the International Olympic Committee ?,0
+trec_train_0293,What 's the term for a young fox ?,1
+trec_train_0294,Who is the youngest of the Beatles ?,3
+trec_train_0295,Name the largest country in South America .,4
+trec_train_0296,"What President lived at 219 North Delaware Street , Independence , Missouri ?",3
+trec_train_0297,What is the `` coppertop '' battery ?,2
+trec_train_0298,What is RAM in the computer ?,0
+trec_train_0299,When was the first steel mill in the United States built ?,5
+trec_train_0300,What does IOC stand for ?,0
+trec_train_0301,What American League baseball team 's worst finish between 1926 and 1964 was fourth ?,3
+trec_train_0302,In what year did Ireland elect its first woman president ?,5
+trec_train_0303,What killed Bob Marley ?,1
+trec_train_0304,What is the abbreviated expression for the National Bureau of Investigation ?,0
+trec_train_0305,What fraction of a beaver 's life is spent swimming ?,5
+trec_train_0306,Name a golf course in Myrtle Beach .,1
+trec_train_0307,What is the acronym for the National Bureau of Investigation ?,0
+trec_train_0308,What is her profession ?,3
+trec_train_0309,What is a firewall ?,2
+trec_train_0310,Why is the grass green ?,2
+trec_train_0311,What does the abbreviation OAS stand for ?,0
+trec_train_0312,How does a rainbow form ?,2
+trec_train_0313,What did Dan Aykroyd and John Belushi quit Saturday Night Live to become ?,1
+trec_train_0314,"What U.S. Congressman said : `` Keep the faith , baby '' .",3
+trec_train_0315,What shrubs can be planted that will be safe from deer ?,1
+trec_train_0316,Who kept the most famous diary in the English language ?,3
+trec_train_0317,In what year was De Gaulle elected president of France ?,5
+trec_train_0318,Which Bloom County resident wreaks havoc with a computer ?,3
+trec_train_0319,What state is John F. Kennedy buried in ?,4
+trec_train_0320,"What 's the meaning of the Latin battle cry : Ad arma , ad arma .",2
+trec_train_0321,What 's the literary term for a play on words ?,1
+trec_train_0322,Name a film in which Jude Law acted .,1
+trec_train_0323,What do the letters ZIP stand for in the phrase `` ZIP code '' ?,0
+trec_train_0324,What is the rarest coin ?,1
+trec_train_0325,Who is Snoopy 's arch-enemy ?,3
+trec_train_0326,When did Muhammad live ?,5
+trec_train_0327,What does the abbreviation AIDS stand for ?,0
+trec_train_0328,How long does it take for Spider-Man 's web to evaporate ?,5
+trec_train_0329,When was Berlin 's Brandenburg gate erected ?,5
+trec_train_0330,What is the abbreviated expression for the National Bureau of Investigation ?,0
+trec_train_0331,Who starred in Singing in the Rain and The Singing Nun ?,3
+trec_train_0332,What is the abbreviation of the National Bureau of Investigation ?,0
+trec_train_0333,What is the correct way to abbreviate cc. at the bottom of a business letter ?,0
+trec_train_0334,What does the number `` 5 '' stand for on FUBU clothing ?,0
+trec_train_0335,Who founded the People 's Temple Commune ?,3
+trec_train_0336,How many Jews were executed in concentration camps during WWII ?,5
+trec_train_0337,What is artificial intelligence ?,2
+trec_train_0338,"What is p.m. an abbreviation for , as in 5 p.m. ?",0
+trec_train_0339,Where is Procter & Gamble headquartered in the U.S. ?,4
+trec_train_0340,What sprawling U.S. state boasts the most airports ?,4
+trec_train_0341,What musical instrument did Prewitt play in James Jones 's From Here to Eternity ?,1
+trec_train_0342,Which Japanese car maker had its biggest percentage of sale in the domestic market ?,3
+trec_train_0343,What country was the setting of You Only Live Twice ?,4
+trec_train_0344,Woodrow Wilson served as president of what university ?,3
+trec_train_0345,Who has more DNA - a man or a woman ?,3
+trec_train_0346,What is the wingspan of a condor ?,5
+trec_train_0347,What product did Robert Conrad dare people to knock off his shoulder ?,1
+trec_train_0348,What is the Homelite Inc. home page ?,4
+trec_train_0349,What U.S. state has an element named for it ?,4
+trec_train_0350,What is BPH ?,0
+trec_train_0351,What is the `` 7-minute cigarette '' ?,2
+trec_train_0352,What spy novelist served as Moscow correspondent for Reuter and The Times of London ?,3
+trec_train_0353,CPR is the abbreviation for what ?,0
+trec_train_0354,What historical event happened in Dogtown in 1899 ?,1
+trec_train_0355,How many CDs has Garth Brooks sold ?,5
+trec_train_0356,What Broadway musical was inspired by Cervantes 's Don Quixote ?,1
+trec_train_0357,What crooner joined The Andrews Sisters for Pistol Packin Mama ?,3
+trec_train_0358,What percent liked Thatcher after she had been in power for a decade ?,5
+trec_train_0359,What wrestling star became `` The Incredible Hulk '' ?,3
+trec_train_0360,How many referees work a soccer game ?,5
+trec_train_0361,What is the abbreviated form of the National Bureau of Investigation ?,0
+trec_train_0362,What 's the nickname of oddsmaker Jimmy Snyder ?,3
+trec_train_0363,Where is the Kentucky Horse Park located ?,4
+trec_train_0364,What caused the Lynmouth floods ?,2
+trec_train_0365,What country did King Wenceslas rule ?,4
+trec_train_0366,What is a fear of weakness ?,1
+trec_train_0367,"What baseball star turned down a $1 , 000-a-year contract because he felt he had n't earned it ?",3
+trec_train_0368,What do economists do ?,2
+trec_train_0369,What is `` dew point '' ?,2
+trec_train_0370,What can I use to remove the stubborn gummed labels from some diskettes ?,1
+trec_train_0371,In what religion was Isis the nature goddess ?,1
+trec_train_0372,What is the correct way to abbreviate cc. at the bottom of a business letter ?,0
+trec_train_0373,What actor said in A Day at the Races : `` Either he 's dead or my watch has stopped '' ?,3
+trec_train_0374,What dummy received an honorary degree from Northwestern University ?,3
+trec_train_0375,"What Las Vegas hotel burned in November , 1980 , with the loss of 84 lives ?",4
+trec_train_0376,What 's the tallest building in New York City ?,4
+trec_train_0377,"Which mosquito 's bite draws blood , DT NN CC DT NN .",1
+trec_train_0378,What Judith Rossner novel was made into a film starring Diane Keaton ?,1
+trec_train_0379,What year did Hitler die ?,5
+trec_train_0380,In what year did Thatcher become prime minister ?,5
+trec_train_0381,What is molybdenum ?,2
+trec_train_0382,What is the most common kind of skin cancer in the U.S. ?,1
+trec_train_0383,How many people died on D-Day ?,5
+trec_train_0384,Who is the president of Stanford University ?,3
+trec_train_0385,What are the world 's four oceans ?,4
+trec_train_0386,What 2 statues did France give to other countries ?,1
+trec_train_0387,What does IQ stand for ?,0
+trec_train_0388,How much does a new railroad coal car cost ?,5
+trec_train_0389,What does IOC stand for ?,0
+trec_train_0390,What is Latin for incompetent ?,1
+trec_train_0391,Where was Christopher Columbus born ?,4
+trec_train_0392,What is the Amish religion ?,2
+trec_train_0393,When did CNN begin broadcasting ?,5
+trec_train_0394,What first name was Nipsy Russell given at birth ?,3
+trec_train_0395,How do I start a bank ?,2
+trec_train_0396,What city is wiener schnitzel named for ?,4
+trec_train_0397,How long should a person wash their hands before they are clean ?,5
+trec_train_0398,What is BPH ?,0
+trec_train_0399,What was Michelangelo 's last name ?,3
+trec_train_0400,"What does Ms. , Miss , and Mrs. stand for ?",0
+trec_train_0401,What athlete makes the most money from sports merchandise sales ?,3
+trec_train_0402,What phone number can I call to have a tree planted ?,5
+trec_train_0403,Who is Barbara Jordan ?,3
+trec_train_0404,Who was the inventor of silly putty ?,3
+trec_train_0405,How many people are there in the world ?,5
+trec_train_0406,What does INRI stand for when used on Jesus ' cross ?,0
+trec_train_0407,What TV sitcom character had the maiden name Ethel Potter ?,3
+trec_train_0408,What do bee hives do in cranberry bogs ?,2
+trec_train_0409,What was the U.S. highway death toll in 1969 ?,5
+trec_train_0410,What is the deepest area of the Arctic Ocean ?,4
+trec_train_0411,What 's the colored part of the eye called ?,1
+trec_train_0412,"Which hair care product told us `` hate that gray , wash it away '' ?",1
+trec_train_0413,How many equal angles are there in an isosceles triangle ?,5
+trec_train_0414,What is the death toll of people dying from tuberculosis ?,5
+trec_train_0415,How many students attend the University of Massachusetts ?,5
+trec_train_0416,What does LOL mean ?,0
+trec_train_0417,What is the abbreviation for micro ?,0
+trec_train_0418,What are the names of Richard Nixon 's two daughters ?,3
+trec_train_0419,What city is sometimes called Gotham ?,4
+trec_train_0420,What is website of the International Court of Justice ?,4
+trec_train_0421,What are the shortest and the longest songs ever produced ?,1
+trec_train_0422,What former major-league left-handed baseball pitcher was known as `` Space Man '' ?,3
+trec_train_0423,What is the largest snake in the world ?,1
+trec_train_0424,How do I tie dye clothes ?,2
+trec_train_0425,When did the Berlin Wall go up ?,5
+trec_train_0426,What is Mississippi 's state animal ?,1
+trec_train_0427,What are the different approaches of systems analysis ?,1
+trec_train_0428,What attracts tourists to Reims ?,4
+trec_train_0429,How many home runs did Lou Gehrig have during his career ?,5
+trec_train_0430,What does the name Gina mean ?,2
+trec_train_0431,How many double-word-score spaces are there on a Scrabble Crossword Game board ?,5
+trec_train_0432,What army was founded by William Booth and his wife Catherine ?,3
+trec_train_0433,What letter is to the right of K on a typewriter keyboard ?,1
+trec_train_0434,What 's the abbreviation for trinitrotoluene ?,0
+trec_train_0435,"Where does Buzz Aldrin want to build a permanent , manned space station ?",4
+trec_train_0436,What is the abbreviation of the company name ` General Motors ' ?,0
+trec_train_0437,What are the lengths of pearl necklaces ?,5
+trec_train_0438,"What poem contains the line , `` grow old with me the best is yet to be '' .",1
+trec_train_0439,What is an isthmus ?,2
+trec_train_0440,What kind of file has the extension .dbf ?,1
+trec_train_0441,What does the word LASER mean ?,0
+trec_train_0442,What is a female rabbit called ?,1
+trec_train_0443,When did the `` Star-Spangled Banner '' become the national anthem ?,5
+trec_train_0444,Who created Dennis the Menace ?,3
+trec_train_0445,What was the name of the cook on Rawhide ?,3
+trec_train_0446,Who made a boat out of gopher wood ?,3
+trec_train_0447,Where do chihuahuas come from ?,2
+trec_train_0448,What explorers followed Columbus to the Americas ?,3
+trec_train_0449,What is DTMF ?,0
+trec_train_0450,What does a chairbound basophobic fear ?,1
+trec_train_0451,What 's the official animal of Canada ?,1
+trec_train_0452,What does CNN stand for ?,0
+trec_train_0453,"What is the per-capita income of Colombia , South America , ?",5
+trec_train_0454,"What is the meaning of W.B. Yeat 's poem , `` The Three Hermits ? ''",2
+trec_train_0455,How do fuel injectors work ?,2
+trec_train_0456,What are the four elements ?,1
+trec_train_0457,What does NASDAQ stand for ?,0
+trec_train_0458,What does NECROSIS mean ?,0
+trec_train_0459,How did serfdom develop in and then leave Russia ?,2
+trec_train_0460,What predators exist on Antarctica ?,1
+trec_train_0461,How much snow equals an inch of rain ?,5
+trec_train_0462,In what year did Hitler gain power of Germany ?,5
+trec_train_0463,What Soviet leader owned a Rolls-Royce ?,3
+trec_train_0464,Where can I find a person 's address from a telephone number ?,4
+trec_train_0465,When did the Dow first reach ?,5
+trec_train_0466,What actress has received the most Oscar nominations ?,3
+trec_train_0467,Where did the myth of Santa Claus originate ?,4
+trec_train_0468,What was the name of the orca that died of a fungal infection ?,1
+trec_train_0469,What kind of wine is Spumante ?,1
+trec_train_0470,"What country did the Nazis occupy for 1 , CD NNS IN NNP NNP NNP .",4
+trec_train_0471,What 19th-century painter died in the Marquesas Islands ?,3
+trec_train_0472,Who danced into stardom with Fred Astaire in 1941 's You 'll Never Get Rich ?,3
+trec_train_0473,What is the speed of the Mississippi River ?,5
+trec_train_0474,What are the Benelux countries ?,4
+trec_train_0475,Where can I find correct tabs for Third Eye Blind songs ?,4
+trec_train_0476,What does SIDS stand for ?,0
+trec_train_0477,What does the abbreviation IOC stand for ?,0
+trec_train_0478,How much did the minimum wage amount to in 1991 ?,5
+trec_train_0479,What explorer was nicknamed Iberia 's Pilot ?,3
+trec_train_0480,"What do the letters CE stand for on so many products , particularly electrical , purchased now ?",0
+trec_train_0481,What is the filmmakers collabrative ?,2
+trec_train_0482,What is a golf ball made of ?,1
+trec_train_0483,What kind of animal is Babar ?,1
+trec_train_0484,How does a copier work ?,2
+trec_train_0485,Who do Herb and Tootsie live next door to ?,3
+trec_train_0486,"How much does it cost , average or whatever is available , to produce and send junk mail catalogues in the US ? , DT CD NN NN ,",5
+trec_train_0487,What do bicornate animals have two of ?,1
+trec_train_0488,Where was the first restaurant ?,4
+trec_train_0489,"What sun-blasted , 14-mile wide valley is just north of the Mojave desert ?",4
+trec_train_0490,What 's an auberge in France ?,2
+trec_train_0491,What is a caldera ?,2
+trec_train_0492,What does the name Shawn mean ?,2
+trec_train_0493,What are Maid-Rites ?,2
+trec_train_0494,"In what sport are these following numbers relevant : 118 , 126 , 134 , 142 , 15 , 158 , 167 , 177 , and 19 ?",1
+trec_train_0495,What was Mel Gibson 's first movie ?,1
+trec_train_0496,What year did Jack Nicklaus join the Professional Golfers Association tour ?,5
+trec_train_0497,Where is Mozambique located ?,4
+trec_train_0498,What type of bridge is the Golden Gate Bridge ?,1
+trec_train_0499,What was Einstein 's IQ ?,5
+trec_train_0500,What is the abbreviation for Original Equipment Manufacturer ?,0
+trec_train_0501,What is a Certified Nurse Midwife ?,2
+trec_train_0502,How many South American countries have the letter Z in their names ?,5
+trec_train_0503,Who played the Ringo Kid in the 1939 film Stagecoach ?,3
+trec_train_0504,On what T.V. show could Tom Terrific be found ?,1
+trec_train_0505,Who invented baseball ?,3
+trec_train_0506,What causes the redness in your cheeks when you blush ?,2
+trec_train_0507,What two South American countries do n't border Brazil ?,4
+trec_train_0508,Where can I find information on the Narragansett Indians and other tribes in Rhode Island ?,4
+trec_train_0509,What is the longest word in the English language ?,1
+trec_train_0510,How many feet are there in a fathom ?,5
+trec_train_0511,What do the letters ZIP stand for in the phrase `` ZIP code '' ?,0
+trec_train_0512,What makes thunder ?,2
+trec_train_0513,How can your school march in the Macy 's Thanksgiving Parade ?,2
+trec_train_0514,Where is Rider College located ?,4
+trec_train_0515,What are the top ten most common girl names in the US ?,3
+trec_train_0516,What is the origin of the surname of Braun ?,2
+trec_train_0517,What does the number `` 5 '' stand for on FUBU clothing ?,0
+trec_train_0518,What is DEET ?,0
+trec_train_0519,Where can I buy movies on videotape online ?,4
+trec_train_0520,What time of day did Emperor Hirohito die ?,5
+trec_train_0521,Who sings the song `` Drink to me with thine eyes '' by Ben Johnson ?,3
+trec_train_0522,CPR is the abbreviation for what ?,0
+trec_train_0523,What does S.O.S. stand for ?,0
+trec_train_0524,Where can I find full written draft of CTBT ?,4
+trec_train_0525,What Russian seaport has a name meaning `` Lord of the East '' ?,4
+trec_train_0526,What is the lowest level of the American judiciary ?,1
+trec_train_0527,What is the origin of the word `` attic '' ?,2
+trec_train_0528,What film did Lee Marvin win the 1965 best actor Oscar for ?,1
+trec_train_0529,What country is the world 's largest importer of cognac ?,4
+trec_train_0530,What color of dry wine should be served with veal roasts and chops ?,1
+trec_train_0531,Who received the Will Rogers Award in 1989 ?,3
+trec_train_0532,What state in the U.S. has the most blacks ?,4
+trec_train_0533,What is Nebraska 's most valuable resource ?,1
+trec_train_0534,Name the soft drink that is `` number one in the sun . '',1
+trec_train_0535,Whom did the Chicago Bulls beat in the 1993 championship ?,3
+trec_train_0536,What board game does a `` wood-pusher '' play poorly ?,1
+trec_train_0537,"What city boasts Penn 's Landing , on the banks of the Delaware river ?",4
+trec_train_0538,How many engines does a Boeing 737 have ?,5
+trec_train_0539,How can I find out what year a Beanie Baby was introduced ?,2
+trec_train_0540,When was the first Wall Street Journal published ?,5
+trec_train_0541,What is the historical relationship of Catholic Church and bingo ?,2
+trec_train_0542,What is HDLC ?,0
+trec_train_0543,How can you contact play producers and promoters on-line ?,2
+trec_train_0544,Why do heavier objects travel downhill faster ?,2
+trec_train_0545,What is Mikhail Gorbachev 's middle initial ?,0
+trec_train_0546,Who was the first coach of the Cleveland Browns ?,3
+trec_train_0547,How many calories are there in a Big Mac ?,5
+trec_train_0548,What does the `` blue ribbon '' stand for ?,0
+trec_train_0549,Where did the term `` 86ed '' come from ?,2
+trec_train_0550,Name the operating system that runs on IBM-compatible machines .,1
+trec_train_0551,What was the claim to fame of King Camp Gillette ?,2
+trec_train_0552,What is the full form of .com ?,0
+trec_train_0553,What 's the name of the temple that is located near the capital city of Laos ?,4
+trec_train_0554,"Who came up with the name , El Nino ?",3
+trec_train_0555,What is Dudley Do-Right 's horse 's name ?,1
+trec_train_0556,What piano company claims its product is the `` Instrument of the immortals '' ?,3
+trec_train_0557,What are some interesting facts and information about dogsledding ?,2
+trec_train_0558,What 's the common name for acetylsalicylic acid ?,1
+trec_train_0559,Who is the `` Queen Mother '' ?,3
+trec_train_0560,Where did guinea pigs originate ?,4
+trec_train_0561,What mountain range is traversed by the highest railroad in the world ?,4
+trec_train_0562,What 's the most commonly-spoken language in Belgium ?,1
+trec_train_0563,Name a tiger that is extinct .,1
+trec_train_0564,How many years is Johnnie Walker Black Label aged ?,5
+trec_train_0565,Which country is Australia 's largest export market ?,4
+trec_train_0566,What is the most heavily caffeinated soft drink ?,1
+trec_train_0567,What does `` B.Y.O.B. '' mean ?,0
+trec_train_0568,What Italian liner was hijacked in 1985 ?,1
+trec_train_0569,How many colonies were involved in the American Revolution ?,5
+trec_train_0570,What weapon is the mythological character Apollo most proficient with ?,1
+trec_train_0571,What does G.M.T. stand for ?,0
+trec_train_0572,What is the origin of head lice ?,2
+trec_train_0573,How do you get to the top of the Eiffel Tower ?,2
+trec_train_0574,What are the five most expensive cities in the world ?,4
+trec_train_0575,"What day is August 13 , 1971 ?",5
+trec_train_0576,What does `` extended definition '' mean and how would one write a paper on it ?,2
+trec_train_0577,What are the names of the tourist attractions in Reims ?,4
+trec_train_0578,What was the price of Varian Associates ' vacuum products division ?,5
+trec_train_0579,How many years do fossils take to form ?,5
+trec_train_0580,What is the abbreviated expression for the National Bureau of Investigation ?,0
+trec_train_0581,What type of hunting are retrievers used for ?,1
+trec_train_0582,What war did the Wanna-Go-Home Riots occur after ?,1
+trec_train_0583,What does e.g. stand for ?,0
+trec_train_0584,What is the population of Ohio ?,5
+trec_train_0585,When did Rococo painting and architecture flourish ?,5
+trec_train_0586,How many hearts does an octopus have ?,5
+trec_train_0587,When is Bastille Day ?,5
+trec_train_0588,What diminutive American female gymnast stole the show at the 1984 Olympics ?,3
+trec_train_0589,Where is the Rose Bowl played ?,4
+trec_train_0590,When was Hurricane Hugo ?,5
+trec_train_0591,Where is Tornado Alley ?,4
+trec_train_0592,"What does R.E.M. stand for , as in the rock group R.E.M. ?",0
+trec_train_0593,"What is the 401 , K , plan ?",2
+trec_train_0594,What war did Florence Nightingale tend the troops in ?,1
+trec_train_0595,What is the brightest star visible from Earth ?,4
+trec_train_0596,How is it correct to say ` qigong ' ?,2
+trec_train_0597,What is a Jellicle Cat ?,2
+trec_train_0598,What country 's capital is Tirana ?,4
+trec_train_0599,What is the mascot for Notre Dame University ?,1
+trec_train_0600,What chemicals are used in lethal injection ?,1
+trec_train_0601,"How many people on the ground were killed from the bombing of Pan Am Flight 103 over Lockerbie , Scotland , December 21 , CD .",5
+trec_train_0602,When did World War I start ?,5
+trec_train_0603,What does NECROSIS mean ?,0
+trec_train_0604,What makes hamburgers taste like steakburgers ?,2
+trec_train_0605,What is California 's capital ?,4
+trec_train_0606,How is the election of a new Pope announced to the world ?,2
+trec_train_0607,What is a nanometer ?,2
+trec_train_0608,What are tourist attractions in Reims ?,4
+trec_train_0609,What animal has killed the most people ?,1
+trec_train_0610,In What city or state do the most gay men live in ?,4
+trec_train_0611,What does `` antidisestablishmentarianism '' mean ?,2
+trec_train_0612,What arch can you see from the Place de la Concorde ?,4
+trec_train_0613,Who was Randy Steven Craft 's lawyer ?,3
+trec_train_0614,What is HDLC ?,0
+trec_train_0615,What is paracetamol ?,2
+trec_train_0616,What does SIDS stand for ?,0
+trec_train_0617,Whose cover is that of an employee of Universal Import and Export ?,3
+trec_train_0618,How do you solve `` Rubik 's Cube '' ?,2
+trec_train_0619,What is the leading pecan and peanut growing state ?,4
+trec_train_0620,How do I find the balance of my social security account ?,2
+trec_train_0621,What is color ?,2
+trec_train_0622,What does G.M.T. stand for ?,0
+trec_train_0623,What day of the week sees the most fatal car accidents ?,5
+trec_train_0624,How many Americans fought for the British in the American Revolution ?,5
+trec_train_0625,Where can I find pictorial directions on how to build a very simple treehouse ?,4
+trec_train_0626,What 's the abbreviation for trinitrotoluene ?,0
+trec_train_0627,Who is Colin Powell ?,3
+trec_train_0628,What disease is transmitted by the Anopheles mosquito ?,1
+trec_train_0629,What is the chromosome number of an elephant ?,5
+trec_train_0630,What 's nature 's purpose for tornadoes ?,2
+trec_train_0631,When did Iraqi troops invade Kuwait ?,5
+trec_train_0632,What does the channel ESPN stand for ?,0
+trec_train_0633,What are the living conditions in Cuba ?,2
+trec_train_0634,How do I log on to home page at Headquarters U.S. European Command ?,2
+trec_train_0635,What is the average cost for four years of medical school ?,5
+trec_train_0636,What is the student population at the University of Massachusetts in Amherst ?,5
+trec_train_0637,Who produces Spumante ?,3
+trec_train_0638,Define the Pheonix Club ?,2
+trec_train_0639,What is Answers.com 's address ?,4
+trec_train_0640,What is the correct way to abbreviate cc. at the bottom of a business letter ?,0
+trec_train_0641,Where is Guam ?,4
+trec_train_0642,What does HIV stand for ?,0
+trec_train_0643,What articles of clothing are tokens in Monopoly ?,1
+trec_train_0644,What are the most common elements in the Earth 's crust ?,1
+trec_train_0645,What was the Bridge of San Luis Rey made of ?,1
+trec_train_0646,What two countries ' coastlines border the Bay of Biscay ?,4
+trec_train_0647,"Where is the actress , Marion Davies , buried ?",4
+trec_train_0648,What is `` the bear of beers '' ?,1
+trec_train_0649,Where can stocks be traded on-line ?,4
+trec_train_0650,What was the name of the first Russian astronaut to do a spacewalk ?,3
+trec_train_0651,What does the name `` Justin '' mean ?,2
+trec_train_0652,What beer advertised that it had `` three rings '' ?,1
+trec_train_0653,What does MSG stand for ?,0
+trec_train_0654,What does NAFTA stand for ?,0
+trec_train_0655,How many people in the world speak French ?,5
+trec_train_0656,Which oil company almost picked a word that meant `` stalled car '' in Japanese as its new international name ?,3
+trec_train_0657,How much money does a back injury lawsuit get ?,5
+trec_train_0658,What toy company is the world 's No.1 maker of female apparel ?,3
+trec_train_0659,Who is actress Goldie Hawn 's current actor boyfriend ?,3
+trec_train_0660,When are sheep shorn ?,5
+trec_train_0661,What is a fear of bees ?,1
+trec_train_0662,Who comprised the now-defunct comic book team known as the Champions ?,3
+trec_train_0663,What was Thatcher 's approval rating after 10 years in power ?,5
+trec_train_0664,How many holes are there in a tenpin bowling ball ?,5
+trec_train_0665,What fictional character is known as the `` melancholy Dane '' ?,3
+trec_train_0666,What movie tour of the Roman empire features the admonition : `` Row well and live '' ?,1
+trec_train_0667,What was the first Lifesaver flavor ?,1
+trec_train_0668,What does EKG stand for ?,0
+trec_train_0669,Why was the L.A. office of Shea and Gould closed ?,2
+trec_train_0670,What is the nature of learning ?,2
+trec_train_0671,How do you say `` fresh '' in Spanish ?,1
+trec_train_0672,What is the origin of the expression `` tout de suite '' ?,2
+trec_train_0673,Who was the first American in space ?,3
+trec_train_0674,Boxing Day is celebrated on what date ?,5
+trec_train_0675,How long was Mao 's 1930s Long March ?,5
+trec_train_0676,What is the definition of a cascade ?,2
+trec_train_0677,Where can I get information and statistics on countries and nations ?,4
+trec_train_0678,Who patented the first phonograph ?,3
+trec_train_0679,What is the name of the tallest mountain in the world ?,4
+trec_train_0680,Where does your hair grow the fastest ?,1
+trec_train_0681,Where can I find information on the cyclone that hit New Jersey on 8/28/1941 ?,4
+trec_train_0682,How many different languages are spoken in Europe ?,5
+trec_train_0683,What is titanium ?,2
+trec_train_0684,What is the state nickname of Mississippi ?,4
+trec_train_0685,What was the name of Betty Boop 's dog ?,1
+trec_train_0686,What are the distinct physical characterstics of the Arabian horse ?,2
+trec_train_0687,What desert has been called The Garden of Allah ?,4
+trec_train_0688,What does the abbreviation cwt. ?,0
+trec_train_0689,What South American city has the world 's highest commercial landing field ?,4
+trec_train_0690,Name the Ranger who was always after Yogi Bear .,3
+trec_train_0691,What chapter of the Bible has the most verses ?,5
+trec_train_0692,What day was Pearl Harbor attacked in 1942 ?,5
+trec_train_0693,Who declared : `` I am down on whores and I shan 't stop ripping them '' ?,3
+trec_train_0694,Who is Coronado ?,3
+trec_train_0695,What is the world 's highest peak ?,4
+trec_train_0696,What is the name of the chronic neurological autoimmune disease which attacks the protein sheath that surrounds nerve cells causing a gradual loss of movement in the body ?,1
+trec_train_0697,What fowl grabs the spotlight after the Chinese Year of the Monkey ?,1
+trec_train_0698,What United States President had dreamed that he was assassinated ?,3
+trec_train_0699,How is a hydrogen bomb different from a nuclear bomb ?,2
+trec_train_0700,How did shipyard inspector James J. Kilroy designate equipment as being satisfactory ?,2
+trec_train_0701,When was the women 's suffrage amendment ratified ?,5
+trec_train_0702,Who was the first host of Person to Person ?,3
+trec_train_0703,Where is the Loop ?,4
+trec_train_0704,What animal has the biggest eyes ?,1
+trec_train_0705,What Asian country has a bill of rights for cows ?,4
+trec_train_0706,How many quarters equal a pound ?,5
+trec_train_0707,What infectious disease is the world 's deadliest ?,1
+trec_train_0708,Name the various costumed personas of Dr. Henry Pym .,3
+trec_train_0709,What is viscosity ?,2
+trec_train_0710,Which of the following was Rhodes Scholar ?,3
+trec_train_0711,What are hook worms ?,2
+trec_train_0712,Where do hyenas live ?,4
+trec_train_0713,What do flatfish eat ?,1
+trec_train_0714,How you can raise your IQ ?,2
+trec_train_0715,What ISPs exist in the Caribbean ?,3
+trec_train_0716,What country was A Terrible Beauty to Leon Uris ?,4
+trec_train_0717,What year did Germany sign its nonaggression pact with the Soviet Union ?,5
+trec_train_0718,Where does chocolate come from ?,4
+trec_train_0719,What is the difference between a median and a mean ?,2
+trec_train_0720,What does the T.S. stand for in T.S. Eliot 's name ?,0
+trec_train_0721,McCarren Airport is located in what city ?,4
+trec_train_0722,What country contains Africa 's northernmost point ?,4
+trec_train_0723,What is the acronym for the National Bureau of Investigation ?,0
+trec_train_0724,What plant has the largest seed ?,1
+trec_train_0725,What two countries contain Sierra Nevada mountains ?,4
+trec_train_0726,Who played the original Charlie 's Angels ?,3
+trec_train_0727,What do Mormons believe ?,2
+trec_train_0728,Where do rocks come from ?,2
+trec_train_0729,Who are the two sons of Ozzie and Harriet Nelson ?,3
+trec_train_0730,What is the belt of low pressure around the equator called ?,1
+trec_train_0731,What is Britain 's possession on the Chinese mainland ?,4
+trec_train_0732,What do the letters ZIP stand for in the phrase `` ZIP code '' ?,0
+trec_train_0733,In what state was the first co-educational college established,4
+trec_train_0734,What was the name of that popular song the Creeps sang ?,1
+trec_train_0735,What is the origin of the name ` Scarlett ' ?,2
+trec_train_0736,What does NECROSIS mean ?,0
+trec_train_0737,"Who was the first American poet to win the Nobel Prize for literature , in 1948 ?",3
+trec_train_0738,What does NASA stand for ?,0
+trec_train_0739,How many wives did Brigham Young have ?,5
+trec_train_0740,What part of your body contains the corpus callosum ?,1
+trec_train_0741,What is the Jewish bible called ?,1
+trec_train_0742,What is the most advanced handheld calculator in the world ?,1
+trec_train_0743,When did beethoven die ?,5
+trec_train_0744,What 's the second-most-used vowel in English ?,1
+trec_train_0745,What novel inspired the movie BladeRunner ?,1
+trec_train_0746,How do you match a name to a social security number ?,2
+trec_train_0747,How many years did it take James Joyce to write Ulysses ?,5
+trec_train_0748,What does a topophobic actor suffer from ?,1
+trec_train_0749,What does NN O `` mean when used as a prefix in Irish surnames ?,0
+trec_train_0750,What is the best college in the country ?,3
+trec_train_0751,What century does Captain Video live in ?,5
+trec_train_0752,What 's the tallest piece on a chessboard ?,1
+trec_train_0753,Where can I find a list of all the companies in America that offer a direct stock purchase plan ?,4
+trec_train_0754,Whose autobiography is titled Yes I Can ?,3
+trec_train_0755,What was the number of people that Randy Steven Craft was convicted of killing ?,5
+trec_train_0756,What are Cushman and Wakefield known for ?,2
+trec_train_0757,What 's approaching when a cyclist shouts : `` Oil '' ?,1
+trec_train_0758,What double talking `` professor '' holds a doctorate in Nothing ?,3
+trec_train_0759,What is BPH ?,0
+trec_train_0760,What 's the abbreviation for trinitrotoluene ?,0
+trec_train_0761,What is the history of skateboarding ?,2
+trec_train_0762,What does G.M.T. stand for ?,0
+trec_train_0763,What does BMW stand for ?,0
+trec_train_0764,What 's the second-largest island in the world ?,4
+trec_train_0765,What country are Godiva chocolates from ?,4
+trec_train_0766,What Indian tribe is F Troop perpetually doing battle with ?,3
+trec_train_0767,In what city is the headquarters of Sinn Fein ?,4
+trec_train_0768,What is Colin Powell best known for ?,2
+trec_train_0769,What is the most useful site on the Internet ?,4
+trec_train_0770,What does VCR stand for ?,0
+trec_train_0771,"Who wrote the song , `` Stardust '' ?",3
+trec_train_0772,"What European capital celebrated its 2 , 000th anniversary in 1951 ?",4
+trec_train_0773,What was Mao 's second name ?,3
+trec_train_0774,How many fingers are used to draw a bow ?,5
+trec_train_0775,In what Olympic Games did Nadia Comaneci become popular ?,1
+trec_train_0776,Where do people mountain climb in Nepal ?,4
+trec_train_0777,"What kind of animals are Dorsets , Lincolns , Oxfords and Southdowns ?",1
+trec_train_0778,"What household facility contains a float ball , ballcock , and overflow tube ?",1
+trec_train_0779,What is AFS ?,0
+trec_train_0780,What does an average daycare provider get paid in New England ?,5
+trec_train_0781,How many syllables are there in a line of hendecasyllabic poetry ?,5
+trec_train_0782,What is the full form of .com ?,0
+trec_train_0783,How do you determine heating requirements for your home ?,2
+trec_train_0784,Why did the world enter a global depression in 1929 ?,2
+trec_train_0785,Where can I find a `` Fifth Element '' screensaver ?,4
+trec_train_0786,What does A&W of root beer fame stand for ?,0
+trec_train_0787,What does the Latin ante mortem mean ?,2
+trec_train_0788,What does LOL mean ?,0
+trec_train_0789,What Spanish artist painted Crucifixion ?,3
+trec_train_0790,What Colorado city owns its own glacier ?,4
+trec_train_0791,"The italian artist , Maurizio Pellegrin , is how old ?",5
+trec_train_0792,What Nevada center has been dubbed The Biggest Little City in the World ?,4
+trec_train_0793,What is measured in curies ?,2
+trec_train_0794,How do chickens have baby chicks ?,2
+trec_train_0795,What was her real name ?,3
+trec_train_0796,How do you get a broken cork out of a bottle ?,2
+trec_train_0797,What does gringo mean ?,2
+trec_train_0798,"What lawyer won the largest divorce settlement , $85 million , in U.S. history for Sheika Dena Al-Farri ?",3
+trec_train_0799,What do the letters ZIP stand for in the phrase `` ZIP code '' ?,0
+trec_train_0800,What is the fastest commercial automobile that can be bought in the US ?,1
+trec_train_0801,Who is Terrence Malick ?,3
+trec_train_0802,What does the E stand for in the equation E=mc2 ?,0
+trec_train_0803,What party was Winston Churchill a member of ?,3
+trec_train_0804,What kind of sport is often associated with hooligans ?,1
+trec_train_0805,What is the acronym for the National Bureau of Investigation ?,0
+trec_train_0806,What does ` PSI ' stand for ?,0
+trec_train_0807,How fast does the fastest car go ?,5
+trec_train_0808,Where 's the Petrified Forest ?,4
+trec_train_0809,Where is the highest point in Japan ?,4
+trec_train_0810,CNN is the abbreviation for what ?,0
+trec_train_0811,What is RCD ?,0
+trec_train_0812,What is the normal resting heart rate of a healthy adult ?,5
+trec_train_0813,What is Jane Goodall known for ?,2
+trec_train_0814,What does `` Janelle '' mean ?,2
+trec_train_0815,Where is the Kalahari desert ?,4
+trec_train_0816,Who wrote NN DT NNP NNP '' ?,3
+trec_train_0817,What dictator has the nickname `` El Maximo '' ?,3
+trec_train_0818,What relative of the racoon is sometimes known as the cat-bear ?,1
+trec_train_0819,What two colors are you blind to if you suffer from protanopia ?,1
+trec_train_0820,Name the organization that is presided by a Security Council .,3
+trec_train_0821,The corpus callosum is in what part of the body ?,1
+trec_train_0822,Who invented Make-up ?,3
+trec_train_0823,What is the longest-running television series ?,1
+trec_train_0824,What Jewish holiday saw the start of the 1973 Mideast War ?,1
+trec_train_0825,What does EKG stand for ?,0
+trec_train_0826,Why did the chicken cross the road ?,2
+trec_train_0827,"Who delivered his last newscast on March 6 , 1981 ?",3
+trec_train_0828,What does LOL mean ?,0
+trec_train_0829,How many sonnets did Shakespeare write ?,5
+trec_train_0830,What are Halloween 's colors ?,1
+trec_train_0831,"What do the letters CE stand for on so many products , particularly electrical , purchased now ?",0
+trec_train_0832,"What is p.m. an abbreviation for , as in 5 p.m. ?",0
+trec_train_0833,Who said of Super Bowl III in 1969 : `` We 'll win- I guarantee it '' ?,3
+trec_train_0834,"What children 's tale contains the line : `` Come , Cinderslut , and hold this skein of wool for me '' ?",1
+trec_train_0835,What is being done about the millennium bug ?,2
+trec_train_0836,Where can I find a review of Nightmare on Elm Street in a film journal ?,4
+trec_train_0837,Who is the only prime minister of Canada to serve 22 years but not necessarily consecutively ?,3
+trec_train_0838,What does BMW stand for ?,0
+trec_train_0839,What is Martin Luther King Jr. 's real birthday ?,5
+trec_train_0840,What building appropriately enough is depicted on the back of the 1-dollar bill ?,4
+trec_train_0841,When did the neanderthal man live ?,5
+trec_train_0842,Who earns their money the hard way ?,3
+trec_train_0843,What movie did Madilyn Kahn star in with Gene Wilder ?,1
+trec_train_0844,Who was the star of the 1965 Broadway hit Golden Boy ?,3
+trec_train_0845,How can I transport files from one computer to another ?,2
+trec_train_0846,Why do some clothing labels say `` Use a nonchlorine bleach '' ?,2
+trec_train_0847,What is the highest mountain in the world ?,4
+trec_train_0848,What golfing accessory was patented by George Grant on December 12,1
+trec_train_0849,What color were their horses ?,1
+trec_train_0850,What rum is so `` mixable '' it is a one-brand bar ?,1
+trec_train_0851,Where can I find the best free evidence for debate about Russia ?,4
+trec_train_0852,How do you say I love you in Spanish ?,1
+trec_train_0853,When did the Bounty mutiny take place ?,5
+trec_train_0854,Which way do you turn your Bic to increase the flame - clockwise or counterclockwise ?,4
+trec_train_0855,How do I get another city 's newspaper ?,2
+trec_train_0856,"On average , how many miles are there to the moon ?",5
+trec_train_0857,What are amphibians ?,2
+trec_train_0858,What is DSL ?,0
+trec_train_0859,What does CNN stand for ?,0
+trec_train_0860,What is Spumante ?,2
+trec_train_0861,What is the name of the managing director of Apricot Computer ?,3
+trec_train_0862,When was `` the Great Depression '' ?,5
+trec_train_0863,What does SIDS stand for ?,0
+trec_train_0864,What is the abbreviation of General Motors ?,0
+trec_train_0865,Who fired Maria Ybarra from her position in San Diego council ?,3
+trec_train_0866,What country has the largest sheep population ?,4
+trec_train_0867,When did the royal wedding of Prince Andrew and Fergie take place ?,5
+trec_train_0868,What cocktail do you concoct with whisky and sweet vermouth ?,1
+trec_train_0869,Which Doonesbury character was likely to turn into a werewolf ?,3
+trec_train_0870,What Polynesian people inhabit New Zealand ?,3
+trec_train_0871,What does MSG stand for ?,0
+trec_train_0872,What is `` Nine Inch Nails '' ?,2
+trec_train_0873,What 's the longest river in the world ?,4
+trec_train_0874,What was the education system in the 1960 's ?,1
+trec_train_0875,Where was Lincoln assassinated ?,4
+trec_train_0876,Who was the first Holy Roman Emperor ?,3
+trec_train_0877,How many bends are there in a standard paper clip ?,5
+trec_train_0878,How many Grammys did Michael Jackson win in 1983 ?,5
+trec_train_0879,What are the 7 articles of the constitution ?,1
+trec_train_0880,How many innings are there in a regulation softball game ?,5
+trec_train_0881,What makes a tornado turn ?,2
+trec_train_0882,What 's the origin of the word ` news ' ?,2
+trec_train_0883,"What was archy , and mehitabel ?",2
+trec_train_0884,Who is the man behind the pig-the man who pulls the strings and speaks for Miss Piggy ?,3
+trec_train_0885,What year did the Vietnam War end ?,5
+trec_train_0886,What does the `` c '' stand for in the equation E=mc2 ?,0
+trec_train_0887,Who directed `` Jaws '' ?,3
+trec_train_0888,"When reading classified ads , what does EENTY : other stand for ?",0
+trec_train_0889,Which company that manufactures video-game hardware sells the `` super system '' ?,3
+trec_train_0890,How many astronauts manned each Project Mercury flight ?,5
+trec_train_0891,What instrument is Ray Charles best known for playing ?,1
+trec_train_0892,What is the purpose of a car bra ?,2
+trec_train_0893,What is SVHS ?,0
+trec_train_0894,What is ethology ?,2
+trec_train_0895,What therapy attempts to elicit the `` primal scream '' ?,1
+trec_train_0896,What are the only two states that incorporate the Confederate battle flag in their flags ?,4
+trec_train_0897,Who is Stein Eriksen ?,3
+trec_train_0898,What does EKG stand for ?,0
+trec_train_0899,What 1920s cowboy star rode Tony the Wonder Horse ?,3
+trec_train_0900,What is DTMF ?,0
+trec_train_0901,"What do the letters D.C. stand for in Washington , D.C. ?",0
+trec_train_0902,Where did Sarge Steel get his metal hand ?,4
+trec_train_0903,What is the correct way to abbreviate cc. at the bottom of a business letter ?,0
+trec_train_0904,What is a wop ?,2
+trec_train_0905,Where are the tropical rain forest distributions ?,4
+trec_train_0906,What is the speed of the Mississippi River ?,5
+trec_train_0907,What is the Motto for the State of Maryland ?,2
+trec_train_0908,In what area of the world was the Six Day War fought ?,4
+trec_train_0909,What is the temperature for baking Peachy Oat Muffins ?,5
+trec_train_0910,How successful is arometherapy ?,2
+trec_train_0911,What excuse did the NATO people give for hitting the Chinese embassy ?,2
+trec_train_0912,What province is Edmonton located in ?,4
+trec_train_0913,What is BPH ?,0
+trec_train_0914,What product on the market is good for hiding facial scars ?,1
+trec_train_0915,How much money are Dumbo 's ears insured for ?,5
+trec_train_0916,Where was Richard Nixon when Gerald Ford became president ?,4
+trec_train_0917,What facial feature typically contains about 55 hairs ?,2
+trec_train_0918,"Who claimed he killed 4 , 280 buffalo as food for the crew building the Kansas Pacific Railway ?",3
+trec_train_0919,What information can you get me on Fairground Park in St. Louis,2
+trec_train_0920,What does ` PSI ' stand for ?,0
+trec_train_0921,What 's the only work by Michelangelo that bears his signature ?,1
+trec_train_0922,What film marked Robert Redford 's directorial debut ?,1
+trec_train_0923,What continent 's name appears on the upper left corner of a Budweiser label ?,4
+trec_train_0924,What does SHIELD stand for ?,0
+trec_train_0925,What is the difference between classical conditioning and operant conditioning ?,2
+trec_train_0926,How large is the Arctic refuge to preserve unique wildlife and wilderness value on Alaska 's north coast ?,5
+trec_train_0927,Who are the Challengers of the Unknown ?,3
+trec_train_0928,How many Gutenberg Bibles are there ?,5
+trec_train_0929,What is the oldest website on the Internet ?,4
+trec_train_0930,Who was the only U.S. President to wear a Nazi uniform ?,3
+trec_train_0931,Who is the superstar in rent-a-cars ?,3
+trec_train_0932,What is one of the cities that the University of Minnesota is located in ?,4
+trec_train_0933,How many degrees cooler is the inside of a cucumber than the air outside ?,5
+trec_train_0934,What caused Harry Houdini 's death ?,2
+trec_train_0935,How many inches over six feet is the Venus de Milo ?,5
+trec_train_0936,Which two states enclose Chesapeake Bay ?,4
+trec_train_0937,What creature scares people in the film `` Jaws '' ?,1
+trec_train_0938,What soap was touted as being `` for people who like people '' ?,1
+trec_train_0939,What does S.O.S. stand for ?,0
+trec_train_0940,What are two plants that clothes are made from ?,1
+trec_train_0941,What is the full form of .com ?,0
+trec_train_0942,What is the acronym for the rating system for air conditioner efficiency ?,0
+trec_train_0943,When does the average teenager first have intercourse ?,5
+trec_train_0944,How can I register my website in Yahoo for free ?,2
+trec_train_0945,What city gained renown for its pea-soup fogs ?,4
+trec_train_0946,What is a fear of shadows ?,1
+trec_train_0947,What is dry ice ?,2
+trec_train_0948,How many hostages were killed in the Entebbe raid ?,5
+trec_train_0949,How many Community Chest cards are there in Monopoly ?,5
+trec_train_0950,What is the abbreviation of the National Bureau of Investigation ?,0
+trec_train_0951,What is a ball that hits the foul pole called ?,1
+trec_train_0952,Where 's the 19th hole on a golf course ?,4
+trec_train_0953,What U.S. President showed a fondness for munching on bee pollen bars ?,3
+trec_train_0954,What two countries share the Khyber Pass ?,4
+trec_train_0955,What does the abbreviation IOC stand for ?,0
+trec_train_0956,What does CNN stand for ?,0
+trec_train_0957,What mountains lie between the Arkansas and Missouri rivers ?,4
+trec_train_0958,What is Bombay duck ?,2
+trec_train_0959,What part did John Peter Zenger play in the deveopment of the newspaper in America ?,3
+trec_train_0960,How many minutes were there on the original GE College Bowl clock ?,5
+trec_train_0961,What are the largest breweries in the world ?,4
+trec_train_0962,How much waste does an average dairy cow produce in a day ?,5
+trec_train_0963,What U.S. city is The Queen of the Pacific ?,4
+trec_train_0964,Where can I buy a hat like the kind Jay Kay from Jamiroquai wears ?,4
+trec_train_0965,What is the name of the city that Maurizio Pellegrin lives in ?,4
+trec_train_0966,How do I start a web based business ?,2
+trec_train_0967,"What is p.m. an abbreviation for , as in 5 p.m. ?",0
+trec_train_0968,What Texas city got its name from the Spanish for `` yellow '' ?,4
+trec_train_0969,Where is Procter & Gamble based in the U.S. ?,4
+trec_train_0970,What is the chemical reactivity of argon ?,5
+trec_train_0971,What is the classic definition of tragic hero ?,2
+trec_train_0972,What is the busiest air travel season ?,5
+trec_train_0973,What is the acronym for the rating system for air conditioner efficiency ?,0
+trec_train_0974,How many pairs of legs does a lobster have ?,5
+trec_train_0975,What does IOC stand for ?,0
+trec_train_0976,What is `` snoogans '' ?,2
+trec_train_0977,What did Richard Feynman say upon hearing he would receive the Nobel Prize in Physics ?,2
+trec_train_0978,How many points make up a perfect fivepin bowling score ?,5
+trec_train_0979,What does BMW stand for ?,0
+trec_train_0980,To what does Microsoft 's Windows 3 owe its success ?,1
+trec_train_0981,What does the `` c '' stand for in the equation E=mc2 ?,0
+trec_train_0982,"What country has the most time zones , with 11 ?",4
+trec_train_0983,Where on the Internet can I find a song lyrics database similar to the International Lyrics Server ?,4
+trec_train_0984,What sign is The Water Carrier the zodiacal symbol for ?,1
+trec_train_0985,Who does data collection in tourism ?,3
+trec_train_0986,How do you ask a total stranger out on a date ?,2
+trec_train_0987,What is RCD ?,0
+trec_train_0988,What does the acronym CPR mean ?,0
+trec_train_0989,Who has won the most Super Bowls ?,3
+trec_train_0990,Who was the first woman golfer to earn a million ?,3
+trec_train_0991,What is the average age of a member of the team that worked on the Manhatten Project ?,5
+trec_train_0992,What is DTMF ?,0
+trec_train_0993,What was the name of the daughter of the Virginia chief Powhatan that married John Rolfe ?,3
+trec_train_0994,What is the largest city on the Great Lakes ?,4
+trec_train_0995,Why is poop sometimes different colors ?,2
+trec_train_0996,Why do people get calluses ?,2
+trec_train_0997,When did Spielberg direct `` Jaws '' ?,5
+trec_train_0998,What is a fear of passing high objects ?,1
+trec_train_0999,What are equity securities ?,2
+trec_train_1000,What actor first portrayed James Bond ?,3
+trec_train_1001,What does CNN stand for ?,0
+trec_train_1002,How fast is light ?,5
+trec_train_1003,What does the number `` 5 '' stand for on FUBU clothing ?,0
+trec_train_1004,What is the Kashmir issue ?,2
+trec_train_1005,Where are the 49 steps ?,4
+trec_train_1006,How many villi are found in the small intestine ?,5
+trec_train_1007,Where do the adventures of `` The Swiss Family Robinson '' take place ?,4
+trec_train_1008,What 's the slowest Olympic swimming stroke ?,1
+trec_train_1009,How do doctors diagnose bone cancer ?,2
+trec_train_1010,What are the seven virtues ?,2
+trec_train_1011,What is D.B. Cooper known for ?,2
+trec_train_1012,Where is Trinidad ?,4
+trec_train_1013,What London street is the home of British journalism ?,4
+trec_train_1014,What is the probability that at least 2 out of 25 people will have the same birthday ?,5
+trec_train_1015,"How many times has `` Louie , Louie '' been recorded ?",5
+trec_train_1016,How much was the minimum wage in 1991 ?,5
+trec_train_1017,What J.R.R. Tolkien book features Bilbo Baggins as the central character ?,1
+trec_train_1018,Give a reason for American Indians oftentimes dropping out of school .,2
+trec_train_1019,What was the name of the lawyer who represented Randy Craft ?,3
+trec_train_1020,What percentage of Americans own their homes ?,5
+trec_train_1021,What are the rites accompanying the circumcision of a newly born-child in Judaism called ?,1
+trec_train_1022,Why are the ears your center of balance ?,2
+trec_train_1023,How many species of sharks are there ?,5
+trec_train_1024,Who won the Nobel Peace Prize in 1991 ?,3
+trec_train_1025,What is IOC an abbreviation of ?,0
+trec_train_1026,What is a `` USB '' port on a computer ?,0
+trec_train_1027,What are the powers and weaknesses of Green Lantern 's ring ?,2
+trec_train_1028,What 's the abbreviation for trinitrotoluene ?,0
+trec_train_1029,What does A&W of root beer fame stand for ?,0
+trec_train_1030,What does SIDS stand for ?,0
+trec_train_1031,How many calories are in a tomato ?,5
+trec_train_1032,What is a Canada two-penny black ?,2
+trec_train_1033,"What does R.E.M. stand for , as in the rock group R.E.M. ?",0
+trec_train_1034,Who is the fastest swimmer in the world ?,3
+trec_train_1035,What does the `` blue ribbon '' stand for ?,0
+trec_train_1036,What is the design of the ship Titanic ?,2
+trec_train_1037,What makes popcorn pop ?,2
+trec_train_1038,What four forms does gold occur in ?,1
+trec_train_1039,What city is the setting for Puccini 's opera La Boheme ?,4
+trec_train_1040,Where is the Abominable Snowman said to wander ?,4
+trec_train_1041,Who was the Democratic nominee in the American presidential election ?,3
+trec_train_1042,How far do you have to run if you hit a home run ?,5
+trec_train_1043,Which Ventura County police department seized the largest cocaine shipment in it 's history ?,3
+trec_train_1044,How do they find or choose witnesses to an execution ?,2
+trec_train_1045,How do you make a paintball ?,2
+trec_train_1046,What is the highest peak in Africa ?,4
+trec_train_1047,What 's the first day of the week ?,5
+trec_train_1048,What do you get by adding Lactobacillus bulgaricus to milk ?,1
+trec_train_1049,What country in Latin America is the largest one ?,4
+trec_train_1050,What 's the term for a bet before cards are dealt ?,1
+trec_train_1051,What color bottles do good Rhine wines come in ?,1
+trec_train_1052,What does NAFTA stand for ?,0
+trec_train_1053,Where are 8 of the 10 highest mountains in the world ?,4
+trec_train_1054,What 's the abbreviation for limited partnership ?,0
+trec_train_1055,What year was Desmond Mpilo Tutu awarded the Nobel Peace Prize ?,5
+trec_train_1056,What does `` intractable plantar keratoma '' mean ?,2
+trec_train_1057,What does the channel ESPN stand for ?,0
+trec_train_1058,What is the function of RAM ?,2
+trec_train_1059,Who discovered electricity ?,3
+trec_train_1060,Who is the monarch of the United Kingdom ?,3
+trec_train_1061,What Hollywood dog died in the arms of Jean Harlow in 1932 ?,1
+trec_train_1062,What does MSG stand for ?,0
+trec_train_1063,When was Ozzy Osbourne born ?,5
+trec_train_1064,What girl 's name is `` Teddy '' an affectionate form of ?,3
+trec_train_1065,What does NAFTA stand for ?,0
+trec_train_1066,What Vladimir Nabokov novel features Professor Humbert in love with a 12-year-old girl ?,1
+trec_train_1067,What President-to-be was the first member of Congress to enlist following the attack on Pearl Harbor ?,3
+trec_train_1068,How many shots can a stock M16 hold ?,5
+trec_train_1069,How long was the TV mission of Star Trek 's Enterprise to be ?,5
+trec_train_1070,When is the Tulip Festival in Michigan ?,5
+trec_train_1071,Who was the prophet of the Muslim people ?,3
+trec_train_1072,What was the first domesticated bird ?,1
+trec_train_1073,When did Mount St. Helen last have a significant eruption ?,5
+trec_train_1074,What is a fear of parasites ?,1
+trec_train_1075,What are the three winter months in the southern hemisphere ?,5
+trec_train_1076,What is white chocolate ?,2
+trec_train_1077,What does NN O `` mean when used as a prefix in Irish surnames ?,0
+trec_train_1078,Where can I find the names of all the 15 Pokemon ?,4
+trec_train_1079,What is a fear of thunder ?,1
+trec_train_1080,Where on the Internet can I get information about the Fifth Amendment on the American Bill of Rights ?,4
+trec_train_1081,What team did baseball 's St. Louis Browns become ?,3
+trec_train_1082,What is the average time it takes for a male to ejaculate ?,5
+trec_train_1083,How many stars are there on the Soviet Union 's flag ?,5
+trec_train_1084,"How many casinos are in Atlantic City , NJ ?",5
+trec_train_1085,What album put The Beatles on the cover of Time in 1967 ?,1
+trec_train_1086,What does BMW stand for ?,0
+trec_train_1087,"What do I need to do to take my dog with me to live in Dominica , West Indies for a year ?",2
+trec_train_1088,How long is the Coney Island boardwalk ?,5
+trec_train_1089,In what city is the famed St. Mark 's Square ?,4
+trec_train_1090,Who created private detective Philip Marlowe ?,3
+trec_train_1091,Who created the character of Scrooge ?,3
+trec_train_1092,What does the number `` 5 '' stand for on FUBU clothing ?,0
+trec_train_1093,How many square feet is Bill Gates ' home ?,5
+trec_train_1094,What was the name of the sitcom that Alyssa Milano starred in with Tony Danza ?,1
+trec_train_1095,"What deck of cards includes the Wheel of Fortune , the Lovers , and Death ?",1
+trec_train_1096,In what medium is Stuart Hamblen considered to be the first singing cowboy ?,1
+trec_train_1097,What does the channel ESPN stand for ?,0
+trec_train_1098,What does the word LASER mean ?,0
+trec_train_1099,In which year was New Zealand excluded from the ANZUS alliance ?,5
+trec_train_1100,When was the battle of the Somme fought ?,5
+trec_train_1101,What CBS soap opera was interrupted by the bulletin of John F. Kennedy 's assassination ?,1
+trec_train_1102,How many months does a normal human pregnancy last ?,5
+trec_train_1103,What Asian leader was known as The Little Brown Saint ?,3
+trec_train_1104,Where does Barney Rubble go to work after he drops Fred off in the `` Flintstones '' cartoon series ?,4
+trec_train_1105,Where can I find out the top 1 singles ?,4
+trec_train_1106,"What is the origin of the word , magic ?",2
+trec_train_1107,How many sperm cells are in an average ejaculation ?,5
+trec_train_1108,Why doesn 't www.answers.com have any answers to my questions ?,2
+trec_train_1109,When did Israel begin turning the Gaza Strip and Jericho over to the PLO ?,5
+trec_train_1110,How is Easter Sunday 's date determined ?,2
+trec_train_1111,What are the different types of plastic ?,1
+trec_train_1112,Where are the leading medical groups specializing in lung diseases ?,4
+trec_train_1113,What body of water does the Danube River flow into ?,4
+trec_train_1114,How many months does it take the moon to revolve around the Earth ?,5
+trec_train_1115,What does the Georgetown `` Hoya '' mean ?,2
+trec_train_1116,Which company created the Internet browser Mosaic ?,3
+trec_train_1117,What did Delilah do to Samson 's hair ?,2
+trec_train_1118,What does the `` blue ribbon '' stand for ?,0
+trec_train_1119,What does a nihilist believe in ?,2
+trec_train_1120,Where is the Orinoco ?,4
+trec_train_1121,What Russian composer 's Prelude in C Sharp Minor brought him fame and fortune ?,3
+trec_train_1122,What year did Rossetti paint `` Beata Beatrix '' ?,5
+trec_train_1123,What is the origin of the name Katie ?,2
+trec_train_1124,What does LOL mean ?,0
+trec_train_1125,What company tabulates the ballots in voting for the Academy Awards ?,3
+trec_train_1126,Why do horseshoes bring luck ?,2
+trec_train_1127,"What is the origin and the meaning of the name , `` Hajo ? ''",2
+trec_train_1128,What is the real name of disc jockey `` Wolfman Jack '' ?,3
+trec_train_1129,What country did the Nile River originate in ?,4
+trec_train_1130,What does ribavirin consist of ?,1
+trec_train_1131,How many horses died during the civil war ?,5
+trec_train_1132,When is the site www.questions.com going to open ?,5
+trec_train_1133,What is the second hardest substance ?,1
+trec_train_1134,What does NAFTA stand for ?,0
+trec_train_1135,What do players try to do when the music stops in a game of musical chairs ?,2
+trec_train_1136,What is the meaning of Jesus ?,2
+trec_train_1137,What was the name of the 187s Irish terrorist group in Pennsylvania mining areas ?,3
+trec_train_1138,What author landed a 468-pound marlin without harness in the early 193 's ?,3
+trec_train_1139,What fastener did Whitcomb Judson patent in 1893 ?,1
+trec_train_1140,Who were the four famous founders of United Artists ?,3
+trec_train_1141,Where is Windsor Castle ?,4
+trec_train_1142,How many people in America snore ?,5
+trec_train_1143,How many acres in a mile ?,5
+trec_train_1144,What does a spermologer collect ?,1
+trec_train_1145,How big is a quart ?,5
+trec_train_1146,What does the abbreviation cwt. ?,0
+trec_train_1147,"How can I find online spelling , and punctuation drills for my 6th grader ?",2
+trec_train_1148,What is the contents of proposition 98 ?,2
+trec_train_1149,What is IOC an abbreviation of ?,0
+trec_train_1150,What is the correct way to abbreviate cc. at the bottom of a business letter ?,0
+trec_train_1151,Italy is the largest producer of what ?,1
+trec_train_1152,Who is the worst US President ever ?,3
+trec_train_1153,What contemptible scoundrel stole the cork from my lunch ?,3
+trec_train_1154,How many hands does Bjorn Borg use when hitting his forehand ?,5
+trec_train_1155,"What does R.E.M. stand for , as in the rock group R.E.M. ?",0
+trec_train_1156,What longtime game show host dropped dead while jogging in Central Park in 1984 ?,3
+trec_train_1157,"What are other ways of getting stretch marks besides pregnancy , weight loss , and weight lifting ?",1
+trec_train_1158,When was the first American encyclopedia published ?,5
+trec_train_1159,What 's the sacred river of India ?,4
+trec_train_1160,What does EKG stand for ?,0
+trec_train_1161,What are shooting stars ?,2
+trec_train_1162,What stereo manufacturer is `` Slightly ahead of its time '' ?,3
+trec_train_1163,"Who graced the airwaves with such pearls as `` Do ya lo-o-ove me ? Get naked , baby ! '' ?",3
+trec_train_1164,What 's the abbreviation for limited partnership ?,0
+trec_train_1165,Who invented silly putty ?,3
+trec_train_1166,What is LMDS ?,0
+trec_train_1167,What was the target rate for M3 growth in 1992 ?,5
+trec_train_1168,What famous model was married to Billy Joel ?,3
+trec_train_1169,What is a transistor ?,2
+trec_train_1170,What is Grenada 's main commodity export ?,1
+trec_train_1171,When was the slinky invented ?,5
+trec_train_1172,Who wrote The Night of the Iguana ?,3
+trec_train_1173,In what U.S. state was the first woman governor elected ?,4
+trec_train_1174,"What then-derogatory term was applied to the painters Monet , Sisley , Pissarro , Renoir and Degas ?",1
+trec_train_1175,What does S.O.S. stand for ?,0
+trec_train_1176,What is Olestra ?,2
+trec_train_1177,Where is the Danube ?,4
+trec_train_1178,What causes pneumonia ?,2
+trec_train_1179,What South Korean city is served by Kimpo International Airport ?,4
+trec_train_1180,Where does the U.S. rank among world countries in area ?,5
+trec_train_1181,What 's the Olympic motto ?,2
+trec_train_1182,What is the current ticket fare from from Cairo to Barbados ?,5
+trec_train_1183,What does BUD stand for ?,0
+trec_train_1184,How many revolutions does a standard LP make in three minutes ?,5
+trec_train_1185,What is the history of Valentine 's Day cards ?,2
+trec_train_1186,Where did Indian Pudding come from ?,2
+trec_train_1187,What does LOL mean ?,0
+trec_train_1188,What is IOC an abbreviation of ?,0
+trec_train_1189,"When reading classified ads , what does EENTY : other stand for ?",0
+trec_train_1190,Where must a soccer goalie stand to be permitted to handle the ball ?,4
+trec_train_1191,What is the abbreviated form of the National Bureau of Investigation ?,0
+trec_train_1192,How many oceans are there and name them ?,5
+trec_train_1193,What was cash-conscious Colonel Edwin L. Drake the first to drill ?,1
+trec_train_1194,What product does `` Mrs. Olsen '' promote ?,1
+trec_train_1195,How can I find out which cities have cable-modem access ?,2
+trec_train_1196,What does the name Billie mean ?,2
+trec_train_1197,How do Ouija Boards work ?,2
+trec_train_1198,What is LMDS ?,0
+trec_train_1199,What is a film starring Jude Law ?,1
