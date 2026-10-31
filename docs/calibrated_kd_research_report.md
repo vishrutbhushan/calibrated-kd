@@ -130,3 +130,4 @@ All 16 publication-grade figures (300 DPI) have been generated with strictly ide
 3. [x] **Sample-Dependent Entropy Gating:** Formulated and evaluated Entropy-Adaptive CKD ($\alpha(x) = H(p)/\log K$).
 4. [x] **Universal Multi-Model Law:** Validated across 3 foundation model families (Google, Alibaba, Meta).
 5. [x] **Empirical Triad + Safety Proof:** Confirmed across 4 benchmarks (Topic, Affect, Questions, and Binary Sentiment), proving large gains on skewed tasks and 0.00% distortion on low-skew tasks.
+

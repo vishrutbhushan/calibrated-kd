@@ -1,29 +1,30 @@
 # 📋 PROJECT HANDOVER & CONTEXT SPECIFICATION
 
-> **Target Audience:** Any new AI agent or researcher starting a conversation in this repository (`/home/vishrut/calibrated-kd`).
-> **Last Updated:** October 30, 2026
+> **Target Audience:** Any incoming AI agent or researcher working in `/home/vishrut/calibrated-kd`.
+> **Last Updated:** October 31, 2026
+> **Core Theme:** Null-Conditioned Verbalizer Calibration for Autoregressive Knowledge Distillation
 
 ---
 
 ## 1. Executive Summary & Research Goal
 
-This repository investigates **Calibrated Knowledge Distillation (CKD)** (also referred to as **Prior-Invariant Knowledge Distillation / PI-KD**).
+This repository investigates **Null-Conditioned Verbalizer Calibration in Autoregressive Knowledge Distillation**.
 
 ### Core Problem
-Autoregressive LLM teachers exhibit heavy **unigram prior skews** ($W_{\text{null}}$) across classification verbalizers, even when prompted in-context. Under standard forward-KL distillation, this teacher prior leaks into the training soft targets, causing:
-1. **Severe class collapse / starvation** on less frequent or lower-prior minority classes.
+Autoregressive LLM teachers exhibit severe **null-conditioned verbalizer biases** ($W_0$) across candidate output tokens, even when prompted in-context. Under standard distillation, this teacher prompt preference transfers into the training soft targets, causing:
+1. **Suppression / starvation** on classes whose verbalizers have lower null-prompt likelihood.
 2. **Artificial degradation** of distilled student accuracy and Macro-F1.
 
-### The Solution: Static Calibrated KD (CKD)
-We extract the teacher's response to an empty / null input (`"Text: N/A\nAnswer:"`) as $W_{\text{null}}$, and purge it before soft target computation:
-$$\tilde{z}(x) = z(x) - W_{\text{null}}$$
+### The Method: Static Verbalizer-Calibrated KD
+We extract the teacher's response across candidate verbalizers to content-free null prompts as $W_0$, and calibrate the teacher logits before computing soft target probabilities:
+$$\tilde{z}(x) = z(x) - \beta W_0$$
 $$P_{\text{cal}}(y \mid x) = \text{Softmax}(\tilde{z}(x))$$
-$$\mathcal{L}_{\text{KD}} = D_{\text{KL}}\!\left(P_{\text{cal}}(y \mid x) \,\|\, P_{\text{student}}(y \mid x)\right)$$
+$$\mathcal{L} = (1 - \lambda)\mathcal{L}_{\text{CE}} + \lambda D_{\text{KL}}\!\left(P_{\text{cal}}(y \mid x) \,\|\, P_{\text{student}}(y \mid x)\right)$$
 
-### ⚠️ Crucial Project Constraint: DROP PRAXIS
-* The initial project examined human annotator bias on PRAXIS (an Hindi-English translation dataset).
-* **PRAXIS has been completely dropped** due to subjective, noisy human annotations.
-* The focus is strictly on **canonical, high-agreement gold-standard NLP benchmarks** (AG News, Emotion, SST-2).
+### ⚠️ Methodological Pruning & Scope
+* **Pruned Methods:** Failed entropy-adaptive gating (Ada-CKD) and null-invariance regularizer (PI-KD) have been dropped. The core focus is strictly on robust **Static Verbalizer Calibration**.
+* **Dropped Datasets:** PRAXIS has been permanently dropped due to noisy subjective translations.
+* **Focus Benchmarks:** High-agreement gold-standard NLP benchmarks (AG News, Emotion, TREC-6, SST-2).
 
 ---
 

@@ -1,0 +1,86 @@
+{
+  "regime": "standard_kd",
+  "dataset": "AG News",
+  "lambda_kd": 0.5,
+  "final_epoch": {
+    "epoch": 2,
+    "test_acc": 81.2,
+    "test_f1": 80.48593587338327,
+    "test_counts": [
+      270,
+      256,
+      339,
+      135
+    ],
+    "scitech_count": 135
+  },
+  "classification_report": {
+    "World": {
+      "precision": 0.8111111111111111,
+      "recall": 0.876,
+      "f1-score": 0.8423076923076923,
+      "support": 250.0
+    },
+    "Sports": {
+      "precision": 0.921875,
+      "recall": 0.944,
+      "f1-score": 0.932806324110672,
+      "support": 250.0
+    },
+    "Business": {
+      "precision": 0.672566371681416,
+      "recall": 0.912,
+      "f1-score": 0.7741935483870968,
+      "support": 250.0
+    },
+    "Sci/Tech": {
+      "precision": 0.9555555555555556,
+      "recall": 0.516,
+      "f1-score": 0.6701298701298701,
+      "support": 250.0
+    },
+    "accuracy": 0.812,
+    "macro avg": {
+      "precision": 0.8402770095870207,
+      "recall": 0.8119999999999999,
+      "f1-score": 0.8048593587338327,
+      "support": 1000.0
+    },
+    "weighted avg": {
+      "precision": 0.8402770095870207,
+      "recall": 0.812,
+      "f1-score": 0.8048593587338327,
+      "support": 1000.0
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "ce_loss": 2.107980405425159,
+      "kd_loss": 2.279557362645355,
+      "total_loss": 2.1937688824108337,
+      "test_acc": 0.804,
+      "test_f1": 0.7981215983832283,
+      "pred_counts": [
+        261,
+        254,
+        341,
+        144
+      ]
+    },
+    {
+      "epoch": 2,
+      "ce_loss": 0.45375137593597176,
+      "kd_loss": 0.37197019387595354,
+      "total_loss": 0.41286078502982854,
+      "test_acc": 0.812,
+      "test_f1": 0.8048593587338327,
+      "pred_counts": [
+        270,
+        256,
+        339,
+        135
+      ]
+    }
+  ]
+}
