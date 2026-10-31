@@ -82,16 +82,16 @@ To ensure scientific validity, the model pair and hyperparameter regime are fixe
   * Static CKD (New): **43.33% Acc (+2.66%)** | **39.03% Macro-F1 (+1.44%)** (Sadness cut in half: 152 $\to$ 75; **Surprise revived**)
 * **Dedicated Figures:** `figures/emotion/` (`fig1` to `fig4`).
 
-### Benchmark 3: SST-2 (2-Class Sentiment Classification) — ⏳ READY FOR PACKAGING
+### Benchmark 3: SST-2 (2-Class Sentiment Classification) — ✅ COMPLETE
 * **Splits:** $N_{\text{train}} = 1,000$ | $N_{\text{test}} = 200$ balanced
 * **Classes:** `[Negative, Positive]`
 * **Null Skew:** $\Delta_{\text{null}} = 1.25\text{ logits}$ (Minimal skew)
 * **Purpose:** **Zero-Harm Safety Control** (proves calibration does not harm tasks with low prior bias).
-* **Current Status:**
+* **Results:**
   * Standard KD: 81.50% Acc | 80.92% Macro-F1 (`[135, 65]`)
   * Calibrated KD: 81.50% Acc | 80.92% Macro-F1 (`[135, 65]`)
-  * Exactly **0.00% delta** (zero distortion).
-* **Next Action:** Generate dedicated standalone SST-2 figures (`figures/sst2/`) strictly when instructed.
+  * Exactly **0.00% delta** (zero distortion / perfect stability).
+* **Dedicated Figures:** `figures/sst2/` (`fig1` to `fig4`).
 
 ### Benchmark 4: TREC-6 (6-Class Question Classification) — ✅ COMPLETE
 * **Splits:** $N_{\text{train}} = 1,200$ (200/class) | $N_{\text{test}} = 500$ (Canonical test set)
@@ -127,6 +127,7 @@ To ensure scientific validity, the model pair and hyperparameter regime are fixe
 ├── figures/                       # Dedicated Old vs New figures partitioned by dataset
 │   ├── agnews/
 │   ├── emotion/
+│   ├── sst2/
 │   └── trec/
 ├── logs/                          # Background task output logs
 └── docs/                          # Detailed execution plan and research reports
