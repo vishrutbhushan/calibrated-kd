@@ -103,6 +103,15 @@ To ensure scientific validity, the model pair and hyperparameter regime are fixe
   * Static CKD (New): **80.00% Acc (+1.80%)** | **77.12% Macro-F1 (+2.04%)** (`Entity` rescued to 58, **+20.8% gain**; `Description` suppressed to 159, **-10.7% closer to truth**)
 * **Dedicated Figures:** `figures/trec/` (`fig1` to `fig4`).
 
+### Benchmark 5: DBpedia-14 (14-Class Ontological Classification) — ✅ COMPLETE
+* **Splits:** $N_{\text{train}} = 1,400$ (100/class) | $N_{\text{test}} = 700$ balanced (50/class)
+* **Classes:** `[Company, EducationalInstitution, Artist, Athlete, OfficeHolder, MeanOfTransportation, Building, NaturalPlace, Village, Animal, Plant, Album, Film, WrittenWork]`
+* **Null Skew:** $\Delta_{\text{null}} = 5.94\text{ logits}$ (`Company` + `WrittenWork` consume 82.4% of null prior; 379.0× ratio vs `MeanOfTransportation`)
+* **Results:**
+  * Standard KD (Old): 77.29% Acc | 76.55% Macro-F1 (`Company` bloated to 130 vs 50 truth; `MeanOfTransportation` starved to 21; `Animal` starved to 15)
+  * Static CKD (New): **82.00% Acc (+4.71%)** | **81.02% Macro-F1 (+4.47%)** (`MeanOfTransportation` rescued to 40, **+90.5% gain**; `Animal` rescued to 23, **+53.3% gain**; `Company` deflated to 91)
+* **Dedicated Figures:** `figures/dbpedia/` (`fig1` to `fig3`).
+
 ---
 
 ## 5. Repository Map
