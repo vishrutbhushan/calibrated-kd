@@ -20,3 +20,9 @@ models/checkpoints/
 .DS_Store
 .vscode/
 .idea/
+
+# Windows / WSL Zone Identifier and temp copies
+*:Zone.Identifier
+* - Copy.*
+~$*
+.DS_Store

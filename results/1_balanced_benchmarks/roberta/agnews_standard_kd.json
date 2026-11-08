@@ -1,0 +1,20 @@
+{
+  "dataset": "AGNews",
+  "mode": "standard_kd",
+  "student": "roberta-base",
+  "epochs": 3,
+  "test_acc": 71.89999999999999,
+  "test_f1": 68.78252044272537,
+  "pred_counts": [
+    348,
+    240,
+    348,
+    64
+  ],
+  "class_names": [
+    "World",
+    "Sports",
+    "Business",
+    "Sci/Tech"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "dataset": "Emotion",
+  "mode": "standard_kd",
+  "student": "roberta-base",
+  "epochs": 3,
+  "test_acc": 39.666666666666664,
+  "test_f1": 36.37965610426693,
+  "pred_counts": [
+    163,
+    50,
+    22,
+    45,
+    20,
+    0
+  ],
+  "class_names": [
+    "Sadness",
+    "Joy",
+    "Love",
+    "Anger",
+    "Fear",
+    "Surprise"
+  ]
+}

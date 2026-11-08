@@ -1,0 +1,13 @@
+{
+  "dataset": "AGNEWS",
+  "student": "Qwen/Qwen3-4B",
+  "mode": "calibrated_kd",
+  "test_acc": 80.5,
+  "test_f1": 79.01607253089914,
+  "pred_counts": [
+    44,
+    55,
+    77,
+    24
+  ]
+}

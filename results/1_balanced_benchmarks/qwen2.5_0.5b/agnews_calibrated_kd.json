@@ -1,0 +1,20 @@
+{
+  "dataset": "AGNews",
+  "mode": "calibrated_kd",
+  "student": "Qwen/Qwen2.5-0.5B-Instruct",
+  "epochs": 2,
+  "test_acc": 67.2,
+  "test_f1": 62.92792907354588,
+  "pred_counts": [
+    179,
+    347,
+    424,
+    50
+  ],
+  "class_names": [
+    "World",
+    "Sports",
+    "Business",
+    "Sci/Tech"
+  ]
+}

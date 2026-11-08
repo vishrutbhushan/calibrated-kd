@@ -1,0 +1,16 @@
+{
+  "dataset": "SST-2",
+  "mode": "calibrated_kd",
+  "student": "roberta-base",
+  "epochs": 3,
+  "test_acc": 87.5,
+  "test_f1": 87.40903024350935,
+  "pred_counts": [
+    117,
+    83
+  ],
+  "class_names": [
+    "Negative",
+    "Positive"
+  ]
+}

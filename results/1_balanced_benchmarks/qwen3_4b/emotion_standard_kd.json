@@ -1,0 +1,8 @@
+{
+  "dataset": "EMOTION",
+  "student": "Qwen/Qwen3-4B",
+  "mode": "standard_kd",
+  "test_acc": 4066.6666666666665,
+  "test_f1": 3758.528493412661,
+  "pred_counts": []
+}

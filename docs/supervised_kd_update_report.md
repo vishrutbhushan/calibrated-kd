@@ -88,3 +88,4 @@ The central concern from reviewers is whether adding ground-truth cross-entropy 
 2. **The Practical Method:** Offline static target calibration ($z - \beta W_0$) consistently improves student distillation under both pure KL and combined CE + KD objectives.
 3. **The Deployment Advantage:** Zero test-time overhead (de-biasing is strictly offline during soft-target extraction).
 4. **Multi-Model Validation:** Verified across Google Gemma, Alibaba Qwen, and Meta Llama architectures.
+

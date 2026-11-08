@@ -1,0 +1,59 @@
+{
+  "emotion": {
+    "standard_kd": {
+      "test_acc": 45.8,
+      "test_f1": 25.75,
+      "pred_counts": [364, 80, 42, 12, 2, 0]
+    },
+    "calibrated_kd": {
+      "test_acc": 41.8,
+      "test_f1": 29.07,
+      "pred_counts": [124, 82, 68, 224, 2, 0]
+    },
+    "delta_acc": -4.0,
+    "delta_f1": 3.32
+  },
+  "trec": {
+    "standard_kd": {
+      "test_acc": 68.6,
+      "test_f1": 49.63,
+      "pred_counts": [0, 57, 204, 11, 85, 143]
+    },
+    "calibrated_kd": {
+      "test_acc": 74.6,
+      "test_f1": 63.50,
+      "pred_counts": [5, 33, 181, 41, 99, 141]
+    },
+    "delta_acc": 6.0,
+    "delta_f1": 13.87
+  },
+  "agnews": {
+    "standard_kd": {
+      "test_acc": 63.0,
+      "test_f1": 55.05,
+      "pred_counts": [365, 211, 424, 0]
+    },
+    "calibrated_kd": {
+      "test_acc": 67.2,
+      "test_f1": 60.75,
+      "pred_counts": [245, 260, 479, 16]
+    },
+    "delta_acc": 4.2,
+    "delta_f1": 5.69
+  },
+  "sst2": {
+    "standard_kd": {
+      "test_acc": 74.0,
+      "test_f1": 72.27,
+      "pred_counts": [150, 50]
+    },
+    "calibrated_kd": {
+      "test_acc": 78.0,
+      "test_f1": 76.99,
+      "pred_counts": [142, 58]
+    },
+    "delta_acc": 4.0,
+    "delta_f1": 4.72
+  }
+}
+

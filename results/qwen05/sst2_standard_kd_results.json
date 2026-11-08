@@ -1,0 +1,16 @@
+{
+  "dataset": "SST-2",
+  "mode": "standard_kd",
+  "student": "Qwen/Qwen2.5-0.5B-Instruct",
+  "epochs": 2,
+  "test_acc": 83.0,
+  "test_f1": 82.66013871889024,
+  "pred_counts": [
+    128,
+    72
+  ],
+  "class_names": [
+    "Negative",
+    "Positive"
+  ]
+}

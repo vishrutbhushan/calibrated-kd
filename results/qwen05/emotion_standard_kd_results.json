@@ -1,0 +1,24 @@
+{
+  "dataset": "Emotion",
+  "mode": "standard_kd",
+  "student": "Qwen/Qwen2.5-0.5B-Instruct",
+  "epochs": 2,
+  "test_acc": 35.0,
+  "test_f1": 30.80303536284193,
+  "pred_counts": [
+    202,
+    39,
+    29,
+    15,
+    15,
+    0
+  ],
+  "class_names": [
+    "Sadness",
+    "Joy",
+    "Love",
+    "Anger",
+    "Fear",
+    "Surprise"
+  ]
+}

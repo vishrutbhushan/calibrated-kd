@@ -1,0 +1,24 @@
+{
+  "dataset": "TREC-6",
+  "mode": "calibrated_kd",
+  "student": "Qwen/Qwen2.5-0.5B-Instruct",
+  "epochs": 2,
+  "test_acc": 71.2,
+  "test_f1": 62.98308472835963,
+  "pred_counts": [
+    19,
+    28,
+    161,
+    26,
+    93,
+    173
+  ],
+  "class_names": [
+    "Abbreviation",
+    "Entity",
+    "Description",
+    "Human",
+    "Location",
+    "Numeric"
+  ]
+}

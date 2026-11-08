@@ -160,24 +160,24 @@ def make_agnews_figures():
     fig, ax = plt.subplots(figsize=(9, 5.5), dpi=300)
     models_m = ["Teacher Direct Inference\n(Gemma-3-4B-it)", "Distilled Student\n(Qwen3-4B LoRA)"]
     old_accs = [72.60, 73.10]
-    new_accs = [73.30, 76.50]
+    new_accs = [69.60, 76.50]
     x = np.arange(len(models_m))
     w = 0.32
-    r1 = ax.bar(x - w/2, old_accs, w, label="Uncalibrated / Standard KD (Old)", color=OLD_COLOR, edgecolor="black", lw=1.2)
-    r2 = ax.bar(x + w/2, new_accs, w, label="Calibrated / CKD Proposed (New)", color=NEW_COLOR, edgecolor="black", lw=1.2)
+    r1 = ax.bar(x - w/2, old_accs, w, label="Uncalibrated / Standard KD (Baseline)", color=OLD_COLOR, edgecolor="black", lw=1.2)
+    r2 = ax.bar(x + w/2, new_accs, w, label="Calibrated / CKD Proposed", color=NEW_COLOR, edgecolor="black", lw=1.2)
     ax.set_title("AG News: Prior Calibration Impact Across Models (N=1,000 Test Set)\nTeacher Direct Inference vs Distilled Student Performance", fontsize=12.5, fontweight="bold", pad=15)
     ax.set_ylabel("Test Accuracy (%)", fontsize=11, fontweight="bold")
     ax.set_xticks(x)
     ax.set_xticklabels(models_m, fontsize=11, fontweight="bold")
-    ax.set_ylim(65, 82)
+    ax.set_ylim(64, 82)
     ax.legend(loc="upper left", fontsize=10, frameon=True)
     for r in r1:
         ax.text(r.get_x() + r.get_width()/2, r.get_height() + 0.3, f"{r.get_height():.2f}%", ha="center", fontsize=10, fontweight="bold", color=OLD_COLOR)
     for r in r2:
         ax.text(r.get_x() + r.get_width()/2, r.get_height() + 0.3, f"{r.get_height():.2f}%", ha="center", fontsize=10, fontweight="bold", color=NEW_COLOR)
-    ax.annotate("+0.70% Lift\n(Inference)", xy=(0 + w/2, 73.30), xytext=(0, 75.5), ha="center", fontsize=9.5, fontweight="bold", color=ACCENT_GREEN,
-                bbox=dict(boxstyle="round,pad=0.25", fc=BG_GREEN, ec=BORDER_GREEN), arrowprops=dict(arrowstyle="->", color=BORDER_GREEN, lw=1.2))
-    ax.annotate("+3.40% Lift\n(Distillation)", xy=(1 + w/2, 76.50), xytext=(1, 78.5), ha="center", fontsize=10, fontweight="bold", color=ACCENT_GREEN,
+    ax.annotate("-3.00 pp Shift\n(Teacher Direct)", xy=(0 + w/2, 69.60), xytext=(0, 74.0), ha="center", fontsize=9.5, fontweight="bold", color="#c53030",
+                bbox=dict(boxstyle="round,pad=0.25", fc="#fed7d7", ec="#c53030"), arrowprops=dict(arrowstyle="->", color="#c53030", lw=1.2))
+    ax.annotate("+3.40 pp Lift\n(Student Distillation)", xy=(1 + w/2, 76.50), xytext=(1, 79.0), ha="center", fontsize=10, fontweight="bold", color=ACCENT_GREEN,
                 bbox=dict(boxstyle="round,pad=0.25", fc=BG_GREEN, ec=BORDER_GREEN), arrowprops=dict(arrowstyle="->", color=BORDER_GREEN, lw=1.2))
     plt.tight_layout()
     save_fig(fig, rel, "fig4_agnews_teacher_vs_student.png")
@@ -263,14 +263,15 @@ def make_emotion_figures():
     models = ["Ground Truth", "Standard KD (Old)", "Calibrated KD (New)"]
     colors = [TRUTH_COLOR, OLD_COLOR, NEW_COLOR]
     
-    love_counts = [50, 34, 41]
-    b1 = ax1.bar(models, love_counts, color=colors, width=0.55, edgecolor="black", lw=1.2)
-    ax1.set_title("Starved Class: 'Love' Recovery (Target = 50)", fontsize=12, fontweight="bold")
+    # Left panel: Surprise (Total collapse rescued)
+    surp_counts = [50, 0, 1]
+    b1 = ax1.bar(models, surp_counts, color=colors, width=0.55, edgecolor="black", lw=1.2)
+    ax1.set_title("Collapsed Class: 'Surprise' Nonzero Recovery (Target = 50)", fontsize=12, fontweight="bold")
     ax1.set_ylabel("Predicted Test Items", fontsize=11, fontweight="bold")
-    ax1.set_ylim(0, 65)
-    for bar, val in zip(b1, love_counts):
+    ax1.set_ylim(0, 60)
+    for bar, val in zip(b1, surp_counts):
         ax1.text(bar.get_x() + bar.get_width()/2, val + 1.2, f"{val}\n({val/50*100:.1f}%)", ha="center", va="bottom", fontsize=10, fontweight="bold")
-    ax1.annotate("+20.6% Recovery\n(+7 test items)", xy=(2, 41), xytext=(1.8, 52),
+    ax1.annotate("0 → 1 Nonzero Appearance\n(Breaks complete collapse)", xy=(2, 1), xytext=(1.5, 20),
                  ha="center", fontsize=10, fontweight="bold", color=ACCENT_GREEN,
                  bbox=dict(boxstyle="round,pad=0.25", fc=BG_GREEN, ec=BORDER_GREEN),
                  arrowprops=dict(arrowstyle="->", color=BORDER_GREEN, lw=1.4))
@@ -282,7 +283,7 @@ def make_emotion_figures():
     ax2.set_ylim(0, 180)
     for bar, val in zip(b2, sad_counts):
         ax2.text(bar.get_x() + bar.get_width()/2, val + 3, f"{val}\n({val/50*100:.0f}%)", ha="center", va="bottom", fontsize=10, fontweight="bold")
-    ax2.annotate("-50.7% De-biasing\n(-77 over-predictions)", xy=(2, 75), xytext=(1.5, 125),
+    ax2.annotate("-50.7% De-biasing\n(-77 over-predictions, cut by half)", xy=(2, 75), xytext=(1.5, 125),
                  ha="center", fontsize=10, fontweight="bold", color=ACCENT_GREEN,
                  bbox=dict(boxstyle="round,pad=0.25", fc=BG_GREEN, ec=BORDER_GREEN),
                  arrowprops=dict(arrowstyle="->", color=BORDER_GREEN, lw=1.4))
