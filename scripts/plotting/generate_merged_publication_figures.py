@@ -18,6 +18,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = ROOT / "latex" / "figures"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+PUB_FIGURES_DIR = ROOT / "figures" / "publication"
+PUB_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 ARTIFACT_DIR = Path("/home/vishrut/.gemini/antigravity/brain/269ec839-7b13-4c7b-a244-7e54d8464da8")
 
 plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
@@ -55,13 +57,13 @@ def annotate_bars(ax, rects, fmt="{:.1f}%", fontsize=7.5, color="#111827", dy=1.
                     fontsize=fontsize, fontweight="bold", color=color)
 
 def export(fig, base_name):
-    pdf_path = OUT_DIR / f"{base_name}.pdf"
     png_path = OUT_DIR / f"{base_name}.png"
-    fig.savefig(pdf_path, bbox_inches="tight")
     fig.savefig(png_path, dpi=300, bbox_inches="tight")
+    # Also mirror to figures/publication/
+    fig.savefig(PUB_FIGURES_DIR / f"{base_name}.png", dpi=300, bbox_inches="tight")
     if ARTIFACT_DIR.exists():
         shutil.copy(png_path, ARTIFACT_DIR / f"{base_name}.png")
-    print(f"Saved: {pdf_path.name}")
+    print(f"Saved: {png_path.name}")
     plt.close(fig)
 
 # ==============================================================================

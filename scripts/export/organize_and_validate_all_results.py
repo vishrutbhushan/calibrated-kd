@@ -18,7 +18,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-OLD_RESULTS = ROOT / "results"
+OLD_RESULTS = ROOT / "results" / "raw_runs"
 BASE_DIR = ROOT / "results"
 
 DIR_BALANCED = BASE_DIR / "1_balanced_benchmarks"

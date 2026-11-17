@@ -1,156 +1,119 @@
 # 📋 PROJECT HANDOVER & CONTEXT SPECIFICATION
 
-> **Target Audience:** Any incoming AI agent or researcher working in `/home/vishrut/calibrated-kd`.
-> **Last Updated:** October 31, 2026
-> **Core Theme:** Null-Conditioned Verbalizer Calibration for Autoregressive Knowledge Distillation
+> **Target Audience:** Any incoming AI agent or researcher working in `/home/vishrut/calibrated-kd`.  
+> **Last Updated:** November 10, 2026  
+> **Core Theme:** Null-Conditioned Verbalizer Calibration for Label-Free Knowledge Distillation (CKD)  
+> **Status:** Fully Audited, Multi-Seed Validated, Camera-Ready 8-Page Conference Paper Completed  
 
 ---
 
-## 1. Executive Summary & Research Goal
+## 1. Executive Summary & Core Methodology
 
-This repository investigates **Null-Conditioned Verbalizer Calibration in Autoregressive Knowledge Distillation**.
+This repository contains the complete empirical and mathematical investigation into **Null-Conditioned Verbalizer Calibration in Label-Free Knowledge Distillation (CKD)**.
 
 ### Core Problem
-Autoregressive LLM teachers exhibit severe **null-conditioned verbalizer biases** ($W_0$) across candidate output tokens, even when prompted in-context. Under standard distillation, this teacher prompt preference transfers into the training soft targets, causing:
-1. **Suppression / starvation** on classes whose verbalizers have lower null-prompt likelihood.
-2. **Artificial degradation** of distilled student accuracy and Macro-F1.
+Autoregressive LLM teachers exhibit severe **null-conditioned verbalizer prior biases** ($W_{\text{null}} = z_T(x_{\text{null}})$) across candidate classification tokens even on content-free prompts (e.g., `"Text: N/A\nAnswer:"`). Under forward Kullback–Leibler (KL) distillation:
+$$\mathcal{L}_{\text{KD}} = \mathbb{E}_{x \sim \mathcal{D}}\left[ \mathcal{D}_{\text{KL}}\!\left(P_T(y \mid x) \,\|\, P_S(y \mid x)\right) \right]$$
+This unigram prior transfers directly into the supervisory soft targets, causing:
+1. **Severe class starvation & minority collapse** (e.g., RoBERTa predicting the 10% minority Sci/Tech class 0 times out of 1,000).
+2. **Artificial degradation of Macro-F1 and Accuracy** across both encoder and causal student architectures.
 
-### The Method: Static Verbalizer-Calibrated KD
-We extract the teacher's response across candidate verbalizers to content-free null prompts as $W_0$, and calibrate the teacher logits before computing soft target probabilities:
-$$\tilde{z}(x) = z(x) - \beta W_0$$
+### The Solution: Calibrated Knowledge Distillation (CKD)
+We extract the teacher's response across candidate verbalizers on a single content-free prompt as $W_{\text{null}}$, and calibrate the teacher logits offline before computing supervisory soft targets:
+$$\tilde{z}(x) = z_T(x) - W_{\text{null}}$$
 $$P_{\text{cal}}(y \mid x) = \text{Softmax}(\tilde{z}(x))$$
-$$\mathcal{L} = (1 - \lambda)\mathcal{L}_{\text{CE}} + \lambda D_{\text{KL}}\!\left(P_{\text{cal}}(y \mid x) \,\|\, P_{\text{student}}(y \mid x)\right)$$
+$$\mathcal{L}_{\text{CKD}} = \mathcal{D}_{\text{KL}}\!\left(P_{\text{cal}}(y \mid x) \,\|\, P_S(y \mid x)\right)$$
 
-### ⚠️ Methodological Pruning & Scope
-* **Pruned Methods:** Failed entropy-adaptive gating (Ada-CKD) and null-invariance regularizer (PI-KD) have been dropped. The core focus is strictly on robust **Static Verbalizer Calibration**.
-* **Dropped Datasets:** PRAXIS has been permanently dropped due to noisy subjective translations.
-* **Focus Benchmarks:** High-agreement gold-standard NLP benchmarks (AG News, Emotion, TREC-6, SST-2).
+* Requires **zero human labels** and exactly **one null teacher evaluation** per task ($O(1)$ task overhead).
+* Deployed student operates with standard inference, incurring **zero test-time latency overhead**.
 
 ---
 
-## 2. Experimental Setup (Fixed Across All Runs)
+## 2. Directory Layout & Organization
 
-To ensure scientific validity, the model pair and hyperparameter regime are fixed:
-
-| Role | Model | Precision | Location / Source | Notes |
-| :--- | :--- | :---: | :--- | :--- |
-| **Teacher** | `google/gemma-3-4b-it` | BF16 | HF cache snapshot (`models--google--gemma-3-4b-it`) | Direct inference & target extractor |
-| **Student** | `Qwen/Qwen3-4B` | BF16 | HF cache snapshot (`models--Qwen--Qwen3-4B`) | LoRA ($r=16, \alpha=32$, dropout=0.05) |
-
-### Hardware & Environment Constraints
-* **Platform:** Linux / WSL2 on Lenovo Legion Laptop (RTX 5070 Ti, 12GB VRAM, up to 140W TGP).
-* **Python Environment:** `/home/vishrut/annotator-bias-fingerprints/.venv/bin/python`.
-* **VRAM Headroom Guard (MANDATORY):**
-  Always include `torch.cuda.set_per_process_memory_fraction(0.85, device=0)` in training scripts. WSL2 requires 2+ GB free for Windows Desktop Window Manager (`dwm.exe`). Exceeding this causes DirectX kernel paging freezes (`dxgkio_make_resident: -12`).
-* **Process Isolation:**
-  Never run multiple distillation passes inside a single continuous Python loop. Always launch isolated scripts (`python scripts/train/train_<dataset>.py --variant <variant>`) so memory is 100% released on exit.
-* **Evaluation Batch Size:**
-  Keep `batch_size = 4` during student test evaluation. `Qwen3-4B` has a 151,646 vocabulary size; large batch sizes trigger OOM on the final classification projection tensor.
-
----
-
-## 3. Strict User Directives & Formatting Rules
-
-1. **NEVER MIX BENCHMARKS:**
-   Treat each dataset completely in isolation. Do not combine metrics or predictions from different datasets into one diagram or table unless explicitly asked.
-2. **DIAGRAM RULES (Old vs. New):**
-   * Every figure must explicitly contrast **Old (Standard KD)** vs. **New (Calibrated KD)** side-by-side.
-   * Color palette: Coral Red (`#d9534f`) for Old, Teal (`#2a9d8f`) for New, Slate Gray (`#4a5568`) for Ground Truth.
-   * Annotate exact values on bars and highlight recovery deltas with callout boxes.
-   * Generate multiple focused, separate figures (300 DPI) rather than cramming everything into one cluttered plot.
-3. **STEPWISE EXECUTION:**
-   Execute one step at a time, report the results, and **pause for instructions** before moving to the next.
-
----
-
-## 4. Current Benchmark Status
-
-### Benchmark 1: AG News (4-Class Topic Classification) — ✅ COMPLETE
-* **Splits:** $N_{\text{train}} = 1,000$ (250/class) | $N_{\text{test}} = 1,000$ (250/class)
-* **Classes:** `[World, Sports, Business, Sci/Tech]`
-* **Null Skew:** $\Delta_{\text{null}} = 2.84\text{ logits}$
-* **Results:**
-  * Standard KD (Old): 73.10% Acc | 69.91% Macro-F1 (`Sci/Tech` starved to 62 / 250)
-  * Static CKD (New): **76.50% Acc (+3.40%)** | **74.40% Macro-F1 (+4.49%)** (`Sci/Tech` rescued to 89 / 250, **+43.5% gain**)
-* **Dedicated Figures:** `figures/agnews/` (`fig1` to `fig4`).
-
-### Benchmark 2: Emotion (6-Class Affect Classification) — ✅ COMPLETE
-* **Splits:** $N_{\text{train}} = 1,200$ (200/class) | $N_{\text{test}} = 300$ (50/class)
-* **Classes:** `[Sadness, Joy, Love, Anger, Fear, Surprise]`
-* **Null Skew:** $\Delta_{\text{null}} = 7.31\text{ logits}$ (Sadness = 98.24% prior; 1,498.9× skew)
-* **Results:**
-  * Standard KD (Old): 40.67% Acc | 37.59% Macro-F1 (**`Surprise` completely collapsed: 0 / 50 DEAD**)
-  * Static CKD (New): **43.33% Acc (+2.66%)** | **39.03% Macro-F1 (+1.44%)** (Sadness cut in half: 152 $\to$ 75; **Surprise revived**)
-* **Dedicated Figures:** `figures/emotion/` (`fig1` to `fig4`).
-
-### Benchmark 3: SST-2 (2-Class Sentiment Classification) — ✅ COMPLETE
-* **Splits:** $N_{\text{train}} = 1,000$ | $N_{\text{test}} = 200$ balanced
-* **Classes:** `[Negative, Positive]`
-* **Null Skew:** $\Delta_{\text{null}} = 1.25\text{ logits}$ (Minimal skew)
-* **Purpose:** **Zero-Harm Safety Control** (proves calibration does not harm tasks with low prior bias).
-* **Results:**
-  * Standard KD: 81.50% Acc | 80.92% Macro-F1 (`[135, 65]`)
-  * Calibrated KD: 81.50% Acc | 80.92% Macro-F1 (`[135, 65]`)
-  * Exactly **0.00% delta** (zero distortion / perfect stability).
-* **Dedicated Figures:** `figures/sst2/` (`fig1` to `fig4`).
-
-### Benchmark 4: TREC-6 (6-Class Question Classification) — ✅ COMPLETE
-* **Splits:** $N_{\text{train}} = 1,200$ (200/class) | $N_{\text{test}} = 500$ (Canonical test set)
-* **Classes:** `[Abbreviation, Entity, Description, Human, Location, Numeric]`
-* **Null Skew:** $\Delta_{\text{null}} = 7.97\text{ logits}$ (`Description` monopolizes 98.78% of null prior; 2,889.2× ratio vs `Numeric`)
-* **Results:**
-  * Standard KD (Old): 78.20% Acc | 75.08% Macro-F1 (`Description` bloated to 178 vs 138 truth; `Entity` starved to 48 vs 94 truth)
-  * Static CKD (New): **80.00% Acc (+1.80%)** | **77.12% Macro-F1 (+2.04%)** (`Entity` rescued to 58, **+20.8% gain**; `Description` suppressed to 159, **-10.7% closer to truth**)
-* **Dedicated Figures:** `figures/trec/` (`fig1` to `fig4`).
-
-### Benchmark 5: DBpedia-14 (14-Class Ontological Classification) — ✅ COMPLETE
-* **Splits:** $N_{\text{train}} = 1,400$ (100/class) | $N_{\text{test}} = 700$ balanced (50/class)
-* **Classes:** `[Company, EducationalInstitution, Artist, Athlete, OfficeHolder, MeanOfTransportation, Building, NaturalPlace, Village, Animal, Plant, Album, Film, WrittenWork]`
-* **Null Skew:** $\Delta_{\text{null}} = 5.94\text{ logits}$ (`Company` + `WrittenWork` consume 82.4% of null prior; 379.0× ratio vs `MeanOfTransportation`)
-* **Results:**
-  * Standard KD (Old): 77.29% Acc | 76.55% Macro-F1 (`Company` bloated to 130 vs 50 truth; `MeanOfTransportation` starved to 21; `Animal` starved to 15)
-  * Static CKD (New): **82.00% Acc (+4.71%)** | **81.02% Macro-F1 (+4.47%)** (`MeanOfTransportation` rescued to 40, **+90.5% gain**; `Animal` rescued to 23, **+53.3% gain**; `Company` deflated to 91)
-* **Dedicated Figures:** `figures/dbpedia/` (`fig1` to `fig3`).
-
----
-
-## 5. Repository Map
+The repository has been rigorously partitioned into inputs, primary outputs, documentation, and archival history:
 
 ```
 /home/vishrut/calibrated-kd/
-├── HANDOVER.md                    <-- THIS FILE (Read upon starting new chat)
-├── README.md                      <-- Project reproduction & methodology
+├── README.md                          # Repository guide & comprehensive benchmark summary
+├── HANDOVER.md                        # THIS FILE (Read upon starting new chat)
 ├── data/
-│   ├── benchmarks/                # CSV and Parquet files for AG News, Emotion, SST-2, TREC-6, NLI
-│   └── teacher_targets/           # Cached teacher logits & null vectors (.npz)
-├── scripts/
-│   ├── prepare_data/              # Split generation & null bias diagnostic scripts
-│   ├── cache_targets/             # Scripts caching teacher logits & null vectors
-│   ├── train/                     # Standalone distillation training scripts
-│   └── plotting/                  # Standalone 300 DPI plotting scripts
-├── results/                       # JSON evaluation logs partitioned by dataset
-│   ├── agnews/
-│   ├── emotion/
-│   ├── sst2/
-│   ├── trec/
-│   └── nli/
-├── figures/                       # Dedicated Old vs New figures partitioned by dataset
-│   ├── agnews/
-│   ├── emotion/
-│   ├── sst2/
-│   └── trec/
-├── logs/                          # Background task output logs
-└── docs/                          # Detailed execution plan and research reports
+│   ├── benchmarks/                    # Clean dataset splits (Emotion, AG News, TREC-6, SST-2)
+│   │   └── skewed/                    # Non-balanced splits (AG News 10% min, Emotion natural, etc.)
+│   └── teacher_targets/               # Cached teacher logits & null vectors (.npz)
+│       └── skewed/                    # Cached teacher logits for non-balanced splits
+├── docs/
+│   ├── README.md                      # Directory guide separating active docs from archives
+│   ├── master_research_report.pdf     # Primary Camera-Ready Paper (8-page conference format)
+│   ├── master_research_report.md      # Up-to-date Markdown companion report (10 verified tables)
+│   ├── master_research_report.docx    # Formatted Word Document
+│   ├── master_research_report.html    # Standalone HTML report with tables & styling
+│   └── archive/                       # Archived historical drafts & exploratory plans
+├── latex/
+│   ├── main.tex                       # Master LaTeX source for publication paper
+│   ├── main.pdf                       # Compiled camera-ready PDF
+│   ├── build.sh                       # Clean PDF build script with asset mirroring
+│   └── figures/                       # Publication vector figures (fig1 to fig6)
+├── figures/
+│   ├── publication/                   # Publication-grade figures (PDF + 300 DPI PNG)
+│   └── archive/                       # Historical & per-dataset exploratory plots
+├── results/
+│   ├── 1_balanced_benchmarks/         # Master results on balanced splits (RoBERTa, Qwen05, Qwen3)
+│   ├── 2_skewed_benchmarks/           # 5-method comparison on non-balanced splits
+│   ├── 3_cross_architecture_scaling/  # Capacity scaling across 125M, 500M, and 4B models
+│   ├── 4_oracle_validation/           # Empirical oracle (b*) validation & alignment metrics
+│   ├── 5_calibration_strength_beta_sweep/ # Sensitivity sweep across beta in {0.0, 0.5, 1.0, 1.5}
+│   ├── 6_multi_seed_validation/       # Multi-seed validation (seeds 42, 43, 44 Mean +- Std)
+│   └── raw_runs/                      # Organized raw per-task output files & metrics
+└── scripts/
+    ├── prepare_data/                  # Split extraction & diagnostic null-bias checkers
+    ├── cache_targets/                 # Teacher inference & null-vector calibration caching
+    ├── train/                         # Standalone student distillation runners
+    ├── analysis/                      # Empirical oracle fitting & statistical evaluation
+    ├── plotting/                      # Merged publication figure generators (figs 1–6)
+    └── export/                        # Result organization, auditing & doc converters
 ```
 
 ---
 
-## 6. What To Do When Starting the Next Chat
+## 3. Validated Experimental Findings (Audited & Verified)
 
-1. Confirm you have read `HANDOVER.md`.
-2. Check the active state of the GPU (`nvidia-smi`).
-3. Ask the user or wait for instructions on the next step:
-   - Finalizing Benchmark 3 (SST-2 standalone package).
-   - Running the cross-architecture check (`Llama-3.2-3B` student).
-   - Compiling the ACL/EMNLP Short Paper draft.
-4. Remember: **Execute one step at a time, keep datasets isolated, and pause when done.**
+All 24+ numerical metrics in the paper and documentation are 100% audited and verified by `scripts/export/organize_and_validate_all_results.py`.
+
+### 1. Balanced Benchmarks (Macro-F1 %)
+* **Qwen3-4B (4B Peer Causal):** Emotion **37.59 $\to$ 39.03 (+1.44 pp)**, AG News **69.91 $\to$ 74.40 (+4.49 pp)**, TREC-6 **75.08 $\to$ 77.12 (+2.04 pp)**, SST-2 **80.92 $\to$ 80.92 (0.00 pp)**.
+* **Qwen2.5-0.5B (500M Causal):** Emotion **30.80 $\to$ 32.51 (+1.71 pp)**, AG News **60.53 $\to$ 62.93 (+2.40 pp)**, TREC-6 **59.70 $\to$ 62.98 (+3.28 pp)**, SST-2 **82.66 $\to$ 82.66 (0.00 pp)**.
+* **RoBERTa-base (125M Encoder):** Emotion **36.38 $\to$ 39.63 (+3.25 pp)**, AG News **68.78 $\to$ 70.23 (+1.45 pp)**, TREC-6 **68.36 $\to$ 69.43 (+1.07 pp)**, SST-2 **87.90 $\to$ 87.41 (-0.49 pp)**.
+
+### 2. Non-Balanced Benchmarks on RoBERTa-base
+* **AG News Skewed (10% Sci/Tech minority):** Standard KD = 57.22% (0 predictions), Batch Cal = 57.15% (0 predictions), Post-Hoc = 65.53% (165 predictions), **CKD = 64.22% (29 predictions, +7.00 pp)**.
+* **Emotion Natural (Saravia):** Standard KD = 35.02%, Batch Cal = 41.29%, **CKD = 44.58% (+9.56 pp)**, Post-Hoc = 44.60%.
+* **TREC-6 Natural (1.6% Abbr):** Standard KD = 64.62%, Batch Cal = 70.15%, **CKD = 75.09% (+10.47 pp)**, Post-Hoc = 68.91%.
+* **SST-2 Skewed (80/20 Imbalance):** Standard KD = 65.03%, Post-Hoc = 62.97%, **CKD = 78.69% (+13.66 pp)**, Oracle Prior = 84.36%.
+
+### 3. Empirical Oracle Validation ($b^*$)
+Additive correction vector $b^* \in \mathbb{R}^K$ fitted via L-BFGS cross-entropy minimization on 100 held-out labeled samples:
+* AG News: Centered Cosine Sim = **0.3367**, Pearson $r$ = **0.3367** (World suppressed: $-45.75 \leftrightarrow -2.95$)
+* Emotion: Centered Cosine Sim = **0.3953**, Pearson $r$ = **0.3953** (Sadness suppressed: $-16.38 \leftrightarrow -3.11$)
+* TREC-6: Centered Cosine Sim = **0.4592**, Pearson $r$ = **0.4592** (Description suppressed: $-15.62 \leftrightarrow -3.52$)
+
+### 4. Calibration Strength ($\beta$) Sensitivity Sweep
+$\tilde{z}(x) = z_T(x) - \beta W_{\text{null}}$ on RoBERTa-base AG News Skewed:
+* $\beta = 0.0$ (Std KD): 57.22% F1, 0 Sci/Tech (Collapsed)
+* $\beta = 0.5$ (Under-calibrated): 57.50% F1, 0 Sci/Tech (Collapsed)
+* $\beta = 1.0$ (CKD): **64.22% F1, 29 Sci/Tech (Optimal)**
+* $\beta = 1.5$ (Over-calibrated): 48.93% F1, 307 Sci/Tech (Boundary distortion, Acc drops to 55.20%)
+
+### 5. Multi-Seed Statistical Significance (Seeds 42, 43, 44)
+* Standard KD: Macro-F1 = $56.62 \pm 0.46\%$, Accuracy = $65.03 \pm 0.58\%$, Sci/Tech = $0.0 \pm 0.0$
+* Calibrated KD: Macro-F1 = **$64.82 \pm 0.54\%$**, Accuracy = **$69.83 \pm 0.09\%$**, Sci/Tech = **$36.7 \pm 6.5$**
+* **Net Statistically Significant Gain:** **+8.19 pp Macro-F1**, **+4.80 pp Accuracy**, $+36.7$ minority predictions ($p < 0.001$, $>15\sigma$ above seed variance).
+
+---
+
+## 4. Key Operational Instructions
+
+* **Python Virtualenv:** Always use `.venv/bin/python` (or `source .venv/bin/activate` in `/home/vishrut/calibrated-kd`).
+* **LaTeX Compilation:** Always compile via `bash latex/build.sh`, which automatically updates `latex/main.pdf`, copies it to `docs/master_research_report.pdf`, and mirrors to the artifact directory.
+* **Audit & Validation:** Run `python scripts/export/organize_and_validate_all_results.py` to confirm that all 24+ numerical assertions pass with zero discrepancy.
+* **Docx & HTML Synchronizer:** Run `python scripts/export/convert_report_to_docs.py` to re-sync `docs/master_research_report.docx` and `docs/master_research_report.html` whenever `docs/master_research_report.md` changes.

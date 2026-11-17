@@ -1,8 +1,0 @@
-{
-  "dataset": "EMOTION",
-  "student": "Qwen/Qwen3-4B",
-  "mode": "calibrated_kd",
-  "test_acc": 4333.333333333334,
-  "test_f1": 3903.4118822354117,
-  "pred_counts": []
-}

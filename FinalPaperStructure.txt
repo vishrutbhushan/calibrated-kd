@@ -1,0 +1,81 @@
+1) Abstract
+why is kd used
+how models are inherently biased and have unigram bias
+what we already have
+what we are proposing
+Main Results
+2) Introduction
+what is kd , why classifiers are used and why soft kd is usefull. how bias exists.
+Expanded version of abstract kind but with references.
+3) Related Work
+Liusie et al. 2024 (Findings of ACL)
+LLKD (Li et al.)
+Liusie et al. 2023 (Findings of IJCNLP-AACL)
+Zhao et al. 2021 (ICML)
+Zhou et al. 2024 (ICLR)
+4) Methodology
+State where we get the idea of null prompt.
+State that we know calibration helps as proven by other papers.
+explain all methods nd what settings are we using, for eg, for batching, we avg over entire train set maybe
+-> batch
+-> prior matching Liusie 2023
+-> permutation avg
+-> post hoc
+Our simple addition.
+How we judge / calculate the metrics. Define them.
+a) Macro f1
+b) F1 class parity ratio
+5) Experiments
+    a)Datasets -> create a table, mention no of classes & small few word details, and skewed or balanced.
+        i) Praxis - Bal
+        ii) SST 2 - Bal 
+        iii) DBPedia - Bal 
+        iv) AG News - UB 
+        v) Emotion - UB
+        vi) Trec 6 - UB 
+    b)Model Selection -> teacher gemma , student roberta (mention if something in ablation)
+    c)All methods to be compared & how. (like for eg batch)
+    d)Prompts used example
+    e) also highlight we are using A,b,c,d etc
+6) Results
+Teacher and student fixed gemma and roberta
+
+Tables 2 metrics -> each cell has Macro F1  &  parity ratio (f1 min /f1 max). 
+Each column for a single dataset (total 6)
+Rows -> results for
+a. Teacher (Gemma, raw)
+b. Teacher + null calibration
+c. Student, hard labels
+d. Student, soft labels (standard KD)
+e. Student, soft labels + post-hoc
+f. Student, CKD
+g. Student, batch-calibrated
+h. Student, prior-matching
+i. Student, permutation-averaged
+
+
+
+7) Discussion 
+Expain the results. Tell how it works well. Refer to appendix/ablation and highlight those as well.
+Generalize and also mention how and when it fails.
+8) Conclusion
+Increases accuracy/macro f1 for most situations. Simple to implement.
+Makes sure that the student learns correctly.
+
+9) Limitations
+-> Highlight that it works well for more complex tasks where models tend to have more bias. 
+It has negligible to no impact if already balanced. In certain cases where N/A is related to an option, it can lead to issues.
+This is a low cost addition which can be tested on any problem before taking a final call.
+10) References/Acknowledgements
+11) Appendix / Ablation
+
+These 3 on 1 balanced & 1 unbalanced dataset only.
+1. Teacher gemma & student qwen same size
+2. Teacher Qwen & roberta
+3. Teacher gemma & student smaller qwen.
+
+Multilingual Benefit on Praxis
+4. 1 fixed teacher and student & 2 other languages
+
+Nli/XNLI
+-> Explain why ckd fails here

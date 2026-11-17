@@ -47,7 +47,7 @@ def make_figure():
     r3 = ax1.bar(x + w, f1_rob, w, label="RoBERTa-base (125M Encoder, 32× Comp)", color=COLOR_ROB, edgecolor="black", linewidth=1.1)
 
     ax1.axhline(0, color="black", linestyle="--", linewidth=0.8, alpha=0.7)
-    ax1.set_title("(A) Macro-F1 Improvement ($\Delta_{\\text{F1}}$) Across 3 Student Scales", fontsize=12, fontweight="bold", pad=12)
+    ax1.set_title(r"(A) Macro-F1 Improvement ($\Delta_{\text{F1}}$) Across 3 Student Scales", fontsize=12, fontweight="bold", pad=12)
     ax1.set_ylabel("Macro-F1 Delta (% Points)", fontsize=11, fontweight="bold")
     ax1.set_xticks(x)
     ax1.set_xticklabels(datasets, fontsize=10, fontweight="bold")

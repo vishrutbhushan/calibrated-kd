@@ -1,28 +1,55 @@
-# Python bytecode & cache
+# ==============================================================================
+# Calibrated KD: Git Ignore Configuration
+# ==============================================================================
+
+# Python bytecode & environments
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .pytest_cache/
-
-# Virtual Environments
-.venv/
+.venv
 venv/
 ENV/
 
-# Large model weights & checkpoints
-models/checkpoints/
+# Outputs & Experimental Results (Organized locally in outputs/ and logs/)
+outputs/
+results
+figures
+plots
+individual_plots
+review/
+
+# Execution Logs
+logs/
+*.log
+
+# Datasets & Raw Data
+data/
+datasets/
+
+# Models, Checkpoints & Pretrained Weights
+models/
+checkpoints/
 *.bin
 *.pt
 *.safetensors
 
-# OS / Editor files
+# Output Image PDFs & LaTeX build artifacts (PNG only for images)
+*.pdf
+latex/figures/
+latex/*.pdf
+latex/*.log
+latex/*.aux
+latex/*.out
+latex/*.fls
+latex/*.fdb_latexmk
+latex/*.synctex.gz
+
+# OS & Editor Files
 .DS_Store
 .vscode/
 .idea/
-
-# Windows / WSL Zone Identifier and temp copies
 *:Zone.Identifier
 * - Copy.*
 ~$*
-.DS_Store
