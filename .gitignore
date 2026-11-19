@@ -13,24 +13,29 @@ venv/
 ENV/
 
 # Outputs & Experimental Results (Organized locally in outputs/ and logs/)
-outputs/
-results
-figures
-plots
-individual_plots
-review/
+/outputs/
+/results
+/results/
+/figures
+/figures/
+/plots
+/plots/
+/individual_plots
+/individual_plots/
+/review
+/review/
 
 # Execution Logs
-logs/
+/logs/
 *.log
 
 # Datasets & Raw Data
-data/
-datasets/
+/data/
+/datasets/
 
 # Models, Checkpoints & Pretrained Weights
-models/
-checkpoints/
+/models/
+/checkpoints/
 *.bin
 *.pt
 *.safetensors
