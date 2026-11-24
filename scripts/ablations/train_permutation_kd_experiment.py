@@ -198,26 +198,14 @@ def train_eval_student(train_texts, train_probs, test_texts, test_golds, seed=42
     }
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--split", type=str, default="balanced", choices=["balanced", "skewed"])
-    args = parser.parse_args()
-
     set_seed(42)
 
-    if args.split == "balanced":
-        train_csv = AGNEWS_DIR / "ag_news_train_1000.csv"
-        test_csv = AGNEWS_DIR / "ag_news_test_1000.csv"
-        dataset_name = "AG News Balanced (250/class)"
-        out_name = "permutation_kd_balanced_results.json"
-        std_acc, std_f1, std_worst = 83.1, 82.8, 76.5
-        ckd_acc, ckd_f1, ckd_worst = 84.5, 84.3, 79.2
-    else:
-        train_csv = AGNEWS_DIR / "agnews_skewed_train_1000.csv"
-        test_csv = AGNEWS_DIR / "ag_news_test_1000.csv"
-        dataset_name = "AG News Skewed (10% Sci/Tech minority)"
-        out_name = "permutation_kd_skewed_results.json"
-        std_acc, std_f1, std_worst = 65.8, 57.22, 0.0
-        ckd_acc, ckd_f1, ckd_worst = 69.9, 64.22, 21.0
+    train_csv = AGNEWS_DIR / "agnews_skewed_train_1000.csv"
+    test_csv = AGNEWS_DIR / "ag_news_test_1000.csv"
+    dataset_name = "AG News Skewed (10% Sci/Tech minority)"
+    out_name = "permutation_kd_skewed_results.json"
+    std_acc, std_f1, std_worst = 65.8, 57.22, 0.0
+    ckd_acc, ckd_f1, ckd_worst = 69.9, 64.22, 21.0
 
     with open(train_csv) as f:
         tr_rows = list(csv.DictReader(f))

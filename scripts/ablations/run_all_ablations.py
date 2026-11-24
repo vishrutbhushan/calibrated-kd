@@ -30,20 +30,12 @@ ABLATION_STEPS = [
         ["scripts/ablations/train_skewed_causal.py", "--model", "qwen3", "--dataset", "agnews"],
     ),
     (
-        "Ablation 1b: Cross-Family (Qwen3-4B -> RoBERTa-base on SST-2 Balanced)",
-        ["scripts/ablations/train_cross_family_qwen_roberta_sst2.py"],
-    ),
-    (
-        "Ablation 1c: Cross-Family (Qwen3-4B -> RoBERTa-base on SST-2 Skewed)",
+        "Ablation 1b: Cross-Family (Qwen3-4B -> RoBERTa-base on SST-2 Skewed)",
         ["scripts/ablations/train_cross_family_qwen_roberta_sst2_skewed.py"],
     ),
     (
-        "Ablation 1d: Small SLM (Gemma-4B -> Qwen2.5-0.5B on TREC-6 Skewed)",
+        "Ablation 1c: Small SLM (Gemma-4B -> Qwen2.5-0.5B on TREC-6 Skewed)",
         ["scripts/ablations/train_skewed_causal.py", "--model", "qwen05", "--dataset", "trec"],
-    ),
-    (
-        "Ablation 1e: Small SLM (Gemma-4B -> Qwen2.5-0.5B on TREC-6 Balanced)",
-        ["scripts/ablations/train_qwen05_benchmarks.py", "--dataset", "trec"],
     ),
     (
         "Ablation 2a: Multi-Task Distillation (Combos 1-4)",
@@ -68,16 +60,8 @@ ABLATION_STEPS = [
         ["scripts/ablations/train_hard_pseudo_label_experiment.py"],
     ),
     (
-        "Ablation 4a: Permutation-Averaged KD vs. CKD (AG News Skewed)",
-        ["scripts/ablations/train_permutation_kd_experiment.py", "--split", "skewed"],
-    ),
-    (
-        "Ablation 4b: Permutation-Averaged KD vs. CKD (AG News Balanced)",
-        ["scripts/ablations/train_permutation_kd_experiment.py", "--split", "balanced"],
-    ),
-    (
-        "Ablation 4c: Permutation-Averaged KD vs. CKD (SST-2 Balanced)",
-        ["scripts/ablations/train_permutation_kd_sst2.py"],
+        "Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News Skewed)",
+        ["scripts/ablations/train_permutation_kd_experiment.py"],
     ),
     (
         "Ablation 5: Multi-Seed Statistical Significance & Beta Sweep",

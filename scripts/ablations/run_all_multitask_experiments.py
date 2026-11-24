@@ -65,18 +65,18 @@ def main():
         print(f"[✓] Combo {cid} successfully completed.")
 
     print("\n" + "="*70)
-    print("ALL MULTI-TASK EXPERIMENTS (WITH POST-HOC) COMPLETED!")
+    print("ALL MULTI-TASK EXPERIMENTS COMPLETED!")
     print("="*70)
 
     # Master summary consolidation
-    all_files = list(OUTPUT_DIR.glob("combo*_with_posthoc.json"))
+    all_files = list(OUTPUT_DIR.glob("combo*.json"))
     master_records = []
     for f in sorted(all_files):
         with open(f, "r", encoding="utf-8") as fp:
             d = json.load(fp)
             master_records.append(d)
 
-    master_path = OUTPUT_DIR / "all_multitask_combinations_with_posthoc_summary.json"
+    master_path = OUTPUT_DIR / "all_multitask_summary.json"
     with open(master_path, "w", encoding="utf-8") as fp:
         json.dump(master_records, fp, indent=2)
 

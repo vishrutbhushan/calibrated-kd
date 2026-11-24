@@ -267,20 +267,17 @@ def train_and_eval_multitask(method_name, task_names, all_task_data, seed=42):
         avg_loss = epoch_loss / total_steps_per_epoch
         print(f"  Epoch {ep+1}/{epochs} | Multi-Task KL Loss: {avg_loss:.4f}", flush=True)
 
-    print("\nEvaluating Multi-Task Student (Raw vs Task-Specific Post-Hoc)...", flush=True)
+    print("\nEvaluating Multi-Task Student...", flush=True)
     model.eval()
 
     task_results = {}
     raw_f1_list = []
-    post_f1_list = []
 
     for task in task_names:
         test_texts = all_task_data[task]["test_texts"]
         test_golds = all_task_data[task]["test_golds"]
-        train_texts = all_task_data[task]["train_texts"]
         num_classes = BENCHMARK_CONFIGS[task]["num_classes"]
 
-        # 1. Test Logits
         test_logits_chunks = []
         with torch.no_grad():
             for i in range(0, len(test_texts), 32):
@@ -290,36 +287,15 @@ def train_and_eval_multitask(method_name, task_names, all_task_data, seed=42):
                 test_logits_chunks.append(logits.cpu().numpy())
         test_logits = np.concatenate(test_logits_chunks, axis=0)
 
-        # 2. Task-Specific Output Mean Bias on 300 random training items (Zero Leakage)
-        with torch.no_grad():
-            random.seed(seed)
-            sub_indices = random.sample(range(len(train_texts)), min(300, len(train_texts)))
-            sub_texts = [train_texts[idx] for idx in sub_indices]
-            enc_sub = tokenizer(sub_texts, padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
-            out_sub = model(enc_sub["input_ids"], enc_sub["attention_mask"], task)
-            mean_bias = out_sub.mean(dim=0).cpu().numpy()
+        preds = test_logits.argmax(axis=-1)
+        metrics = compute_metrics(test_golds, preds, num_classes)
+        task_results[task] = metrics
+        raw_f1_list.append(metrics["macro_f1"])
 
-        # 3. Raw Predictions vs Post-Hoc Predictions
-        raw_preds = test_logits.argmax(axis=-1)
-        raw_metrics = compute_metrics(test_golds, raw_preds, num_classes)
+        print(f"  [{task}] Macro-F1: {metrics['macro_f1']:.2f}% | Acc: {metrics['acc']:.2f}% | Counts: {metrics['counts']}")
 
-        post_logits = test_logits - mean_bias
-        post_preds = post_logits.argmax(axis=-1)
-        post_metrics = compute_metrics(test_golds, post_preds, num_classes)
-
-        task_results[task] = {
-            "raw": raw_metrics,
-            "posthoc": post_metrics
-        }
-        raw_f1_list.append(raw_metrics["macro_f1"])
-        post_f1_list.append(post_metrics["macro_f1"])
-
-        print(f"  [{task}] Raw F1: {raw_metrics['macro_f1']:.2f}% (Counts: {raw_metrics['counts']}) | Post-Hoc F1: {post_metrics['macro_f1']:.2f}% (Counts: {post_metrics['counts']})")
-
-    avg_raw_f1 = float(np.mean(raw_f1_list))
-    avg_post_f1 = float(np.mean(post_f1_list))
-    print(f"  -> Average Raw Macro-F1:      {avg_raw_f1:.2f}%")
-    print(f"  -> Average Post-Hoc Macro-F1:  {avg_post_f1:.2f}%")
+    avg_f1 = float(np.mean(raw_f1_list))
+    print(f"  -> Average Macro-F1: {avg_f1:.2f}%")
 
     del model, tokenizer
     gc.collect()
@@ -328,8 +304,7 @@ def train_and_eval_multitask(method_name, task_names, all_task_data, seed=42):
 
     return {
         "per_task": task_results,
-        "average_raw_macro_f1": avg_raw_f1,
-        "average_posthoc_macro_f1": avg_post_f1
+        "average_macro_f1": avg_f1,
     }
 
 def run_combination(task_names, combo_id):
@@ -351,46 +326,39 @@ def run_combination(task_names, combo_id):
             "ckd_train_probs": cal_p
         }
 
-    # 1. Standard KD (Raw + Post-Hoc)
+    # 1. Standard KD
     std_kd_res = train_and_eval_multitask("std_kd", task_names, all_task_data)
 
-    # 2. CKD (Raw + Post-Hoc)
+    # 2. CKD (Ours)
     ckd_res = train_and_eval_multitask("ckd", task_names, all_task_data)
 
     indiv_std = np.mean([INDIVIDUAL_BASELINE[t]["std_kd"] for t in task_names])
-    indiv_post = np.mean([INDIVIDUAL_BASELINE[t]["posthoc"] for t in task_names])
     indiv_ckd = np.mean([INDIVIDUAL_BASELINE[t]["ckd"] for t in task_names])
-    indiv_comb = np.mean([INDIVIDUAL_BASELINE[t]["combined"] for t in task_names])
 
     summary = {
         "combo_id": combo_id,
         "tasks": task_names,
-        "std_kd_raw": std_kd_res["average_raw_macro_f1"],
-        "std_kd_posthoc": std_kd_res["average_posthoc_macro_f1"],
-        "ckd_raw": ckd_res["average_raw_macro_f1"],
-        "ckd_posthoc": ckd_res["average_posthoc_macro_f1"],
+        "std_kd_macro_f1": std_kd_res["average_macro_f1"],
+        "ckd_macro_f1": ckd_res["average_macro_f1"],
+        "delta_macro_f1": ckd_res["average_macro_f1"] - std_kd_res["average_macro_f1"],
         "details": {
             "std_kd": std_kd_res,
             "ckd": ckd_res
         },
         "individual_baselines": {
             "std_kd": indiv_std,
-            "posthoc": indiv_post,
             "ckd": indiv_ckd,
-            "combined": indiv_comb
         }
     }
 
-    out_file = OUTPUT_DIR / f"{combo_name}_with_posthoc.json"
+    out_file = OUTPUT_DIR / f"{combo_name}.json"
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
 
     print("\n" + "="*70)
     print(f"COMBINATION {combo_id} SUMMARY:")
-    print(f"  Multi-Task Std KD Raw:        {summary['std_kd_raw']:.2f}%  (Individual: {indiv_std:.2f}%)")
-    print(f"  Multi-Task Std KD + Post-Hoc: {summary['std_kd_posthoc']:.2f}%  (Individual: {indiv_post:.2f}%)")
-    print(f"  Multi-Task CKD Raw:           {summary['ckd_raw']:.2f}%  (Individual: {indiv_ckd:.2f}%)")
-    print(f"  Multi-Task CKD + Post-Hoc:    {summary['ckd_posthoc']:.2f}%  (Individual: {indiv_comb:.2f}%)")
+    print(f"  Multi-Task Std KD: {summary['std_kd_macro_f1']:.2f}%  (Individual: {indiv_std:.2f}%)")
+    print(f"  Multi-Task CKD:    {summary['ckd_macro_f1']:.2f}%  (Individual: {indiv_ckd:.2f}%)")
     print("="*70)
     return summary
 

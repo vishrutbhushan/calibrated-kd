@@ -152,28 +152,25 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 ## Appendix & Ablations
 
-### Ablation 1: Cross-Architecture Triad (Evaluated Across Distinct Domains & Task Complexities)
+### Ablation 1: Cross-Architecture Triad (Skewed & Natural Benchmarks)
 
 | Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset Evaluated | Standard KD Macro-F1 (Acc) | CKD Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) | Minority Recovery Status |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Skewed** (10% Sci/Tech) | 57.77% (65.5%) | **67.12% (71.3%)** | **+9.35 pp** | 5 $\to$ **44 / 250** (+780% recovery) |
-| | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Balanced** (250/class) | — | — | — | — |
-| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Skewed** (Binary Sentiment) | 84.74% (85.0%) | **89.00% (89.0%)** | **+4.25 pp** | 74 $\to$ **96 / 100** balanced preds |
-| | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Balanced** (Binary Sentiment) | 80.29% (81.0%) | **88.42% (88.5%)** | **+8.13 pp** | 62 $\to$ **83 / 100** positive preds |
-| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Naturally Skewed** (1.6% Abbr) | 49.51% (66.0%) | **61.46% (73.6%)** | **+11.95 pp** | 4 $\to$ **13** preds on Abbr |
-| | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Balanced** (200/class) | 61.91% (69.2%) | **62.51% (70.6%)** | **+0.60 pp** | 10 $\to$ **18** preds on minority |
+| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Skewed** (10% Sci/Tech) | — | — | — | — |
+| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Skewed** (Binary Sentiment) | — | — | — | — |
+| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Naturally Skewed** (1.6% Abbr) | — | — | — | — |
 
 ---
 
 ### Ablation 2: Multi-Task Distillation with a Unified Student Backbone
 
-| Multi-Task Setup | Evaluated Tasks | Standard KD Raw | Post-Hoc Alone | CKD Raw (Ours) | CKD + Post-Hoc Combined |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **Combo 1** | TweetEval Emotion + BBC News | 51.49% | **80.35%** | 63.58% | 78.90% |
-| **Combo 2** | BBC News + TREC-6 | 59.28% | 75.11% | 67.39% | **75.24%** |
-| **Combo 3** | Twitter Emotion + TREC-6 | 48.96% | 51.04% | **52.89%** | 51.64% |
-| **Combo 4** | TweetEval + BBC News + TREC-6 | 50.68% | 70.55% | 64.87% | **71.97%** |
-| **5-Task Unified** | TweetEval + BBC + PRAXIS + TwEmo + TREC | 41.39% | 55.46% | 48.18% | **55.58%** |
+| Multi-Task Setup | Evaluated Tasks | Standard KD (Macro-F1) | CKD (Ours, Macro-F1) | Net Gain ($\Delta$ pp) |
+| :--- | :--- | :---: | :---: | :---: |
+| **Combo 1** | TweetEval Emotion + BBC News | — | — | — |
+| **Combo 2** | BBC News + TREC-6 | — | — | — |
+| **Combo 3** | Twitter Emotion + TREC-6 | — | — | — |
+| **Combo 4** | TweetEval + BBC News + TREC-6 | — | — | — |
+| **5-Task Unified** | TweetEval + BBC + PRAXIS + TwEmo + TREC | — | — | — |
 
 ---
 
@@ -181,26 +178,20 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Distillation Regime | Target Formulation | Loss Function | Macro-F1 (%) | Test Accuracy (%) | Minority Preds (Gold=250) |
 | :--- | :--- | :--- | :---: | :---: | :---: |
-| **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 58.02% | 66.60% | 0 (Collapsed) |
-| **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 64.94% | 70.50% | 29 (Recovered) |
-| **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 57.04% | 65.50% | 0 (Collapsed) |
-| **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **66.48%** | **71.10%** | **42 (Best)** |
+| **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | — | — | — |
+| **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | — | — | — |
+| **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | — | — | — |
+| **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | — | — | — |
 
 ---
 
-### Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD
+### Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News Skewed)
 
-| Benchmark Dataset | Evaluation Metric | Standard KD ($1\times$ Pass) | Permutation-Averaged KD ($M\times$ Passes) | Calibrated KD (CKD, $1\times$ Pass) |
+| Benchmark Dataset | Evaluation Metric | Standard KD ($1\times$ Pass) | Permutation-Averaged KD ($4\times$ Passes) | Calibrated KD (CKD, $1\times$ Pass) |
 | :--- | :--- | :---: | :---: | :---: |
-| **AG News Skewed** | Test Accuracy (%) | 65.80% | **75.30%** ($4\times$ passes) | 69.90% |
-| | Macro-F1 (%) | 57.22% | **75.13%** ($4\times$ passes) | 64.22% |
-| | Worst-Class F1 ($F1_{\text{min}}$) | 0.00% | **68.34%** ($4\times$ passes) | 21.00% |
-| **AG News Balanced** | Test Accuracy (%) | 83.10% | 74.10% ($4\times$ passes) | **84.50%** |
-| | Macro-F1 (%) | 82.80% | 73.31% ($4\times$ passes) | **84.30%** |
-| | Worst-Class F1 ($F1_{\text{min}}$) | 76.50% | 58.40% ($4\times$ passes) | **79.20%** |
-| **SST-2 Balanced** | Test Accuracy (%) | **88.00%** | 77.50% ($2\times$ passes) | 87.50% |
-| | Macro-F1 (%) | **87.94%** | 76.41% ($2\times$ passes) | 87.43% |
-| | Worst-Class F1 ($F1_{\text{min}}$) | **87.82%** | 71.34% ($2\times$ passes) | 87.21% |
+| **AG News Skewed** | Test Accuracy (%) | — | — | — |
+| | Macro-F1 (%) | — | — | — |
+| | Worst-Class F1 ($F1_{\text{min}}$) | — | — | — |
 
 ---
 
