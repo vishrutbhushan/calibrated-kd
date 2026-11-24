@@ -20,6 +20,13 @@ All scripts correspond directly to the experiments and sections specified in [`p
 calibrated-kd/
 ├── paper_structure.md                  # Full paper specification, methodology, and results tables
 ├── README.md                           # Replication guide & documentation
+├── latex/                              # LaTeX paper source & build scripts
+│   ├── main.tex
+│   ├── references.bib
+│   ├── acl.sty
+│   ├── acl_natbib.bst
+│   ├── build.sh
+│   └── figures/
 ├── data/                               # Prepared dataset splits & cached teacher targets
 └── scripts/
     ├── data/                           # Step 1: Dataset download & stratified splitting
