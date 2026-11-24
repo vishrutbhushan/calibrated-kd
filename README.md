@@ -35,6 +35,7 @@ calibrated-kd/
     │   ├── prepare_3_additional_benchmarks.py
     │   └── prepare_sst2_natural.py
     ├── main_experiments/               # Step 2: Section 6 Main 6 Benchmarks (Gemma-3-4B -> RoBERTa-base)
+    │   ├── run_main_experiments.py     # Unified sequential runner for all 6 main benchmarks
     │   ├── run_single_benchmark.py
     │   └── run_full_student_questions_benchmark.py
     ├── ablations/                      # Step 3: Section 11 Ablations & Teacher Scaling
@@ -111,19 +112,13 @@ python scripts/data/prepare_sst2_natural.py
 
 ### Step 2: Run Main Benchmarks (Section 6)
 
-Each benchmark evaluates Teacher Zero-Shot (Raw & Null-Calibrated) alongside Standard KD, Batch-Calibrated KD, and Null Calibrated KD (Ours). Runs are strictly sequential and unload the teacher before loading the student.
+Run all 6 main benchmarks strictly sequentially in a single command. The script automatically verifies (and downloads if missing) all 6 datasets from HuggingFace, runs Teacher Zero-Shot (Raw & Null-Calibrated) alongside Standard KD, Batch-Calibrated KD, and Null Calibrated KD (Ours), logs everything to a single timestamped file in `logs/`, and saves all results to `outputs/main_experiments/`.
 
 ```bash
-# Run any single benchmark sequentially:
-python scripts/main_experiments/run_single_benchmark.py --dataset student_questions
-python scripts/main_experiments/run_single_benchmark.py --dataset trec6
-python scripts/main_experiments/run_single_benchmark.py --dataset app_reviews
-python scripts/main_experiments/run_single_benchmark.py --dataset twitter_emotion
-python scripts/main_experiments/run_single_benchmark.py --dataset tweeteval_emotion
-python scripts/main_experiments/run_single_benchmark.py --dataset bbc_news
+python scripts/main_experiments/run_main_experiments.py
 ```
 
-Results are saved to `outputs/results/main_results/<dataset>_all_methods.json`.
+Results are saved to `outputs/main_experiments/<dataset>_results.json` and `outputs/main_experiments/all_6_main_benchmarks_summary.json`.
 
 ### Step 3: Run Ablation Studies (Section 11)
 
