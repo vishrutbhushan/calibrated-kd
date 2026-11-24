@@ -56,8 +56,7 @@ calibrated-kd/
     └── plotting/                       # Step 4: Publication figures and table graphics
         ├── generate_benchmark_barchart.py
         ├── generate_blog_table_image.py
-        ├── plot_3_key_class_distributions.py
-        └── plot_all_6_class_distributions.py
+        └── plot_3_key_class_distributions.py
 ```
 
 ---
@@ -172,11 +171,12 @@ python scripts/ablations/exp_combine_ckd_posthoc.py
 
 ### Step 4: Generate Publication Figures & Tables
 
+All 3 figures are generated automatically at the end of `run_main_experiments.py`, or can be run standalone:
+
 ```bash
 python scripts/plotting/generate_blog_table_image.py
 python scripts/plotting/generate_benchmark_barchart.py
 python scripts/plotting/plot_3_key_class_distributions.py
-python scripts/plotting/plot_all_6_class_distributions.py
 ```
 
 ---

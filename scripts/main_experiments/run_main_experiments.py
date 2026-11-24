@@ -35,6 +35,7 @@ import json
 import time
 import random
 import argparse
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -722,6 +723,18 @@ def main() -> None:
         elapsed_min = (time.time() - start_time) / 60.0
         print(f"\n[✓] All 6 main experiments completed in {elapsed_min:.2f} minutes.")
         print(f"[✓] Summary saved to: {summary_file}")
+
+        # Generate the 3 publication figures from the newly saved summary
+        print("\n" + "=" * 75)
+        print("STEP 3: GENERATING PUBLICATION FIGURES")
+        print("=" * 75)
+        plot_scripts = [
+            ROOT / "scripts" / "plotting" / "generate_blog_table_image.py",
+            ROOT / "scripts" / "plotting" / "generate_benchmark_barchart.py",
+            ROOT / "scripts" / "plotting" / "plot_3_key_class_distributions.py",
+        ]
+        for script_path in plot_scripts:
+            subprocess.run([sys.executable, str(script_path)], check=True)
     finally:
         sys.stdout = tee.terminal
         sys.stderr = tee.terminal
