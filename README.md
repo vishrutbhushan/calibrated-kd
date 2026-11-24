@@ -29,9 +29,9 @@ calibrated-kd/
     │   └── prepare_sst2_natural.py
     ├── main_experiments/               # Step 2: Section 6 Main 6 Benchmarks (Gemma-3-4B -> RoBERTa-base)
     │   ├── run_single_benchmark.py
-    │   ├── exp_combine_ckd_posthoc.py
     │   └── run_full_student_questions_benchmark.py
     ├── ablations/                      # Step 3: Section 11 Ablations & Teacher Scaling
+    │   ├── exp_combine_ckd_posthoc.py              # Post-Hoc & Combined CKD+Post-Hoc Ablation
     │   ├── train_skewed_causal.py                  # Ablation 1: Same-size (Gemma-4B -> Qwen3-4B)
     │   ├── train_cross_family_qwen_roberta_sst2.py # Ablation 1: Cross-family (Qwen3-4B -> RoBERTa, Balanced)
     │   ├── train_cross_family_qwen_roberta_sst2_skewed.py # Ablation 1: Cross-family (Skewed)
@@ -104,7 +104,7 @@ python scripts/data/prepare_sst2_natural.py
 
 ### Step 2: Run Main Benchmarks (Section 6)
 
-Each benchmark evaluates Teacher Zero-Shot (Raw & Null-Calibrated) alongside Standard KD, Post-Hoc Output Calibration, Batch-Calibrated KD, Calibrated KD (CKD, Ours), and Combined (CKD + Post-Hoc). Runs are strictly sequential and unload the teacher before loading the student.
+Each benchmark evaluates Teacher Zero-Shot (Raw & Null-Calibrated) alongside Standard KD, Batch-Calibrated KD, and Null Calibrated KD (Ours). Runs are strictly sequential and unload the teacher before loading the student.
 
 ```bash
 # Run any single benchmark sequentially:
@@ -114,9 +114,6 @@ python scripts/main_experiments/run_single_benchmark.py --dataset app_reviews
 python scripts/main_experiments/run_single_benchmark.py --dataset twitter_emotion
 python scripts/main_experiments/run_single_benchmark.py --dataset tweeteval_emotion
 python scripts/main_experiments/run_single_benchmark.py --dataset bbc_news
-
-# Or run the combined CKD + Post-Hoc study across all datasets:
-python scripts/main_experiments/exp_combine_ckd_posthoc.py
 ```
 
 Results are saved to `outputs/results/main_results/<dataset>_all_methods.json`.
@@ -166,6 +163,11 @@ python scripts/ablations/extract_gemma12b_pytorch_targets.py
 python scripts/ablations/train_students_gemma12b_sequential.py
 ```
 
+**Post-Hoc Output Calibration & Combined (CKD + Post-Hoc) Ablation**
+```bash
+python scripts/ablations/exp_combine_ckd_posthoc.py
+```
+
 ### Step 4: Generate Publication Figures & Tables
 
 ```bash
@@ -183,10 +185,8 @@ Teacher: **Gemma-3-4B-IT** $\longrightarrow$ Student: **RoBERTa-base (125M)**. R
 
 | Method | Student Questions ($K=4$) | TREC-6 ($K=6$) | App Reviews ($K=5$) | Twitter Emotion ($K=6$) | TweetEval Emotion ($K=4$) | BBC News ($K=5$) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Teacher Raw Zero-Shot** | 28.13% (33.75%) | 50.15% (52.25%) | 29.69% (48.25%) | 39.80% (53.00%) | 45.78% (57.25%) | 54.81% (56.00%) |
-| **Teacher Null-Calibrated** | 29.08% (33.75%) | 52.90% (54.25%) | 32.46% (49.25%) | 40.35% (52.00%) | 56.05% (65.00%) | 64.04% (63.25%) |
-| **Student: Standard KD** | 23.09% (32.50%) | 62.28% (59.75%) | 30.25% (51.75%) | 29.78% (50.50%) | 34.16% (54.25%) | 56.26% (59.25%) |
-| **Student: Post-Hoc Cal** | 27.65% (32.00%) | 58.86% (61.50%) | 33.15% (51.25%) | 32.59% (49.50%) | 55.43% (66.50%) | 86.85% (86.25%) |
-| **Student: Batch-Cal KD** | 23.58% (32.25%) | 63.29% (61.00%) | 32.04% (52.25%) | 31.13% (50.00%) | 38.34% (56.25%) | 56.95% (60.00%) |
-| **Student: CKD (Ours)** | **37.23% (39.00%)** | **64.71% (61.75%)** | **34.50% (54.00%)** | 34.46% (50.75%) | 55.48% (66.50%) | 71.47% (70.50%) |
-| **Student: CKD + Post-Hoc** | 26.55% (30.75%) | 60.10% (61.75%) | 31.91% (51.50%) | **43.21% (55.25%)** | **68.03% (73.50%)** | **93.10% (93.00%)** |
+| **Teacher Raw Zero-Shot** | 28.13% (33.8%) | 50.15% (52.3%) | 29.69% (48.3%) | 39.80% (53.0%) | 45.78% (57.3%) | 54.81% (56.0%) |
+| **Teacher Null-Calibrated** | 29.08% (33.8%) | 52.90% (54.3%) | 32.46% (49.3%) | 40.35% (52.0%) | 56.05% (65.0%) | 64.04% (63.3%) |
+| **Student: Standard KD** | 23.09% (32.5%) | 62.28% (59.8%) | 30.25% (51.8%) | 29.78% (50.5%) | 34.16% (54.3%) | 56.26% (59.3%) |
+| **Student: Batch-Cal KD** | 23.58% (32.3%) | 63.29% (61.0%) | 32.04% (52.3%) | 31.13% (50.0%) | 38.34% (56.3%) | 56.95% (60.0%) |
+| **Student: Null Calibrated KD (Ours)** | **37.23% (39.0%)** | **64.71% (61.8%)** | **34.50% (54.0%)** | **34.46% (50.8%)** | **55.48% (66.5%)** | **71.47% (70.5%)** |
