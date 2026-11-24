@@ -1,4 +1,6 @@
 # Calibrated Knowledge Distillation (CKD)
+<img width="7075" height="4407" alt="lol" src="https://github.com/user-attachments/assets/98d72fd4-d058-419c-acaf-b79ffa128b9f" />
+
 
 **Preventing Prompt-Bias Transfer and Minority Class Collapse in LLM-to-SLM Distillation via Offline Null Probing.**
 
