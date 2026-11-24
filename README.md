@@ -39,6 +39,7 @@ calibrated-kd/
     │   ├── run_single_benchmark.py
     │   └── run_full_student_questions_benchmark.py
     ├── ablations/                      # Step 3: Section 11 Ablations & Teacher Scaling
+    │   ├── run_all_ablations.py                    # Unified sequential runner for all ablations
     │   ├── exp_combine_ckd_posthoc.py              # Post-Hoc & Combined CKD+Post-Hoc Ablation
     │   ├── train_skewed_causal.py                  # Ablation 1: Same-size (Gemma-4B -> Qwen3-4B)
     │   ├── train_cross_family_qwen_roberta_sst2.py # Ablation 1: Cross-family (Qwen3-4B -> RoBERTa, Balanced)
@@ -120,6 +121,14 @@ python scripts/main_experiments/run_main_experiments.py
 Results are saved to `outputs/main_experiments/<dataset>_results.json` and `outputs/main_experiments/all_6_main_benchmarks_summary.json`.
 
 ### Step 3: Run Ablation Studies (Section 11)
+
+Run all ablation experiments (Ablations 1–6) strictly sequentially in a single command (logging to `logs/ablations_<timestamp>.log`):
+
+```bash
+python scripts/ablations/run_all_ablations.py
+```
+
+Or run individual ablations standalone:
 
 **Ablation 1: Cross-Architecture Triad**
 ```bash
