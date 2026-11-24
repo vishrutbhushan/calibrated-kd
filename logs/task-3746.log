@@ -1,13 +1,0 @@
-
-===========================================================================
-RUNNING EMOTION DISTILLATION | VARIANT: PIKD (Student: Qwen3-4B LoRA)
-===========================================================================
-Verbalizers token mapping: [('A', 32), ('B', 33), ('C', 34), ('D', 35), ('E', 36), ('F', 37)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:32,  4.29it/s]Loading weights:   7%|█▌                      | 26/398 [00:00<00:03, 96.70it/s]Loading weights:  12%|██▊                    | 49/398 [00:00<00:02, 141.69it/s]Loading weights:  19%|████▎                  | 75/398 [00:00<00:01, 179.78it/s]Loading weights:  26%|█████▋                | 102/398 [00:00<00:01, 206.85it/s]Loading weights:  31%|██████▉               | 125/398 [00:00<00:01, 211.84it/s]Loading weights:  37%|████████▏             | 148/398 [00:00<00:01, 215.27it/s]Loading weights:  44%|█████████▋            | 176/398 [00:00<00:00, 232.11it/s]Loading weights:  50%|███████████           | 200/398 [00:01<00:00, 230.41it/s]Loading weights:  56%|████████████▍         | 224/398 [00:01<00:00, 231.01it/s]Loading weights:  62%|█████████████▋        | 248/398 [00:01<00:00, 232.22it/s]Loading weights:  68%|███████████████       | 272/398 [00:01<00:00, 234.30it/s]Loading weights:  74%|████████████████▎     | 296/398 [00:01<00:00, 222.71it/s]Loading weights:  81%|█████████████████▊    | 322/398 [00:01<00:00, 217.52it/s]Loading weights:  86%|███████████████████   | 344/398 [00:01<00:00, 128.31it/s]Loading weights:  91%|████████████████████  | 362/398 [00:02<00:00, 108.70it/s]Loading weights:  95%|████████████████████▊ | 377/398 [00:02<00:00, 103.59it/s]Loading weights:  98%|██████████████████████▌| 390/398 [00:02<00:00, 94.91it/s]Loading weights: 100%|██████████████████████| 398/398 [00:02<00:00, 154.05it/s]
-[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
-Epoch 1/2 | KL Loss = 1.7485 | Test Acc = 41.67% | Macro-F1 = 39.01% | Counts = [146, 29, 38, 52, 33, 2]
-Epoch 2/2 | KL Loss = 0.4640 | Test Acc = 40.67% | Macro-F1 = 37.29% | Counts = [146, 42, 34, 54, 23, 1]
-
-[✓] Finished PIKD: Acc=40.67% | F1=37.29% | Counts=[146, 42, 34, 54, 23, 1]
-[✓] Saved to /home/vishrut/annotator-bias-fingerprints/results/emotion_run_pikd.json

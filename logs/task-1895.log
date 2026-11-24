@@ -1,11 +1,0 @@
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<02:25,  6.06it/s]Loading weights:   5%|█                      | 43/883 [00:00<00:04, 191.77it/s]Loading weights:  11%|██▍                    | 95/883 [00:00<00:02, 312.36it/s]Loading weights:  16%|███▌                  | 145/883 [00:00<00:01, 377.80it/s]Loading weights:  22%|████▉                 | 196/883 [00:00<00:01, 414.61it/s]Loading weights:  27%|█████▉                | 240/883 [00:00<00:01, 410.49it/s]Loading weights:  33%|███████▏              | 290/883 [00:00<00:01, 431.58it/s]Loading weights:  39%|████████▌             | 342/883 [00:00<00:01, 450.64it/s]Loading weights:  44%|█████████▋            | 388/883 [00:01<00:01, 451.33it/s]Loading weights:  49%|██████████▊           | 434/883 [00:01<00:01, 436.93it/s]Loading weights:  75%|████████████████▌     | 663/883 [00:01<00:00, 964.05it/s]Loading weights: 100%|██████████████████████| 883/883 [00:01<00:00, 675.40it/s]
-Null Logits (A, B, C, D, E): [36.75 50.25 45.5  47.25 35.  ]
-
-=== RAW TEACHER PREDICTIONS (150 items, 30/class) ===
-Counts: {'direct_imperative': 1, 'modal_deontic': 65, 'optative': 29, 'conditional': 52, 'interrogative': 3}
-Accuracy: 42.00%
-
-=== CALIBRATED TEACHER PREDICTIONS (Calibrate-Before-Use) ===
-Counts: {'direct_imperative': 8, 'modal_deontic': 27, 'optative': 29, 'conditional': 54, 'interrogative': 32}
-Accuracy: 44.67%

@@ -1,16 +1,0 @@
-==========================================================
-STAGE 1: NLI STANDARD KNOWLEDGE DISTILLATION (RAW)
-Teacher: Qwen3-4B -> Student: Gemma-3-4B LoRA
-==========================================================
-
-=======================================================
-Distilling Gemma-3-4B on NLI | Mode: RAW
-Teacher: Qwen3-4B | Student: Gemma-3-4B (LoRA)
-=======================================================
-Verbalizers token mapping: [('A', 236776), ('B', 236799), ('C', 236780)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<03:51,  3.80it/s]Loading weights:   5%|█                      | 43/883 [00:00<00:05, 146.38it/s]Loading weights:   9%|██▏                    | 83/883 [00:00<00:03, 225.50it/s]Loading weights:  15%|███▎                  | 134/883 [00:00<00:02, 309.67it/s]Loading weights:  21%|████▌                 | 185/883 [00:00<00:01, 368.63it/s]Loading weights:  27%|█████▊                | 234/883 [00:00<00:01, 404.35it/s]Loading weights:  32%|██████▉               | 279/883 [00:00<00:01, 412.66it/s]Loading weights:  37%|████████▏             | 330/883 [00:00<00:01, 439.64it/s]Loading weights:  43%|█████████▍            | 378/883 [00:01<00:01, 450.21it/s]Loading weights:  48%|██████████▌           | 425/883 [00:01<00:01, 400.37it/s]Loading weights:  68%|██████████████▉       | 599/883 [00:01<00:00, 757.19it/s]Loading weights:  99%|████████████████████▊| 874/883 [00:01<00:00, 1310.48it/s]Loading weights: 100%|██████████████████████| 883/883 [00:01<00:00, 611.21it/s]
-
-[Zero-Shot Student Pre-Train] Acc: 57.33% | Macro-F1: 54.86% | Preds: [118, 55, 127]
-trainable params: 11,898,880 || all params: 4,311,978,352 || trainable%: 0.2759
-  Step 1/114 | Step Loss: 2.2635

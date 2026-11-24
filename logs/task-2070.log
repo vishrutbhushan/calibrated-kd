@@ -1,25 +1,0 @@
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<07:03,  2.08it/s]Loading weights:   1%|▎                       | 13/883 [00:00<00:30, 28.98it/s]Loading weights:   3%|▊                       | 30/883 [00:00<00:14, 58.94it/s]Loading weights:   6%|█▎                      | 49/883 [00:00<00:09, 90.05it/s]Loading weights:   7%|█▋                     | 66/883 [00:00<00:07, 107.60it/s]Loading weights:   9%|██▏                    | 83/883 [00:01<00:06, 122.80it/s]Loading weights:  12%|██▌                   | 102/883 [00:01<00:05, 140.96it/s]Loading weights:  14%|███                   | 121/883 [00:01<00:05, 141.21it/s]Loading weights:  16%|███▌                  | 143/883 [00:01<00:04, 153.34it/s]Loading weights:  18%|████                  | 161/883 [00:01<00:04, 155.08it/s]Loading weights:  20%|████▍                 | 180/883 [00:01<00:04, 163.31it/s]Loading weights:  22%|████▉                 | 197/883 [00:01<00:04, 161.50it/s]Loading weights:  24%|█████▎                | 214/883 [00:01<00:04, 147.65it/s]Loading weights:  27%|█████▊                | 234/883 [00:01<00:04, 151.64it/s]Loading weights:  28%|██████▎               | 251/883 [00:02<00:04, 149.28it/s]Loading weights:  30%|██████▋               | 267/883 [00:02<00:04, 151.72it/s]Loading weights:  32%|███████               | 284/883 [00:02<00:04, 143.72it/s]Loading weights:  34%|███████▌              | 303/883 [00:02<00:03, 151.06it/s]Loading weights:  36%|████████              | 322/883 [00:02<00:03, 159.12it/s]Loading weights:  38%|████████▍             | 339/883 [00:02<00:03, 151.36it/s]Loading weights:  40%|████████▊             | 355/883 [00:02<00:03, 152.81it/s]Loading weights:  42%|█████████▏            | 371/883 [00:02<00:03, 153.07it/s]Loading weights:  44%|█████████▋            | 390/883 [00:02<00:03, 161.03it/s]Loading weights:  46%|██████████▏           | 407/883 [00:03<00:03, 149.69it/s]Loading weights:  48%|██████████▌           | 423/883 [00:03<00:03, 146.60it/s]Loading weights:  51%|███████████▎          | 454/883 [00:03<00:02, 189.80it/s]Loading weights:  61%|█████████████▍        | 541/883 [00:03<00:00, 375.65it/s]Loading weights:  76%|████████████████▋     | 669/883 [00:03<00:00, 623.29it/s]Loading weights:  89%|███████████████████▌  | 785/883 [00:03<00:00, 768.88it/s]Loading weights: 100%|██████████████████████| 883/883 [00:03<00:00, 236.42it/s]
-Verbalizers: [('A', 236776), ('B', 236799), ('C', 236780), ('D', 236796), ('E', 236788)]
-
-Language: en
-  Logits [A, B, C, D, E]: [36.75, 50.25, 45.5, 47.25, 35.0]
-  Probs  [A, B, C, D, E]: ['0.00%', '94.48%', '0.82%', '4.70%', '0.00%']
-
-Language: hi
-  Logits [A, B, C, D, E]: [36.25, 46.5, 43.25, 39.0, 37.75]
-  Probs  [A, B, C, D, E]: ['0.00%', '96.20%', '3.73%', '0.05%', '0.02%']
-
-Language: mr
-  Logits [A, B, C, D, E]: [43.5, 45.5, 44.25, 39.0, 45.0]
-  Probs  [A, B, C, D, E]: ['6.67%', '49.26%', '14.11%', '0.07%', '29.88%']
-
-Language: ta
-  Logits [A, B, C, D, E]: [40.0, 46.5, 46.5, 38.25, 40.75]
-  Probs  [A, B, C, D, E]: ['0.07%', '49.88%', '49.88%', '0.01%', '0.16%']
-
-Language: ml
-  Logits [A, B, C, D, E]: [30.5, 43.75, 32.75, 30.0, 27.1200008392334]
-  Probs  [A, B, C, D, E]: ['0.00%', '100.00%', '0.00%', '0.00%', '0.00%']
-
-Saved null vectors to data/teacher_targets/null_vectors_gemma3_4b.json

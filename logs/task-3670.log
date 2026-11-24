@@ -1,12 +1,0 @@
-
-===========================================================================
-RUNNING STANDALONE VARIANT: STATIC_CKD
-===========================================================================
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:31,  4.35it/s]Loading weights:   6%|█▌                      | 25/398 [00:00<00:04, 92.35it/s]Loading weights:  12%|██▊                    | 48/398 [00:00<00:02, 137.76it/s]Loading weights:  18%|████                   | 71/398 [00:00<00:01, 165.51it/s]Loading weights:  25%|█████▋                 | 98/398 [00:00<00:01, 198.51it/s]Loading weights:  31%|██████▋               | 122/398 [00:00<00:01, 211.23it/s]Loading weights:  36%|████████              | 145/398 [00:00<00:01, 213.30it/s]Loading weights:  42%|█████████▎            | 169/398 [00:00<00:01, 218.92it/s]Loading weights:  48%|██████████▌           | 192/398 [00:01<00:00, 219.41it/s]Loading weights:  55%|████████████▏         | 220/398 [00:01<00:00, 234.93it/s]Loading weights:  61%|█████████████▍        | 244/398 [00:01<00:00, 229.41it/s]Loading weights:  67%|██████████████▊       | 268/398 [00:01<00:00, 156.02it/s]Loading weights:  72%|███████████████▊      | 287/398 [00:01<00:00, 159.29it/s]Loading weights:  77%|████████████████▉     | 306/398 [00:01<00:00, 141.75it/s]Loading weights:  81%|█████████████████▊    | 323/398 [00:01<00:00, 131.57it/s]Loading weights:  85%|██████████████████▋   | 338/398 [00:02<00:00, 133.33it/s]Loading weights:  89%|███████████████████▋  | 356/398 [00:02<00:00, 136.48it/s]Loading weights:  93%|████████████████████▌ | 371/398 [00:02<00:00, 130.17it/s]Loading weights:  97%|█████████████████████▎| 385/398 [00:02<00:00, 131.23it/s]Loading weights: 100%|██████████████████████| 398/398 [00:02<00:00, 155.08it/s]
-[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
-Epoch 1/2 | Loss = 2.6890 | Test Acc = 72.50% | Macro-F1 = 70.24% | Counts = [173, 324, 421, 82]
-Epoch 2/2 | Loss = 0.2382 | Test Acc = 76.50% | Macro-F1 = 74.40% | Counts = [226, 293, 392, 89]
-
-[✓] Finished STATIC_CKD: Acc=76.50% | F1=74.40% | Counts=[226, 293, 392, 89]
-[✓] Saved to /home/vishrut/annotator-bias-fingerprints/results/agnews_run_static_ckd.json

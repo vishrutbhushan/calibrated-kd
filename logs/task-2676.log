@@ -1,60 +1,0 @@
-==========================================================
-STAGE 1: STANDARD KNOWLEDGE DISTILLATION (RAW TARGETS)
-==========================================================
-
-=======================================================
-Distilling Qwen3-4B on AG News | Mode: RAW
-=======================================================
-Verbalizers token mapping: [('A', 32), ('B', 33), ('C', 34), ('D', 35)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<02:36,  2.54it/s]Loading weights:   4%|▊                       | 14/398 [00:00<00:10, 36.10it/s]Loading weights:   7%|█▌                      | 26/398 [00:00<00:06, 57.88it/s]Loading weights:  11%|██▌                     | 42/398 [00:00<00:04, 84.26it/s]Loading weights:  15%|███▎                   | 58/398 [00:00<00:03, 105.11it/s]Loading weights:  19%|████▎                  | 75/398 [00:00<00:02, 121.96it/s]Loading weights:  23%|█████▎                 | 93/398 [00:01<00:02, 134.00it/s]Loading weights:  29%|██████▎               | 115/398 [00:01<00:01, 153.89it/s]Loading weights:  34%|███████▌              | 137/398 [00:01<00:01, 172.26it/s]Loading weights:  40%|████████▊             | 159/398 [00:01<00:01, 180.48it/s]Loading weights:  46%|██████████▏           | 185/398 [00:01<00:01, 200.30it/s]Loading weights:  53%|███████████▋          | 212/398 [00:01<00:00, 217.91it/s]Loading weights:  60%|█████████████▎        | 240/398 [00:01<00:00, 230.08it/s]Loading weights:  70%|███████████████▎      | 278/398 [00:01<00:00, 269.81it/s]Loading weights:  77%|█████████████████     | 308/398 [00:01<00:00, 278.05it/s]Loading weights:  85%|██████████████████▋   | 337/398 [00:01<00:00, 271.81it/s]Loading weights:  92%|████████████████████▎ | 367/398 [00:02<00:00, 273.79it/s]Loading weights: 100%|██████████████████████| 398/398 [00:02<00:00, 183.15it/s]
-trainable params: 11,796,480 || all params: 4,034,264,576 || trainable%: 0.2924
-
-[Zero-Shot Student Pre-Train] Acc: 53.50% | Macro-F1: 52.16% | Preds: [131, 18, 15, 36]
-  Step 10/62 | Step Loss: 16.3180
-  Step 20/62 | Step Loss: 6.9200
-  Step 30/62 | Step Loss: 5.9598
-Epoch 1/2 | Train Loss: 42.9642 | Test Acc: 74.00% | Test F1: 70.17% | Preds: [69, 47, 72, 12]
-  Step 40/62 | Step Loss: 9.5097
-  Step 50/62 | Step Loss: 6.3173
-  Step 60/62 | Step Loss: 6.5926
-Epoch 2/2 | Train Loss: 5.5285 | Test Acc: 77.00% | Test F1: 73.65% | Preds: [67, 46, 74, 13]
-[✓] Saved RAW student checkpoint to /home/vishrut/annotator-bias-fingerprints/models/checkpoints/student_agnews_raw_kd_lora
-[✓] Saved results to /home/vishrut/annotator-bias-fingerprints/results/agnews_student_raw_results.json
-==========================================================
-STAGE 2: CALIBRATED KNOWLEDGE DISTILLATION (CKD TARGETS)
-==========================================================
-
-=======================================================
-Distilling Qwen3-4B on AG News | Mode: CALIBRATED
-=======================================================
-Verbalizers token mapping: [('A', 32), ('B', 33), ('C', 34), ('D', 35)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:18,  5.06it/s]Loading weights:   8%|█▊                     | 31/398 [00:00<00:02, 126.61it/s]Loading weights:  17%|███▊                   | 66/398 [00:00<00:01, 207.27it/s]Loading weights:  26%|█████▋                | 104/398 [00:00<00:01, 261.39it/s]Loading weights:  36%|████████              | 145/398 [00:00<00:00, 306.78it/s]Loading weights:  45%|██████████            | 181/398 [00:00<00:00, 319.95it/s]Loading weights:  55%|████████████▏         | 220/398 [00:00<00:00, 341.50it/s]Loading weights:  64%|██████████████▏       | 256/398 [00:00<00:00, 333.66it/s]Loading weights:  73%|████████████████      | 291/398 [00:01<00:00, 305.54it/s]Loading weights:  84%|██████████████████▍   | 333/398 [00:01<00:00, 330.81it/s]Loading weights:  92%|████████████████████▎ | 367/398 [00:01<00:00, 324.24it/s]Loading weights: 100%|██████████████████████| 398/398 [00:01<00:00, 289.50it/s]
-trainable params: 11,796,480 || all params: 4,034,264,576 || trainable%: 0.2924
-
-[Zero-Shot Student Pre-Train] Acc: 53.50% | Macro-F1: 52.16% | Preds: [131, 18, 15, 36]
-  Step 10/62 | Step Loss: 31.6628
-  Step 20/62 | Step Loss: 8.3481
-  Step 30/62 | Step Loss: 6.4743
-Epoch 1/2 | Train Loss: 54.5507 | Test Acc: 70.50% | Test F1: 65.73% | Preds: [43, 65, 84, 8]
-  Step 40/62 | Step Loss: 9.9684
-  Step 50/62 | Step Loss: 7.2607
-  Step 60/62 | Step Loss: 2.8547
-Epoch 2/2 | Train Loss: 4.5618 | Test Acc: 80.50% | Test F1: 79.02% | Preds: [44, 55, 77, 24]
-[✓] Saved CALIBRATED student checkpoint to /home/vishrut/annotator-bias-fingerprints/models/checkpoints/student_agnews_calibrated_kd_lora
-[✓] Saved results to /home/vishrut/annotator-bias-fingerprints/results/agnews_student_calibrated_results.json
-==========================================================
-ALL EXPERIMENTS COMPLETE! GENERATING SUMMARY...
-==========================================================
-===========================================================================
-AG NEWS (4-CLASS) DISTILLATION EMPIRICAL VALIDATION RESULTS
-===========================================================================
-Test Set (N=200 balanced): Gold = [50, 50, 50, 50]
-1. Zero-Shot Base Student: Acc = 53.50% | F1 = 52.16% | Preds: [131, 18, 15, 36]
-2. Standard KD Student:    Acc = 77.00% | F1 = 73.65% | Preds: [67, 46, 74, 13]
-3. Calibrated KD Student:  Acc = 80.50% | F1 = 79.02% | Preds: [44, 55, 77, 24]
-Deltas (Calibrated vs Standard):
-  Accuracy Gain: +3.50%
-  Macro-F1 Gain: +5.37%
-===========================================================================

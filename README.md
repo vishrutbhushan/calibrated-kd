@@ -1,142 +1,192 @@
 # Calibrated Knowledge Distillation (CKD)
 
-**Official empirical repository for Calibrated Knowledge Distillation (CKD): Removing Prompt Verbalizer Prior Transfer in Label-Free Distillation.**
+**Preventing Prompt-Bias Transfer and Minority Class Collapse in LLM-to-SLM Distillation via Offline Null Probing.**
+
+Autoregressive LLM teachers carry strong static verbalizer and position biases from pre-training. When distilling into compact student encoders (such as `roberta-base`) using multiple-choice prompt verbalizers (`A, B, C, ...`), this static bias dominates soft probability targets, starving minority classes of gradient signal and causing deterministic class collapse.
+
+**Calibrated Knowledge Distillation (CKD)** probes the frozen teacher *once* offline with an uninformative null input (`"N/A"`) to measure its static logit bias $b_{\text{null}} = z_T(\text{"N/A"})$, and subtracts it directly before softmax inside the distillation objective:
+
+$$p_T^{\text{cal}}(x) = \text{softmax}\left(\frac{z_T(x) - b_{\text{null}}}{\tau}\right), \quad \mathcal{L}_{\text{CKD}} = \tau^2 \, \text{KL}\big(p_T^{\text{cal}}(x) \parallel p_S(x)\big)$$
+
+CKD requires **zero ground-truth labels**, **one extra teacher forward pass total ($O(1)$)**, and imposes **zero inference-time overhead** on the deployed student model.
 
 ---
 
-## 🔬 Core Premise & Methodology
+## Repository Structure
 
-When prompted with classification instructions and discrete verbalizers (e.g., `"A"`, `"B"`, `"C"`, `"D"`), Large Language Model teachers exhibit sharp **unigram token prior skews** ($W_{\text{null}} = z_T(x_{\text{null}})$) even on content-free inputs (`"Text: N/A\nAnswer:"`). 
+All scripts correspond directly to the experiments and sections specified in [`paper_structure.md`](paper_structure.md):
 
-When transferring knowledge to a smaller student model via standard Knowledge Distillation (Forward KL), this unigram bias gets transferred directly into the supervisory soft targets, causing:
-1. **Severe class starvation & collapse** for lower-probability minority classes.
-2. **Artificial degradation** of student accuracy and Macro-F1 across both encoder and causal student architectures.
-
-### The Formulation
-For teacher logits $z_T(x)$ and task-specific null vector $W_{\text{null}} = z_T(x_{\text{null}})$:
-$$\tilde{z}(x) = z_T(x) - W_{\text{null}}$$
-$$P_{\text{cal}}(y \mid x) = \text{Softmax}(\tilde{z}(x))$$
-$$\mathcal{L}_{\text{CKD}} = D_{\text{KL}}\!\left(P_{\text{cal}}(y \mid x) \,\|\, P_{\text{student}}(y \mid x)\right)$$
-
-* Requires **zero human labels** and exactly **one null teacher evaluation** per task ($O(1)$ task overhead).
-* Deployed student operates with standard inference, incurring **zero test-time latency overhead**.
-
----
-
-## 📁 Repository Structure
-
-```
+```text
 calibrated-kd/
-├── README.md                          # Repository guide & comprehensive benchmark summary
-├── HANDOVER.md                        # Context specification & operational protocol
-├── data/
-│   ├── benchmarks/                    # Clean dataset splits (Emotion, AG News, TREC-6, SST-2)
-│   │   └── skewed/                    # Non-balanced & natural splits (AG News 10% min, etc.)
-│   └── teacher_targets/               # Extracted teacher logits & null vectors (.npz)
-│       └── skewed/                    # Cached teacher logits for non-balanced splits
-├── docs/
-│   ├── README.md                      # Directory guide separating active docs from archives
-│   ├── master_research_report.pdf     # Primary Camera-Ready Paper (8-page conference format)
-│   ├── master_research_report.md      # Up-to-date Markdown companion report (10 verified tables)
-│   ├── master_research_report.docx    # Formatted Word Document
-│   ├── master_research_report.html    # Standalone HTML report with tables & styling
-│   └── archive/                       # Archived historical drafts & exploratory plans
-├── latex/
-│   ├── main.tex                       # Master LaTeX source for publication paper
-│   ├── main.pdf                       # Compiled camera-ready PDF
-│   ├── build.sh                       # Clean PDF build script with asset mirroring
-│   └── figures/                       # Publication vector figures (fig1 to fig6)
-├── figures/
-│   ├── publication/                   # Publication-grade figures (PDF + 300 DPI PNG)
-│   └── archive/                       # Historical & per-dataset exploratory plots
-├── results/
-│   ├── 1_balanced_benchmarks/         # Master results on balanced splits (RoBERTa, Qwen05, Qwen3)
-│   ├── 2_skewed_benchmarks/           # 5-method comparison on non-balanced splits
-│   ├── 3_cross_architecture_scaling/  # Capacity scaling across 125M, 500M, and 4B models
-│   ├── 4_oracle_validation/           # Empirical oracle (b*) validation & alignment metrics
-│   ├── 5_calibration_strength_beta_sweep/ # Sensitivity sweep across beta in {0.0, 0.5, 1.0, 1.5}
-│   ├── 6_multi_seed_validation/       # Multi-seed validation (seeds 42, 43, 44 Mean +- Std)
-│   └── raw_runs/                      # Organized raw per-task output files & metrics
+├── paper_structure.md                  # Full paper specification, methodology, and results tables
+├── README.md                           # Replication guide & documentation
+├── data/                               # Prepared dataset splits & cached teacher targets
 └── scripts/
-    ├── prepare_data/                  # Split extraction & diagnostic null-bias checkers
-    ├── cache_targets/                 # Teacher inference & null-vector calibration caching
-    ├── train/                         # Standalone student distillation runners
-    ├── analysis/                      # Empirical oracle fitting & statistical evaluation
-    ├── plotting/                      # Merged publication figure generators (figs 1–6)
-    └── export/                        # Result organization, auditing & doc converters
+    ├── data/                           # Step 1: Dataset download & stratified splitting
+    │   ├── prepare_natural_benchmarks.py
+    │   ├── prepare_3_new_benchmarks.py
+    │   ├── prepare_3_additional_benchmarks.py
+    │   └── prepare_sst2_natural.py
+    ├── main_experiments/               # Step 2: Section 6 Main 6 Benchmarks (Gemma-3-4B -> RoBERTa-base)
+    │   ├── run_single_benchmark.py
+    │   ├── exp_combine_ckd_posthoc.py
+    │   └── run_full_student_questions_benchmark.py
+    ├── ablations/                      # Step 3: Section 11 Ablations & Teacher Scaling
+    │   ├── train_skewed_causal.py                  # Ablation 1: Same-size (Gemma-4B -> Qwen3-4B)
+    │   ├── train_cross_family_qwen_roberta_sst2.py # Ablation 1: Cross-family (Qwen3-4B -> RoBERTa, Balanced)
+    │   ├── train_cross_family_qwen_roberta_sst2_skewed.py # Ablation 1: Cross-family (Skewed)
+    │   ├── train_qwen05_benchmarks.py              # Ablation 1: Small SLM compression (Gemma-4B -> Qwen2.5-0.5B)
+    │   ├── run_multitask_distillation.py           # Ablation 2: Multi-task unified student backbone
+    │   ├── run_multitask_distillation_ablation.py  # Ablation 2: Multi-task core runner
+    │   ├── run_all_multitask_experiments.py        # Ablation 2: Multi-task suite wrapper
+    │   ├── train_hard_pseudo_label_experiment.py   # Ablation 3: Hard argmax vs. Soft KL distillation
+    │   ├── train_permutation_kd_experiment.py      # Ablation 4: Permutation-averaged KD (AG News)
+    │   ├── train_permutation_kd_sst2.py            # Ablation 4: Permutation-averaged KD (SST-2)
+    │   ├── train_roberta_audit_experiments.py      # Ablation 5: Multi-seed statistical validation
+    │   ├── extract_gemma12b_pytorch_targets.py     # Teacher Scaling: Gemma-3-12B target extraction
+    │   └── train_students_gemma12b_sequential.py   # Teacher Scaling: Sequential RoBERTa KD on 12B targets
+    └── plotting/                       # Step 4: Publication figures and table graphics
+        ├── generate_benchmark_barchart.py
+        ├── generate_blog_table_image.py
+        ├── plot_3_key_class_distributions.py
+        └── plot_all_6_class_distributions.py
 ```
 
 ---
 
-## 📊 Summary of Master Empirical Results
+## Environment Setup
 
-### 1. Balanced Benchmarks (Macro-F1 %)
-
-| Model / Architecture | Emotion (6 cl) | AG News (4 cl) | TREC-6 (6 cl) | SST-2 (2 cl) |
-| :--- | :---: | :---: | :---: | :---: |
-| Teacher (`gemma-3-4b-it`) | 34.92 | 70.24 | 69.93 | 84.21 |
-| Teacher + CKD | 35.62 | 67.45 | 69.21 | 84.74 |
-| **Qwen3-4B (Std KD)** | 37.59 | 69.91 | 75.08 | 80.92 |
-| **Qwen3-4B (CKD)** | **39.03 (+1.44)** | **74.40 (+4.49)** | **77.12 (+2.04)** | 80.92 (0.00) |
-| **Qwen2.5-0.5B (Std KD)** | 30.80 | 60.53 | 59.70 | 82.66 |
-| **Qwen2.5-0.5B (CKD)** | **32.51 (+1.71)** | **62.93 (+2.40)** | **62.98 (+3.28)** | 82.66 (0.00) |
-| **RoBERTa-base (Std KD)** | 36.38 | 68.78 | 68.36 | **87.90** |
-| **RoBERTa-base (CKD)** | **39.63 (+3.25)** | **70.23 (+1.45)** | **69.43 (+1.07)** | 87.41 (-0.49) |
-
-### 2. Non-Balanced & Skewed Benchmarks on RoBERTa-base (Macro-F1 %)
-
-| Benchmark Split | Standard KD | Post-Hoc Cal | Batch Cal KD | Calibrated KD | Prior-Aware CKD | Net CKD Gain |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **AG News Skewed (10% Sci/Tech)** | 57.22 | **65.53** | 57.15 | 64.22 | 58.83 | **+7.00 pp** |
-| **Emotion Natural (Saravia)** | 35.02 | **44.60** | 41.29 | 44.58 | 42.74 | **+9.56 pp** |
-| **TREC-6 Natural (1.6% Abbr)** | 64.62 | 68.91 | 70.15 | **75.09** | 74.02 | **+10.47 pp** |
-| **SST-2 Skewed (80/20 Imbalance)** | 65.03 | 62.97 | 67.03 | 78.69 | **84.36** | **+13.66 pp** |
-
-* **Minority Class Rescue:** On AG News Skewed (10% Sci/Tech), Standard KD predicts Sci/Tech **0 times out of 1,000**. CKD recovers predictions to **29 / 1,000**, lifting Macro-F1 from 57.22% to **64.22%**.
-* **Failure of Batch Calibration on Skew:** Batch Calibration averages soft probabilities over the training set ($\bar{p}_{\text{batch}}$), conflating low corpus frequency with prompt bias and resulting in **0 Sci/Tech predictions** (57.15% F1). Null calibration ($W_{\text{null}}$) isolates unigram token bias independently of corpus composition.
-
-### 3. Empirical Oracle ($b^*$) Validation
-Comparing unsupervised CKD correction ($-W_{\text{null}}$) against an empirical supervised oracle additive vector ($b^*$) fitted on 100 held-out labeled examples:
-* **AG News:** Centered Cosine Sim = **0.3367**, Pearson $r$ = **0.3367** (World suppressed: $-45.75 \leftrightarrow -2.95$)
-* **Emotion:** Centered Cosine Sim = **0.3953**, Pearson $r$ = **0.3953** (Sadness suppressed: $-16.38 \leftrightarrow -3.11$)
-* **TREC-6:** Centered Cosine Sim = **0.4592**, Pearson $r$ = **0.4592** (Description suppressed: $-15.62 \leftrightarrow -3.52$)
-
-### 4. Calibration Strength ($\beta$) Sensitivity Sweep
-Evaluating $\tilde{z}(x) = z_T(x) - \beta W_{\text{null}}$ on RoBERTa-base AG News Skewed:
-* $\beta = 0.0$ (Standard KD): 57.22% F1 | 0 Sci/Tech predictions (Collapsed)
-* $\beta = 0.5$ (Under-calibrated): 57.50% F1 | 0 Sci/Tech predictions (Collapsed)
-* $\beta = 1.0$ (Calibrated KD): **64.22% F1** | **29 Sci/Tech predictions** (**Optimal**)
-* $\beta = 1.5$ (Over-calibrated): 48.93% F1 | 307 Sci/Tech predictions (Boundary distortion, Acc drops to 55.20%)
-
-### 5. Multi-Seed Statistical Significance
-Evaluating Seeds 42, 43, 44 on RoBERTa-base AG News Skewed:
-* **Standard KD:** Macro-F1 = $56.62 \pm 0.46\%$, Accuracy = $65.03 \pm 0.58\%$, Sci/Tech = $0.0 \pm 0.0$
-* **Calibrated KD:** Macro-F1 = **$64.82 \pm 0.54\%$**, Accuracy = **$69.83 \pm 0.09\%$**, Sci/Tech = **$36.7 \pm 6.5$**
-* **Net Statistically Significant Gain:** **+8.19 pp Macro-F1**, **+4.80 pp Accuracy**, $+36.7$ minority predictions ($p < 0.001$, $>15\sigma$ above seed variance).
-
----
-
-## 🚀 Reproduction & Verification
-
-### 1. Environment Activation
 ```bash
-# In /home/vishrut/calibrated-kd
+python3 -m venv .venv
 source .venv/bin/activate
+pip install torch transformers datasets accelerate peft bitsandbytes scikit-learn numpy matplotlib
 ```
 
-### 2. Verify All Numerical Results
+**Models Used:**
+* **Primary Teacher:** `google/gemma-3-4b-it` (BF16)
+* **Primary Student:** `roberta-base` (125M)
+* **Ablation & Scaling Models:** `Qwen/Qwen3-4B`, `Qwen/Qwen2.5-0.5B-Instruct`, `google/gemma-3-12b-it` (4-bit NF4)
+
+---
+
+## Benchmark Datasets & Links
+
+All main benchmarks use stratified random splits ($N_{\text{train}} = 1,200$, $N_{\text{test}} = 400$, `seed=42`) preserving authentic, naturally skewed class distributions:
+
+| Benchmark | $K$ | Domain | HuggingFace Dataset | Link |
+| :--- | :---: | :--- | :--- | :--- |
+| **Student Questions** | 4 | Academic STEM Subjects | `SetFit/student-question-categories` | https://huggingface.co/datasets/SetFit/student-question-categories |
+| **TREC-6** | 6 | Question Taxonomy | `CogComp/trec` | https://huggingface.co/datasets/CogComp/trec |
+| **App Reviews** | 5 | Customer Star Ratings | `sealuzh/app_reviews` | https://huggingface.co/datasets/sealuzh/app_reviews |
+| **Twitter Emotion** | 6 | Fine-Grained Social Affect | `dair-ai/emotion` | https://huggingface.co/datasets/dair-ai/emotion |
+| **TweetEval Emotion** | 4 | Social Media Affect | `cardiffnlp/tweet_eval` (`emotion`) | https://huggingface.co/datasets/cardiffnlp/tweet_eval |
+| **BBC News** | 5 | Multi-Topic Journalism | `SetFit/bbc-news` | https://huggingface.co/datasets/SetFit/bbc-news |
+
+**Ablation & Diagnostic Datasets:**
+* **AG News ($K=4$, Ablations 1, 3, 4, 5):** https://huggingface.co/datasets/fancyzhx/ag_news
+* **SST-2 ($K=2$, Ablations 1 & 4):** https://huggingface.co/datasets/SetFit/sst2
+* **PRAXIS ($K=5$, Multi-Task Ablation):** https://huggingface.co/datasets/au-hf/praxis
+
+---
+
+## Step-by-Step Replication Guide
+
+### Step 1: Download & Prepare Datasets
+
+Run the data preparation scripts to create the stratified 1,200 Train / 400 Test natural splits under `data/datasets/natural_benchmarks/`:
+
 ```bash
-python scripts/export/organize_and_validate_all_results.py
+python scripts/data/prepare_natural_benchmarks.py
+python scripts/data/prepare_3_new_benchmarks.py
+python scripts/data/prepare_3_additional_benchmarks.py
+python scripts/data/prepare_sst2_natural.py
 ```
 
-### 3. Regenerate Figures & Build Camera-Ready PDF
+### Step 2: Run Main Benchmarks (Section 6)
+
+Each benchmark evaluates Teacher Zero-Shot (Raw & Null-Calibrated) alongside Standard KD, Post-Hoc Output Calibration, Batch-Calibrated KD, Calibrated KD (CKD, Ours), and Combined (CKD + Post-Hoc). Runs are strictly sequential and unload the teacher before loading the student.
+
 ```bash
-# Generate high-resolution publication figures (PDF + PNG)
-python scripts/plotting/generate_merged_publication_figures.py
+# Run any single benchmark sequentially:
+python scripts/main_experiments/run_single_benchmark.py --dataset student_questions
+python scripts/main_experiments/run_single_benchmark.py --dataset trec6
+python scripts/main_experiments/run_single_benchmark.py --dataset app_reviews
+python scripts/main_experiments/run_single_benchmark.py --dataset twitter_emotion
+python scripts/main_experiments/run_single_benchmark.py --dataset tweeteval_emotion
+python scripts/main_experiments/run_single_benchmark.py --dataset bbc_news
 
-# Compile camera-ready 8-page paper and mirror to docs/
-bash latex/build.sh
-
-# Re-generate DOCX and HTML documents
-python scripts/export/convert_report_to_docs.py
+# Or run the combined CKD + Post-Hoc study across all datasets:
+python scripts/main_experiments/exp_combine_ckd_posthoc.py
 ```
+
+Results are saved to `outputs/results/main_results/<dataset>_all_methods.json`.
+
+### Step 3: Run Ablation Studies (Section 11)
+
+**Ablation 1: Cross-Architecture Triad**
+```bash
+# Config 1: Same-Size (Gemma-3-4B -> Qwen3-4B LoRA on AG News)
+python scripts/ablations/train_skewed_causal.py
+
+# Config 2: Cross-Family (Qwen3-4B -> RoBERTa-base on SST-2)
+python scripts/ablations/train_cross_family_qwen_roberta_sst2.py
+python scripts/ablations/train_cross_family_qwen_roberta_sst2_skewed.py
+
+# Config 3: Small SLM Compression (Gemma-3-4B -> Qwen2.5-0.5B LoRA on TREC-6)
+python scripts/ablations/train_qwen05_benchmarks.py
+```
+
+**Ablation 2: Multi-Task Distillation (Unified Student Backbone)**
+```bash
+python scripts/ablations/run_all_multitask_experiments.py
+```
+
+**Ablation 3: Hard Pseudo-Labels vs. Soft Label Distillation**
+```bash
+python scripts/ablations/train_hard_pseudo_label_experiment.py
+```
+
+**Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD**
+```bash
+python scripts/ablations/train_permutation_kd_experiment.py
+python scripts/ablations/train_permutation_kd_sst2.py
+```
+
+**Ablation 5: Multi-Seed Statistical Significance (Seeds 42, 43, 44)**
+```bash
+python scripts/ablations/train_roberta_audit_experiments.py
+```
+
+**Teacher Model Scaling (Gemma-3-12B-IT in 4-bit NF4)**
+```bash
+# Stage 1: Extract and cache 12B teacher targets sequentially
+python scripts/ablations/extract_gemma12b_pytorch_targets.py
+
+# Stage 2: Train RoBERTa-base students sequentially from cached targets
+python scripts/ablations/train_students_gemma12b_sequential.py
+```
+
+### Step 4: Generate Publication Figures & Tables
+
+```bash
+python scripts/plotting/generate_blog_table_image.py
+python scripts/plotting/generate_benchmark_barchart.py
+python scripts/plotting/plot_3_key_class_distributions.py
+python scripts/plotting/plot_all_6_class_distributions.py
+```
+
+---
+
+## Main Benchmark Results Summary (Section 6)
+
+Teacher: **Gemma-3-4B-IT** $\longrightarrow$ Student: **RoBERTa-base (125M)**. Reported as **Macro-F1 (%)** with **Accuracy (%)** in parentheses:
+
+| Method | Student Questions ($K=4$) | TREC-6 ($K=6$) | App Reviews ($K=5$) | Twitter Emotion ($K=6$) | TweetEval Emotion ($K=4$) | BBC News ($K=5$) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Teacher Raw Zero-Shot** | 28.13% (33.75%) | 50.15% (52.25%) | 29.69% (48.25%) | 39.80% (53.00%) | 45.78% (57.25%) | 54.81% (56.00%) |
+| **Teacher Null-Calibrated** | 29.08% (33.75%) | 52.90% (54.25%) | 32.46% (49.25%) | 40.35% (52.00%) | 56.05% (65.00%) | 64.04% (63.25%) |
+| **Student: Standard KD** | 23.09% (32.50%) | 62.28% (59.75%) | 30.25% (51.75%) | 29.78% (50.50%) | 34.16% (54.25%) | 56.26% (59.25%) |
+| **Student: Post-Hoc Cal** | 27.65% (32.00%) | 58.86% (61.50%) | 33.15% (51.25%) | 32.59% (49.50%) | 55.43% (66.50%) | 86.85% (86.25%) |
+| **Student: Batch-Cal KD** | 23.58% (32.25%) | 63.29% (61.00%) | 32.04% (52.25%) | 31.13% (50.00%) | 38.34% (56.25%) | 56.95% (60.00%) |
+| **Student: CKD (Ours)** | **37.23% (39.00%)** | **64.71% (61.75%)** | **34.50% (54.00%)** | 34.46% (50.75%) | 55.48% (66.50%) | 71.47% (70.50%) |
+| **Student: CKD + Post-Hoc** | 26.55% (30.75%) | 60.10% (61.75%) | 31.91% (51.50%) | **43.21% (55.25%)** | **68.03% (73.50%)** | **93.10% (93.00%)** |

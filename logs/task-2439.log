@@ -1,22 +1,0 @@
-Loading Teacher from /home/vishrut/.cache/huggingface/hub/models--google--gemma-3-4b-it/snapshots/093f9f388b31de276ce2de164bdc2081324b9767 in BF16...
-Verbalizers: [('A', 236776), ('B', 236799), ('C', 236780), ('D', 236796)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<06:27,  2.27it/s]Loading weights:   3%|▋                       | 24/883 [00:00<00:15, 56.70it/s]Loading weights:   6%|█▍                     | 57/883 [00:00<00:06, 124.80it/s]Loading weights:  11%|██▍                    | 93/883 [00:00<00:04, 183.11it/s]Loading weights:  14%|███                   | 122/883 [00:00<00:03, 207.40it/s]Loading weights:  18%|███▉                  | 159/883 [00:00<00:02, 246.01it/s]Loading weights:  21%|████▋                 | 188/883 [00:01<00:02, 251.09it/s]Loading weights:  25%|█████▍                | 217/883 [00:01<00:02, 247.81it/s]Loading weights:  29%|██████▍               | 258/883 [00:01<00:02, 291.22it/s]Loading weights:  33%|███████▏              | 290/883 [00:01<00:02, 287.14it/s]Loading weights:  36%|███████▉              | 321/883 [00:01<00:01, 291.50it/s]Loading weights:  40%|████████▊             | 354/883 [00:01<00:01, 284.42it/s]Loading weights:  44%|█████████▋            | 388/883 [00:01<00:01, 295.29it/s]Loading weights:  48%|██████████▍           | 420/883 [00:01<00:01, 300.35it/s]Loading weights:  57%|████████████▌         | 505/883 [00:01<00:00, 456.27it/s]Loading weights:  82%|██████████████████    | 727/883 [00:02<00:00, 961.52it/s]Loading weights: 100%|██████████████████████| 883/883 [00:02<00:00, 414.08it/s]
-
---- Teacher Null Vector ---
-  Token 'A' (World): logit = 45.75
-  Token 'B' (Sports): logit = 30.62
-  Token 'C' (Business): logit = 35.00
-  Token 'D' (Sci/Tech): logit = 33.25
-Null Logit Skew Gap: 15.12
-
-Extracting Teacher logits on 1000 training samples...
-Extracting Teacher logits on 200 test samples...
-
---- Teacher Test Performance (N=200) ---
-Raw Teacher:        Acc = 76.00% | Macro-F1 = 72.40%
-Calibrated Teacher: Acc = 74.00% | Macro-F1 = 71.19%
-Raw Pred Counts:        [67, 46, 74, 13]
-Calibrated Pred Counts: [41, 65, 76, 18]
-
-[✓] Targets successfully cached to /home/vishrut/annotator-bias-fingerprints/data/teacher_targets/teacher_targets_agnews_gemma3_4b.npz

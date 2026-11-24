@@ -1,7 +1,0 @@
-Resuming from checkpoint: 159 / 1000 already translated.
-Total to translate in praxis_train_1000.csv: 841 items (workers: 8, model: gemini-3.8-flash).
-Divided 841 items into 748 dynamic batches across 8 parallel workers.
-[1/748] Batch 6 OK (11.8s) | Progress: 160/1000 (5.1 items/min) IDs: ['praxis_study_11279']
-[2/748] Batch 3 OK (12.5s) | Progress: 161/1000 (9.6 items/min) IDs: ['praxis_study_06599']
-[3/748] Batch 5 OK (17.3s) | Progress: 162/1000 (10.4 items/min) IDs: ['praxis_study_01504']
-[4/748] Batch 7 OK (19.1s) | Progress: 163/1000 (12.6 items/min) IDs: ['praxis_study_01672']

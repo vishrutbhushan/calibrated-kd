@@ -1,60 +1,0 @@
-==========================================================
-STAGE 1: SST-2 STANDARD KNOWLEDGE DISTILLATION (RAW)
-==========================================================
-
-=======================================================
-Distilling Qwen3-4B on SST-2 | Mode: RAW
-=======================================================
-Verbalizers token mapping: [('A', 32), ('B', 33)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<02:40,  2.47it/s]Loading weights:   2%|▌                        | 9/398 [00:00<00:19, 19.74it/s]Loading weights:   4%|▉                       | 16/398 [00:00<00:12, 31.54it/s]Loading weights:   7%|█▌                      | 26/398 [00:00<00:08, 42.28it/s]Loading weights:  11%|██▌                     | 42/398 [00:00<00:05, 69.74it/s]Loading weights:  15%|███▍                    | 58/398 [00:01<00:03, 92.23it/s]Loading weights:  18%|████                   | 71/398 [00:01<00:03, 101.53it/s]Loading weights:  22%|████▉                  | 86/398 [00:01<00:02, 111.70it/s]Loading weights:  26%|█████▋                | 103/398 [00:01<00:02, 121.53it/s]Loading weights:  31%|██████▋               | 122/398 [00:01<00:01, 138.73it/s]Loading weights:  34%|███████▌              | 137/398 [00:01<00:01, 133.66it/s]Loading weights:  40%|████████▋             | 158/398 [00:01<00:01, 144.90it/s]Loading weights:  45%|█████████▊            | 178/398 [00:01<00:01, 157.47it/s]Loading weights:  49%|██████████▊           | 195/398 [00:01<00:01, 157.53it/s]Loading weights:  53%|███████████▋          | 211/398 [00:02<00:01, 140.64it/s]Loading weights:  57%|████████████▌         | 227/398 [00:02<00:01, 144.26it/s]Loading weights:  61%|█████████████▍        | 243/398 [00:02<00:01, 144.92it/s]Loading weights:  66%|██████████████▍       | 261/398 [00:02<00:00, 153.15it/s]Loading weights:  70%|███████████████▎      | 277/398 [00:02<00:00, 148.08it/s]Loading weights:  74%|████████████████▎     | 294/398 [00:02<00:00, 152.84it/s]Loading weights:  78%|█████████████████▏    | 310/398 [00:02<00:00, 152.43it/s]Loading weights:  82%|██████████████████    | 326/398 [00:02<00:00, 151.66it/s]Loading weights:  86%|██████████████████▉   | 343/398 [00:02<00:00, 153.85it/s]Loading weights:  90%|███████████████████▊  | 359/398 [00:03<00:00, 149.93it/s]Loading weights:  94%|████████████████████▋ | 375/398 [00:03<00:00, 149.49it/s]Loading weights: 100%|██████████████████████| 398/398 [00:03<00:00, 122.42it/s]
-trainable params: 11,796,480 || all params: 4,034,264,576 || trainable%: 0.2924
-
-[Zero-Shot Student Pre-Train] Acc: 84.50% | Macro-F1: 84.17% | Preds: [71, 129]
-  Step 10/62 | Step Loss: 10.1730
-  Step 20/62 | Step Loss: 8.5747
-  Step 30/62 | Step Loss: 4.9968
-Epoch 1/2 | Train Loss: 10.9870 | Test Acc: 85.50% | Test F1: 85.27% | Preds: [125, 75]
-  Step 40/62 | Step Loss: 3.3243
-  Step 50/62 | Step Loss: 4.4261
-  Step 60/62 | Step Loss: 1.7607
-Epoch 2/2 | Train Loss: 3.2532 | Test Acc: 81.50% | Test F1: 80.92% | Preds: [135, 65]
-[✓] Saved RAW student checkpoint to /home/vishrut/annotator-bias-fingerprints/models/checkpoints/student_sst2_raw_kd_lora
-[✓] Saved results to /home/vishrut/annotator-bias-fingerprints/results/sst2_student_raw_results.json
-==========================================================
-STAGE 2: SST-2 CALIBRATED KNOWLEDGE DISTILLATION (CKD)
-==========================================================
-
-=======================================================
-Distilling Qwen3-4B on SST-2 | Mode: CALIBRATED
-=======================================================
-Verbalizers token mapping: [('A', 32), ('B', 33)]
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/398 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/398 [00:00<01:47,  3.69it/s]Loading weights:   3%|▋                       | 12/398 [00:00<00:10, 37.68it/s]Loading weights:   9%|██▏                     | 36/398 [00:00<00:03, 99.42it/s]Loading weights:  15%|███▍                   | 59/398 [00:00<00:02, 135.55it/s]Loading weights:  21%|████▋                  | 82/398 [00:00<00:01, 162.15it/s]Loading weights:  27%|█████▉                | 108/398 [00:00<00:01, 188.82it/s]Loading weights:  34%|███████▍              | 135/398 [00:00<00:01, 205.84it/s]Loading weights:  40%|████████▋             | 158/398 [00:01<00:01, 208.12it/s]Loading weights:  45%|██████████            | 181/398 [00:01<00:01, 211.22it/s]Loading weights:  52%|███████████▍          | 207/398 [00:01<00:00, 222.69it/s]Loading weights:  59%|████████████▉         | 234/398 [00:01<00:00, 232.76it/s]Loading weights:  65%|██████████████▎       | 258/398 [00:01<00:00, 224.14it/s]Loading weights:  72%|███████████████▊      | 286/398 [00:01<00:00, 238.91it/s]Loading weights:  78%|█████████████████▏    | 311/398 [00:01<00:00, 237.55it/s]Loading weights:  84%|██████████████████▌   | 335/398 [00:01<00:00, 228.09it/s]Loading weights:  91%|████████████████████  | 363/398 [00:01<00:00, 239.85it/s]Loading weights:  97%|█████████████████████▍| 388/398 [00:02<00:00, 233.08it/s]Loading weights: 100%|██████████████████████| 398/398 [00:02<00:00, 194.60it/s]
-trainable params: 11,796,480 || all params: 4,034,264,576 || trainable%: 0.2924
-
-[Zero-Shot Student Pre-Train] Acc: 84.50% | Macro-F1: 84.17% | Preds: [71, 129]
-  Step 10/62 | Step Loss: 10.3910
-  Step 20/62 | Step Loss: 9.0692
-  Step 30/62 | Step Loss: 4.9925
-Epoch 1/2 | Train Loss: 10.8995 | Test Acc: 85.50% | Test F1: 85.27% | Preds: [125, 75]
-  Step 40/62 | Step Loss: 2.6092
-  Step 50/62 | Step Loss: 4.4381
-  Step 60/62 | Step Loss: 1.5559
-Epoch 2/2 | Train Loss: 3.1403 | Test Acc: 81.50% | Test F1: 80.92% | Preds: [135, 65]
-[✓] Saved CALIBRATED student checkpoint to /home/vishrut/annotator-bias-fingerprints/models/checkpoints/student_sst2_calibrated_kd_lora
-[✓] Saved results to /home/vishrut/annotator-bias-fingerprints/results/sst2_student_calibrated_results.json
-==========================================================
-ALL EXPERIMENTS COMPLETE! GENERATING SUMMARY...
-==========================================================
-===========================================================================
-SST-2 (2-CLASS BINARY) DISTILLATION EMPIRICAL VALIDATION RESULTS
-===========================================================================
-Test Set (N=200 balanced): Gold = [100, 100]
-1. Zero-Shot Base Student: Acc = 84.50% | F1 = 84.17% | Preds: [71, 129]
-2. Standard KD Student:    Acc = 81.50% | F1 = 80.92% | Preds: [135, 65]
-3. Calibrated KD Student:  Acc = 81.50% | F1 = 80.92% | Preds: [135, 65]
-Deltas (Calibrated vs Standard):
-  Accuracy Gain: +0.00%
-  Macro-F1 Gain: +0.00%
-===========================================================================

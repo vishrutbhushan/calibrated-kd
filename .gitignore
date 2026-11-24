@@ -28,6 +28,7 @@ ENV/
 # Execution Logs
 /logs/
 *.log
+/trash/
 
 # Datasets & Raw Data
 /data/

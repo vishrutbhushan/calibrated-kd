@@ -1,43 +1,0 @@
-Loading Teacher model (Gemma-3-4B-it)...
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|                                 | 0/883 [00:00<?, ?it/s]Loading weights:   0%|                         | 1/883 [00:00<07:52,  1.87it/s]Loading weights:   2%|▍                       | 17/883 [00:00<00:25, 34.34it/s]Loading weights:   4%|▊                       | 31/883 [00:00<00:14, 56.83it/s]Loading weights:   6%|█▎                      | 50/883 [00:00<00:09, 88.61it/s]Loading weights:   7%|█▋                     | 66/883 [00:00<00:07, 105.08it/s]Loading weights:   9%|██                     | 81/883 [00:01<00:06, 116.41it/s]Loading weights:  11%|██▌                    | 96/883 [00:01<00:06, 120.76it/s]Loading weights:  13%|██▉                   | 117/883 [00:01<00:05, 140.66it/s]Loading weights:  15%|███▎                  | 133/883 [00:01<00:05, 143.35it/s]Loading weights:  17%|███▋                  | 149/883 [00:01<00:05, 144.63it/s]Loading weights:  19%|████▏                 | 169/883 [00:01<00:04, 152.28it/s]Loading weights:  21%|████▋                 | 186/883 [00:01<00:04, 148.41it/s]Loading weights:  23%|█████                 | 205/883 [00:01<00:04, 159.57it/s]Loading weights:  25%|█████▌                | 222/883 [00:01<00:04, 151.52it/s]Loading weights:  27%|█████▉                | 238/883 [00:02<00:04, 151.10it/s]Loading weights:  29%|██████▎               | 255/883 [00:02<00:04, 153.78it/s]Loading weights:  31%|██████▊               | 271/883 [00:02<00:04, 151.95it/s]Loading weights:  33%|███████▏              | 287/883 [00:02<00:04, 146.92it/s]Loading weights:  34%|███████▌              | 304/883 [00:02<00:04, 143.48it/s]Loading weights:  37%|████████              | 325/883 [00:02<00:03, 153.35it/s]Loading weights:  39%|████████▍             | 341/883 [00:02<00:03, 146.65it/s]Loading weights:  40%|████████▊             | 356/883 [00:02<00:03, 146.51it/s]Loading weights:  42%|█████████▎            | 372/883 [00:02<00:03, 147.90it/s]Loading weights:  44%|█████████▋            | 388/883 [00:03<00:03, 150.66it/s]Loading weights:  46%|██████████            | 404/883 [00:03<00:03, 148.81it/s]Loading weights:  47%|██████████▍           | 419/883 [00:03<00:03, 140.19it/s]Loading weights:  49%|██████████▊           | 434/883 [00:03<00:03, 135.60it/s]Loading weights:  56%|████████████▎         | 494/883 [00:03<00:01, 260.75it/s]Loading weights:  65%|██████████████▎       | 575/883 [00:03<00:00, 405.61it/s]Loading weights:  76%|████████████████▋     | 669/883 [00:03<00:00, 548.04it/s]Loading weights:  88%|███████████████████▎  | 775/883 [00:03<00:00, 688.93it/s]Loading weights: 100%|██████████████████████| 883/883 [00:03<00:00, 223.34it/s]
-
-===========================================================================
-EVALUATING BENCHMARK: TREC-6 (QUESTION CLASSIFICATION, 6 CLASSES)
-===========================================================================
-Step 1: Null Bias Check:
-  A [Abbreviation]: Logit =  15.06 | Prior Prob =  92.11%
-  B [Entity      ]: Logit =   8.69 | Prior Prob =   0.16%
-  C [Description ]: Logit =  12.56 | Prior Prob =   7.56%
-  D [Human       ]: Logit =   8.12 | Prior Prob =   0.09%
-  E [Location    ]: Logit =   7.56 | Prior Prob =   0.05%
-  F [Numeric     ]: Logit =   7.03 | Prior Prob =   0.03%
--> Null Logit Skew Gap: 8.03 logits | Imbalance: 3075.6x
-
-Evaluating on 300 balanced test samples (50 per class)...
-
-Step 2: Direct Teacher Inference Check:
-  Raw Teacher:        Acc = 15.00% | Macro-F1 = 16.24% | Counts = [37, 65, 80, 42, 39, 37]
-  Calibrated Teacher: Acc = 16.00% | Macro-F1 = 16.83% | Counts = [34, 74, 70, 44, 39, 39]
-  Delta:              Acc Shift = +1.00% | F1 Shift = +0.59%
-
-===========================================================================
-EVALUATING BENCHMARK: EMOTION (HUMAN AFFECT, 6 CLASSES)
-===========================================================================
-Step 1: Null Bias Check:
-  A [Sadness     ]: Logit =  16.38 | Prior Prob =  98.24%
-  B [Joy         ]: Logit =  11.06 | Prior Prob =   0.48%
-  C [Love        ]: Logit =  11.62 | Prior Prob =   0.85%
-  D [Anger       ]: Logit =   9.06 | Prior Prob =   0.07%
-  E [Fear        ]: Logit =  10.31 | Prior Prob =   0.23%
-  F [Surprise    ]: Logit =   9.75 | Prior Prob =   0.13%
--> Null Logit Skew Gap: 7.31 logits | Imbalance: 1498.9x
-
-Evaluating on 300 balanced test samples (50 per class)...
-
-Step 2: Direct Teacher Inference Check:
-  Raw Teacher:        Acc = 37.67% | Macro-F1 = 34.92% | Counts = [156, 44, 31, 44, 24, 1]
-  Calibrated Teacher: Acc = 39.33% | Macro-F1 = 35.62% | Counts = [105, 44, 38, 79, 32, 2]
-  Delta:              Acc Shift = +1.67% | F1 Shift = +0.70%
-
-[✓] Results saved to results/new_candidate_benchmarks_step1_step2.json
