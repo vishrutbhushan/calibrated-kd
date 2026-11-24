@@ -1,0 +1,94 @@
+{
+  "combo_id": 1,
+  "tasks": [
+    "tweeteval_emotion",
+    "bbc_news"
+  ],
+  "std_kd_macro_f1": 49.7731831051624,
+  "ckd_macro_f1": 65.40416595803421,
+  "delta_macro_f1": 15.63098285287181,
+  "details": {
+    "std_kd": {
+      "per_task": {
+        "tweeteval_emotion": {
+          "accuracy": 58.25,
+          "macro_f1": 43.205273551157376,
+          "per_class_f1": [
+            67.07,
+            71.72,
+            15.38,
+            18.64
+          ],
+          "counts": [
+            331,
+            54,
+            3,
+            12
+          ]
+        },
+        "bbc_news": {
+          "accuracy": 59.5,
+          "macro_f1": 56.34109265916744,
+          "per_class_f1": [
+            68.47,
+            52.91,
+            83.54,
+            76.79,
+            0.0
+          ],
+          "counts": [
+            39,
+            252,
+            66,
+            43,
+            0
+          ]
+        }
+      },
+      "average_macro_f1": 49.7731831051624
+    },
+    "ckd": {
+      "per_task": {
+        "tweeteval_emotion": {
+          "accuracy": 68.75,
+          "macro_f1": 59.298038029536905,
+          "per_class_f1": [
+            75.06,
+            76.07,
+            32.56,
+            53.5
+          ],
+          "counts": [
+            270,
+            72,
+            7,
+            51
+          ]
+        },
+        "bbc_news": {
+          "accuracy": 70.0,
+          "macro_f1": 71.51029388653151,
+          "per_class_f1": [
+            66.67,
+            60.73,
+            85.71,
+            83.33,
+            61.11
+          ],
+          "counts": [
+            36,
+            211,
+            69,
+            51,
+            33
+          ]
+        }
+      },
+      "average_macro_f1": 65.40416595803421
+    }
+  },
+  "individual_baselines": {
+    "std_kd": 45.25,
+    "ckd": 63.5
+  }
+}
