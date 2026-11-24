@@ -53,6 +53,8 @@ latex/*.out
 latex/*.fls
 latex/*.fdb_latexmk
 latex/*.synctex.gz
+latex/*.bbl
+latex/*.blg
 
 # OS & Editor Files
 .DS_Store

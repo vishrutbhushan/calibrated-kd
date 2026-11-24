@@ -8,17 +8,27 @@
 \usepackage[utf8]{inputenc}
 \usepackage{microtype,graphicx,booktabs,amsmath,amssymb}
 \usepackage{colortbl}
+\usepackage{array}
 \usepackage{subcaption}
 \usepackage{placeins}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds}
 
 % Highlight colors for tables
 \definecolor{cellgreen}{RGB}{220, 245, 225}
 \definecolor{cellred}{RGB}{255, 225, 225}
 \definecolor{textgreen}{RGB}{20, 120, 40}
 \definecolor{textred}{RGB}{190, 25, 35}
+\definecolor{lanegray}{RGB}{245, 246, 248}
 
 \newcommand{\best}[1]{\cellcolor{cellgreen}\textcolor{textgreen}{\textbf{#1}}}
 \newcommand{\worst}[1]{\cellcolor{cellred}\textcolor{textred}{\textbf{#1}}}
+
+% Placeholder for a result that is not final yet
+\newcommand{\ph}[1]{\textcolor{red}{#1}}
+% Shows the figure if make_results.py generated it, otherwise a placeholder box of the same shape
+\newcommand{\resultfig}[2]{\IfFileExists{#1}{\includegraphics[width=\textwidth]{#1}}{%
+  \fbox{\parbox[c][#2\textwidth][c]{0.97\textwidth}{\centering\textcolor{red}{Figure placeholder}}}}}
 
 \renewcommand{\topfraction}{0.95}
 \renewcommand{\bottomfraction}{0.95}
@@ -31,415 +41,398 @@
 \setcounter{totalnumber}{8}
 \setcounter{dbltopnumber}{4}
 
-\title{An Empirical Study of Verbalizer Prior Transfer in\\Label-Free Knowledge Distillation}
+% Every number quoted in the text. Regenerated from results/*.json by make_results.py.
+\input{generated/results_macros.tex}
+
+\title{Your teacher might have a favourite class:\\Debiasing during knowledge distillation}
 
 \author{
-  Vishrut Bhushan \\
-  BITS Pilani \\
-  \texttt{2025H1120143P}
+  Vishrut Bhushan \quad Ajay Badrinath \quad Pranjal Pandey \quad Aakash S D \\
+  BITS Pilani
 }
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-In label-free task-specific knowledge distillation, a compact student model is trained on domain texts using soft probability distributions from a prompted autoregressive Large Language Model (LLM) teacher. When prompted with discrete verbalizers, teacher LLMs exhibit strong token prior preferences on content-free inputs. We investigate how this teacher prior transfers to student models across different model families and parameter capacities (RoBERTa-base 125M, Qwen2.5-0.5B, and Qwen3-4B) under forward Kullback--Leibler (KL) distillation. We evaluate Calibrated Knowledge Distillation (CKD), which removes the teacher's content-free null prior ($W_{\text{null}} = z_T(x_{\text{null}})$) before training, comparing it against Standard KD, Post-Hoc Output Calibration, Batch Calibration, and Prior-Aware adjustment across four datasets (Emotion, AG News, TREC-6, SST-2) under both balanced and non-balanced data distributions. Across balanced multi-class tasks, CKD improves Macro-F1 across all three student architectures (e.g., +4.49\,pp on Qwen3-4B, +2.40\,pp on Qwen2.5-0.5B, and +1.45\,pp on RoBERTa-base for AG News). On an imbalanced split of AG News (10\% minority class), Standard KD predicts the minority class 0 times out of 1,000 test items on RoBERTa-base (57.22\% Macro-F1), while CKD increases minority predictions to 29 (64.22\% Macro-F1). We find that Batch Calibration fails to improve minority predictions on skewed data because corpus frequencies conflate prompt bias with class imbalance, whereas content-free null calibration isolates the teacher's verbalizer bias independently of data distribution.
+Large language models (LLMs) are getting better every day at classification tasks.
+But deploying these larger models for a specific classification job requires more compute and longer inference time.
+Knowledge distillation (KD) lets an LLM teacher label an unlabelled training set for a smaller student model.
+However, a teacher can be biased towards a certain class, and a student that learns from it acquires some of that bias.
+In many cases, this leads to a complete class collapse.
+We study the effect of `Null' prompting on the teacher and utilise it to minimise the bias transference.
+A single offline probe with a blank prompt (N/A) captures this bias, and we subtract these null logits inside the distillation loss.
+We test this on 6 multi-class classification tasks with Gemma-3-4B-IT as the teacher and RoBERTa-base as the student.
+Macro-F1 increases by an average of \AvgGainStd{} percentage points (pp) over standard KD, and no human labels are required.
+Removing the teacher's bias in this way makes the student perform better at almost no extra cost.
 \end{abstract}
 
 \section{Introduction}
 
-Task-specific knowledge distillation transfers classification capabilities from a large autoregressive teacher model $T$ to a smaller student model $S$ using unlabeled domain texts $x \sim \mathcal{D}$ \citep{hinton2015distilling}. In a label-free setting, student parameters $\theta_S$ are trained solely to minimize the forward Kullback--Leibler (KL) divergence with respect to teacher soft probability targets $P_T(y \mid x)$:
-\begin{equation}
-\mathcal{L}_{\text{KD}} = \mathbb{E}_{x \sim \mathcal{D}}\left[ \mathcal{D}_{\text{KL}}\!\left(P_T(y \mid x) \,\|\, P_S(y \mid x; \theta_S)\right) \right]
-\end{equation}
-When prompted with classification instructions and discrete verbalizers (e.g., ``A'', ``B'', ``C'', ``D''), autoregressive LLMs exhibit systematic unigram prior bias on content-free inputs ($x_{\text{null}} = \text{``Text: N/A\textbackslash nAnswer:''}$) \citep{zhao2021calibrate}. For example, on a 6-class Emotion prompt, Gemma-3-4B-it assigns 98.24\% of its probability mass to Option A (\textit{Sadness}) on a null input, leaving Option F (\textit{Surprise}) with only 0.07\%. On a 6-class TREC prompt, 98.78\% of the null mass falls on Option C (\textit{Description}).
+Large language models (LLMs) are getting better every day at classification tasks, be it topical, inferential or pragmatic.
+But there is a significant drawback in deploying these larger models in scenarios where we require only a specific classification job.
+This comes in the form of higher compute requirements and longer inference time.
 
-In this paper, we conduct an empirical study of how this teacher prior affects student models under label-free distillation. Specifically, we address three questions:
-\begin{enumerate}
-    \item Does teacher verbalizer bias transfer into student models of different architectures, including non-generative encoders?
-    \item How does verbalizer bias manifest under balanced versus skewed data distributions?
-    \item How does training-time target calibration compare against alternative calibration techniques, such as post-hoc output adjustment and data-mean batch calibration?
-\end{enumerate}
+As such, a better alternative is to train a smaller, lightweight language model on a single or a specific set of tasks.
+They help reduce the time and compute required.
 
-\section{Datasets and Experimental Setup}
+But this approach brings a separate challenge, which is how to train these models.
+Training requires a large amount of labelled/annotated data, i.e., data that contains the ground truth.
+This is a bottleneck, as it often requires human judges manually annotating/labelling the data.
 
-\subsection{Datasets}
-We evaluate four benchmark text classification datasets:
-\begin{enumerate}
-    \item \textbf{Emotion} \citep{saravia2018carer}: 6-class emotion classification (\textit{Sadness, Joy, Love, Anger, Fear, Surprise}).
-    \item \textbf{AG News} \citep{zhang2015character}: 4-class news topic classification (\textit{World, Sports, Business, Sci/Tech}).
-    \item \textbf{TREC-6} \citep{li2002learning}: 6-class question classification (\textit{Abbreviation, Entity, Description, Human, Location, Numeric}).
-    \item \textbf{SST-2} \citep{socher2013recursive}: Binary sentiment classification (\textit{Negative, Positive}).
-\end{enumerate}
+To overcome this challenge, we utilise a technique known as Knowledge Distillation (KD) \citep{hinton2015distilling}.
+We utilise already available \textbf{LLMs} (termed as ``\textbf{Teacher}'') and ask them to label/categorise an unlabelled training set.
+We then use their output to fine-tune existing small base models like \textbf{BERT} \citep{devlin2019bert} / \textbf{RoBERTa} \citep{liu2019roberta}, termed as \textbf{``Student''}.
 
-\subsection{Balanced Benchmark Splits}
-In the balanced benchmark suite, training pools are uniformly stratified across classes:
+However, this approach comes with its own set of challenges.
+Assume a teacher that is already biased towards a certain class/category from within the set of possible classes for that task.
+When a student learns from the teacher, it acquires some of that bias.
+In many cases, it leads to a complete \emph{class collapse}, where the student never predicts some classes.
+
+To mitigate this, we need a way to capture that bias and remove it before the student can see it.
+Fortunately, earlier work shows how to capture the same.
+\citet{zhao2021calibrate} suggest that we can probe the teacher using a null prompt and capture the probabilities it gives to each class/category.
+Then, at inference, they subtract the same from the model's output before applying softmax.
+
+Null Calibrated KD utilises this same concept in the context of knowledge distillation to prevent bias transference.
+We modify the teachers' logits by subtracting the null logits, and then plug them in to the KL divergence loss.
+We set up a testing bench utilising this pipeline and ran it on 6 different multi-class classification tasks.
+Macro-F1 increases by an average of \AvgGainStd{} pp over standard KD, and minority classes no longer collapse in most cases.
+
+Our contributions are as follows.
 \begin{itemize}
-    \item \textbf{AG News:} 1,000 training examples (250 per class) and 1,000 test examples (250 per class) sampled without replacement from the corpus ($\text{Train} \cap \text{Test} = \emptyset$).
-    \item \textbf{Emotion:} 1,200 training examples (200 per class) and 300 test examples (50 per class).
-    \item \textbf{TREC-6:} 1,200 training examples (200 per class) and 500 test examples.
-    \item \textbf{SST-2:} 1,000 training examples (500 per class) and 200 balanced test examples (100 per class).
-\end{itemize}
-The balanced setup isolates the teacher's intrinsic verbalizer prior from external training set class imbalances.
-
-\subsection{Non-Balanced (Natural \& Skewed) Splits}
-To test performance under non-uniform class distributions, we evaluate four non-balanced configurations:
-\begin{itemize}
-    \item \textbf{AG News Skewed:} A synthetic 50/25/15/10\% class split (500 World, 250 Sports, 150 Business, 100 Sci/Tech in training), evaluated on 1,000 test items (250 per class). Class 3 (\textit{Sci/Tech}) serves as the 10\% minority class.
-    \item \textbf{Emotion Natural:} The empirical Saravia distribution (Joy 35.8\%, Sadness 25.9\%, Anger 12.3\%, Fear 11.5\%, Love 10.6\%, Surprise 3.9\%) with 1,200 training items and 500 test items.
-    \item \textbf{TREC-6 Natural:} The UIUC CogComp distribution (1.6\% Abbreviation minority) with 1,200 training items and 500 test items.
-    \item \textbf{SST-2 Skewed:} An 80\% Positive / 20\% Negative split (800 Positive, 200 Negative in training), evaluated on 200 test items (100 per class).
+    \item We find that the teachers' bias transfers to the student during knowledge distillation and can cause class collapse.
+    \item We propose Null Calibrated KD, which subtracts the teacher's null logits from its outputs before distillation.
+    \item We evaluate the method on 6 public datasets, report where it fails, and release our code.\footnote{\url{https://github.com/vishrutbhushan/calibrated-kd}}
 \end{itemize}
 
-\subsection{Student Architectures and Training}
-We evaluate three student models spanning different parameter scales and model families:
-\begin{enumerate}
-    \item \textbf{RoBERTa-base (125M):} A bidirectional encoder with a linear classification head ($\text{Linear}(768, K)$) trained with full parameter fine-tuning.
-    \item \textbf{Qwen2.5-0.5B-Instruct (500M):} A causal autoregressive language model trained via Low-Rank Adaptation (LoRA, $r=16, \alpha=32$) on attention projections.
-    \item \textbf{Qwen3-4B (4B):} A peer-sized causal language model trained via LoRA ($r=16, \alpha=32$).
-\end{enumerate}
-All models are trained for 3 epochs (RoBERTa) or 2 epochs (Qwen models) using AdamW with learning rate $2 \times 10^{-5}$ (RoBERTa) or $1 \times 10^{-4}$ (Qwen LoRA), batch size 16, and linear learning rate warmup. Distillation is performed using forward KL divergence at temperature $\tau = 1.0$.
-
-\section{Distillation Methods Evaluated}
-
-\begin{table*}[t]
-\centering
-\small
-\resizebox{\textwidth}{!}{
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Dimension} & \textbf{Contextual Cal. \citep{zhao2021calibrate}} & \textbf{Batch Cal. \citep{zhou2024batch}} & \textbf{Permutation KD \citep{liusie2024permutation}} & \textbf{Calibrated KD (This Work)} \\
-\midrule
-Bias Target & Teacher test outputs & Teacher test outputs & Student KD targets & Student KD targets \\
-Bias Source & Content-free prompt ($W_{\text{null}}$) & Unlabeled batch mean ($\bar{p}_{\text{batch}}$) & Permutation variance & Content-free prompt ($W_{\text{null}}$) \\
-Teacher Passes & 1 null pass & 1 batch pass & $M \ge K$ passes / sample & 1 null pass ($O(1)$ overhead) \\
-Supervision Labels & Label-free & Label-free & Label-free & Label-free \\
-Focus Setting & Few-shot LLM inference & Multi-sentence prompt bias & MC option-order debiasing & Semantic class prior transfer \\
-\bottomrule
-\end{tabular}
-}
-\caption{Methodological Positioning: Distinguishing CKD from inference calibration, batch calibration, and permutation-based distillation.}
-\label{tab:positioning}
-\end{table*}
-
-We evaluate five distillation configurations:
-
-\paragraph{1. Standard KD:} Distills raw teacher soft probability distributions without adjustment:
-\begin{equation}
-P_T(y_k \mid x) = \frac{\exp(z_k(x))}{\sum_j \exp(z_j(x))}
-\end{equation}
-
-\paragraph{2. Calibrated KD (CKD, Proposed):} Evaluates the teacher on a single content-free input $x_{\text{null}} = \text{``Text: N/A\textbackslash nAnswer:''}$ to obtain the null logit vector $W_{\text{null}} = z_T(x_{\text{null}})$. Supervisory targets are generated offline by subtracting $W_{\text{null}}$:
-\begin{equation}
-\tilde{z}_k(x) = z_k(x) - W_{\text{null}, k}, \quad \tilde{P}_T(y_k \mid x) = \text{Softmax}(\tilde{z}(x))
-\end{equation}
-This requires zero human labels and exactly one null teacher evaluation per task ($O(1)$ task overhead).
-
-\paragraph{3. Post-Hoc Output Calibration:} A baseline student trained with Standard KD (raw targets) whose output logits are adjusted at inference time by subtracting the empirical mean student training logit vector: $z_S(x) - \bar{z}_{S, \text{train}}$. This shifts the decision boundary post-hoc without altering the supervisory probability targets during training.
-
-\paragraph{4. Batch Calibrated KD \citep{zhou2024batch}:} Subtracts the empirical data-mean log probability over the unlabeled training corpus $\bar{p}_{\text{batch}} = \frac{1}{N}\sum_{i=1}^N P_T(y \mid x_i)$:
-\begin{equation}
-\tilde{z}_{\text{batch}}(x) = z_T(x) - \log \bar{p}_{\text{batch}}
-\end{equation}
-
-\paragraph{5. Oracle Prior-Informed Baseline \citep{saerens2002adjusting}:} Adjusts calibrated logits using ground-truth class marginals $\log P(y)$:
-\begin{equation}
-\tilde{z}_{\text{prior}}(x) = z_T(x) - W_{\text{null}} + \log P(y)
-\end{equation}
-This serves as an oracle prior-informed baseline assuming access to ground-truth class marginals $P(y)$, establishing an upper reference for what explicit class prior knowledge can achieve. Note that on balanced datasets ($P(y) = 1/K$), $\log P(y)$ is a constant scalar across classes, making this oracle baseline mathematically identical to CKD.
-
-\subsection{Validation Against an Empirical Oracle}
-To rigorously evaluate whether the content-free prompt vector $W_{\text{null}}$ genuinely captures the teacher's intrinsic verbalizer bias, we fit an empirical oracle additive correction vector $b^* \in \mathbb{R}^K$ on 100 held-out labeled samples using L-BFGS to minimize cross-entropy loss:
-\begin{equation}
-\min_{b \in \mathbb{R}^K} -\frac{1}{M}\sum_{i=1}^M \log \text{Softmax}(z_T(x_i) + b)_{y_i} + \lambda \|b\|_2^2
-\end{equation}
-Table~\ref{tab:oracle_validation} compares the empirical oracle vector $b^*$ against the unsupervised CKD correction vector $-W_{\text{null}}$. Across all benchmarks, $-W_{\text{null}}$ exhibits positive centered cosine similarity ($0.3367$ on AG News, $0.3953$ on Emotion, $0.4592$ on TREC-6) and positive Pearson correlation with $b^*$. Crucially, the dominant null spike in $W_{\text{null}}$ directly targets the suppressed class in $b^*$ (e.g., Sadness on Emotion, World on AG News, Description on TREC-6), confirming that content-free calibration isolates the true empirical teacher bias direction without requiring human annotations.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Benchmark} & \textbf{Classes ($K$)} & \textbf{Cosine Sim.} & \textbf{Pearson $r$} & \textbf{Dominant Suppressed Class} \\
-\midrule
-AG News & 4 & \best{0.3367} & \best{0.3367} & World ($-45.75 \leftrightarrow -2.95$) \\
-Emotion & 6 & \best{0.3953} & \best{0.3953} & Sadness ($-16.38 \leftrightarrow -3.11$) \\
-TREC-6 & 6 & \best{0.4592} & \best{0.4592} & Description ($-15.62 \leftrightarrow -3.52$) \\
-\bottomrule
-\end{tabular}
-}
-\caption{Empirical Oracle Validation: Centered cosine similarity and Pearson correlation between unsupervised CKD correction ($-W_{\text{null}}$) and the supervised empirical oracle vector ($b^*$).}
-\label{tab:oracle_validation}
-\end{table}
-
-\section{Comparison on Balanced Benchmarks}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig1_balanced_f1_overview.pdf}
-\caption{Balanced Benchmarks: Macro-F1 (\%) across student architectures on Emotion, AG News, TREC-6, and SST-2.}
-\label{fig:balanced_f1}
-\end{figure*}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig2_balanced_acc_overview.pdf}
-\caption{Balanced Benchmarks: Test Accuracy (\%) across student architectures on Emotion, AG News, TREC-6, and SST-2.}
-\label{fig:balanced_acc}
-\end{figure*}
-
-Table~\ref{tab:balanced_f1} and Table~\ref{tab:balanced_acc} report Macro-F1 and Test Accuracy across the three student architectures on the balanced benchmark suite. Figures~\ref{fig:balanced_f1} and~\ref{fig:balanced_acc} display performance across all four datasets. Figure~\ref{fig:balanced_dist} plots prediction distributions on AG News and Emotion.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Model / Architecture} & \textbf{Emotion} & \textbf{AG News} & \textbf{TREC-6} & \textbf{SST-2} \\
-\midrule
-Teacher (Gemma-4B) & 34.92 & 70.24 & 69.93 & 84.21 \\
-Teacher + CKD & 35.62 & 67.45 & 69.21 & 84.74 \\
-\midrule
-Qwen3-4B (Std KD) & \worst{37.59} & \worst{69.91} & \worst{75.08} & 80.92 \\
-Qwen3-4B (CKD) & \best{39.03} & \best{74.40} & \best{77.12} & 80.92 \\
-\midrule
-Qwen05 (Std KD) & \worst{30.80} & \worst{60.53} & \worst{59.70} & 82.66 \\
-Qwen05 (CKD) & \best{32.51} & \best{62.93} & \best{62.98} & 82.66 \\
-\midrule
-RoBERTa (Std KD) & \worst{36.38} & \worst{68.78} & \worst{68.36} & \best{87.90} \\
-RoBERTa (CKD) & \best{39.63} & \best{70.23} & \best{69.43} & \worst{87.41} \\
-\bottomrule
-\end{tabular}
-}
-\caption{Balanced Benchmarks: Macro-F1 (\%) across student architectures. Best values in green, worst in red.}
-\label{tab:balanced_f1}
-\end{table}
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Model / Architecture} & \textbf{Emotion} & \textbf{AG News} & \textbf{TREC-6} & \textbf{SST-2} \\
-\midrule
-Teacher (Gemma-4B) & 40.33 & 72.60 & 72.20 & 84.50 \\
-Teacher + CKD & 40.67 & 69.60 & 72.20 & 85.00 \\
-\midrule
-Qwen3-4B (Std KD) & \worst{40.67} & \worst{73.10} & \worst{78.20} & 81.00 \\
-Qwen3-4B (CKD) & \best{43.33} & \best{76.50} & \best{80.00} & 81.00 \\
-\midrule
-Qwen05 (Std KD) & \worst{35.00} & \worst{66.30} & \worst{68.60} & 83.00 \\
-Qwen05 (CKD) & \best{36.00} & \best{67.20} & \best{71.20} & 83.00 \\
-\midrule
-RoBERTa (Std KD) & \worst{39.67} & \worst{71.90} & \worst{73.20} & \best{88.00} \\
-RoBERTa (CKD) & \best{44.33} & \best{72.50} & \best{73.80} & \worst{87.50} \\
-\bottomrule
-\end{tabular}
-}
-\caption{Balanced Benchmarks: Test Accuracy (\%) across student architectures.}
-\label{tab:balanced_acc}
-\end{table}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig3_balanced_class_dist.pdf}
-\caption{Balanced Benchmarks: Prediction distributions for RoBERTa-base on AG News and Emotion with dashed Ground Truth support lines.}
-\label{fig:balanced_dist}
-\end{figure*}
-
-\paragraph{Empirical Observations on Balanced Data:}
-\begin{enumerate}
-    \item \textbf{Performance Shifts Across Multi-Class Tasks:} On AG News, CKD improves Macro-F1 across all three student architectures: +4.49\,pp on Qwen3-4B (69.91\% $\to$ 74.40\%), +2.40\,pp on Qwen2.5-0.5B (60.53\% $\to$ 62.93\%), and +1.45\,pp on RoBERTa-base (68.78\% $\to$ 70.23\%). On Emotion, Macro-F1 improves by +1.44\,pp, +1.71\,pp, and +3.25\,pp respectively.
-    \item \textbf{Bias Transfer in Non-Generative Encoders:} RoBERTa-base uses a linear head ($\text{Linear}(768, K)$) and generates no text tokens. Under Standard KD on Emotion, RoBERTa predicts Sadness 163 times out of 300 test items (ground truth = 50). Under CKD, Sadness predictions decrease to 86, aligning closer to ground truth and increasing Macro-F1 from 36.38\% to 39.63\%. This confirms that verbalizer bias is transferred via teacher soft targets rather than student autoregression.
-    \item \textbf{Binary Sentiment Control (SST-2):} On SST-2, the teacher exhibits a low null logit gap ($\Delta = 1.25$, null logits $[45.25, 44.00]$). Both causal students maintain identical predictions under Standard KD and CKD (0.00\,pp shift on Qwen3-4B and Qwen2.5-0.5B). RoBERTa-base shifts by $-0.50$\,pp accuracy (176/200 $\to$ 175/200, a single test sample difference).
-\end{enumerate}
-
-\section{Comparison of Distillation Methods on Non-Balanced Datasets}
-
-Table~\ref{tab:skewed_f1} and Table~\ref{tab:skewed_acc} present Macro-F1 and Test Accuracy across the five distillation configurations on RoBERTa-base across the four non-balanced splits. Table~\ref{tab:minority_counts} reports prediction counts for minority and over-represented classes. Figure~\ref{fig:skewed_perf} compares performance across configurations, and Figure~\ref{fig:skewed_dist} shows full prediction distributions.
-
-\begin{table*}[t]
-\centering
-\small
-\resizebox{\textwidth}{!}{
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Benchmark Split} & \textbf{Standard KD} & \textbf{Post-Hoc Cal} & \textbf{Batch Cal KD} & \textbf{Calibrated KD} & \textbf{Prior-Aware CKD} & \textbf{CKD Gain} \\
-\midrule
-AG News Skewed (10\% Sci/Tech) & \worst{57.22} & \best{65.53} & 57.15 & 64.22 & 58.83 & +7.00\,pp \\
-Emotion Natural (Saravia) & \worst{35.02} & \best{44.60} & 41.29 & 44.58 & 42.74 & +9.56\,pp \\
-TREC-6 Natural (1.6\% Abbr) & \worst{64.62} & 68.91 & 70.15 & \best{75.09} & 74.02 & +10.47\,pp \\
-SST-2 Skewed (80/20 Imbalance) & 65.03 & \worst{62.97} & 67.03 & 78.69 & \best{84.36} & +13.66\,pp \\
-\bottomrule
-\end{tabular}
-}
-\caption{Non-Balanced Benchmarks: Macro-F1 (\%) across five distillation configurations on RoBERTa-base (125M). Best in green, worst in red.}
-\label{tab:skewed_f1}
-\end{table*}
-
-\begin{table*}[t]
-\centering
-\small
-\resizebox{\textwidth}{!}{
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Benchmark Split} & \textbf{Standard KD} & \textbf{Post-Hoc Cal} & \textbf{Batch Cal KD} & \textbf{Calibrated KD} & \textbf{Prior-Aware CKD} & \textbf{CKD Gain} \\
-\midrule
-AG News Skewed (10\% Sci/Tech) & 65.80 & \best{70.40} & \worst{65.70} & 69.90 & 67.20 & +4.10\,pp \\
-Emotion Natural (Saravia) & \worst{50.80} & 56.20 & 54.40 & \best{56.60} & 56.20 & +5.80\,pp \\
-TREC-6 Natural (1.6\% Abbr) & \worst{74.60} & 76.60 & 75.60 & \best{77.20} & 76.40 & +2.60\,pp \\
-SST-2 Skewed (80/20 Imbalance) & 68.50 & \worst{67.00} & 70.00 & 79.50 & \best{84.50} & +11.00\,pp \\
-\bottomrule
-\end{tabular}
-}
-\caption{Non-Balanced Benchmarks: Test Accuracy (\%) across five distillation configurations on RoBERTa-base (125M).}
-\label{tab:skewed_acc}
-\end{table*}
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Benchmark Split} & \textbf{Class Examined} & \textbf{Ground Truth} & \textbf{Standard KD} & \textbf{Batch Cal KD} & \textbf{Calibrated KD} & \textbf{Post-Hoc Cal} \\
-\midrule
-AG News Skewed & Class 3: Sci/Tech & 250 / 1000 & \worst{0 / 1000} & \worst{0 / 1000} & 29 / 1000 & \best{165 / 1000} \\
-Emotion Natural & Class 4: Fear & 70 / 500 & \worst{5 / 500} & 22 / 500 & \best{43 / 500} & 38 / 500 \\
-Emotion Natural & Class 0: Sadness & 148 / 500 & \worst{302 / 500} & 265 / 500 & 161 / 500 & \best{152 / 500} \\
-TREC-6 Natural & Class 0: Abbr & 9 / 500 & \worst{2 / 500} & 6 / 500 & \best{10 / 500} & 7 / 500 \\
-SST-2 Skewed & Class 1: Positive & 100 / 200 & 37 / 200 & 40 / 200 & \best{61 / 200} & \worst{34 / 200} \\
-\bottomrule
-\end{tabular}
-}
-\caption{Prediction counts for minority and over-represented classes on RoBERTa-base across distillation configurations.}
-\label{tab:minority_counts}
-\end{table}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig4_skewed_performance.pdf}
-\caption{Non-Balanced Benchmarks: Macro-F1 (\%) and Test Accuracy (\%) on RoBERTa-base across five distillation configurations.}
-\label{fig:skewed_perf}
-\end{figure*}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig5_skewed_class_dist.pdf}
-\caption{Non-Balanced Benchmarks: Prediction distributions across five configurations on AG News Skewed and Emotion Natural with Ground Truth reference indicators.}
-\label{fig:skewed_dist}
-\end{figure*}
-
-\paragraph{Empirical Observations on Non-Balanced Data:}
-\begin{enumerate}
-    \item \textbf{Minority Class Prediction on AG News Skewed:} On AG News Skewed, where Sci/Tech represents 10\% of training items, RoBERTa trained with Standard KD predicts Sci/Tech 0 times out of 1,000 test examples (57.22\% Macro-F1). Under Calibrated KD, Sci/Tech predictions increase to 29 out of 1,000, lifting Macro-F1 to 64.22\% (+7.00\,pp) without ground-truth labels.
-    \item \textbf{Behavior of Batch Calibration on Skewed Data:} On AG News Skewed, Batch Calibration ($\bar{p}_{\text{batch}}$) results in 0 Sci/Tech predictions (57.15\% Macro-F1), identical to Standard KD. Because $\bar{p}_{\text{batch}}$ averages teacher probabilities over the skewed training set, it conflates low corpus frequency with prompt verbalizer bias, penalizing soft targets for the rare class. Importantly, Batch Calibration does not fail universally across all settings: on natural benchmarks with moderate imbalance, it provides partial improvements (e.g., increasing Fear predictions on Emotion Natural from 5 $\to$ 22, and Abbreviation on TREC Natural from 2 $\to$ 6). Under severe minority collapse, however, content-free null calibration ($W_{\text{null}}$) isolates unigram token bias independently of corpus composition.
-    \item \textbf{Post-Hoc Output Calibration vs. Target Calibration:} Post-Hoc Output Calibration adjusts student output logits at test time ($z_S - \bar{z}_{S, \text{train}}$), yielding 165 Sci/Tech predictions on AG News (65.53\% F1). However, on TREC-6 Natural, Post-Hoc Calibration achieves 68.91\% F1 compared to 75.09\% for Calibrated KD, and on SST-2 Skewed, Post-Hoc achieves 62.97\% F1 compared to 78.69\% for Calibrated KD. This shows that modifying targets prior to distillation alters student representations in ways that inference-time shifts do not replicate.
-    \item \textbf{Oracle Prior-Informed Baseline:} The Oracle Prior Baseline achieves 84.36\% Macro-F1 on SST-2 Skewed (+19.33\,pp over Standard KD). This confirms that incorporating known task priors $\log P(y)$ alongside null calibration provides an effective oracle reference when true class marginals are available.
-\end{enumerate}
-
-\section{Comparison Across Student Model Capacities on Skewed Data}
-
-To evaluate whether minority class suppression and calibration recovery depend on student model capacity, we distilled Gemma-3-4B-it into RoBERTa-base (125M encoder), Qwen2.5-0.5B (500M causal LM), and Qwen3-4B (4B peer causal LM) on AG News Skewed. Table~\ref{tab:capacity_scaling} and Figure~\ref{fig:cross_arch} report the results.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Student Model / Scale} & \textbf{Std KD F1} & \textbf{CKD F1} & \textbf{$\Delta$ F1} & \textbf{Sci/Tech Preds} \\
-\midrule
-RoBERTa-base (125M) & \worst{57.22} & \best{64.22} & \best{+7.00} & \worst{0} $\to$ \best{29} \\
-Qwen2.5-0.5B (500M) & \worst{55.05} & \best{60.75} & \best{+5.69} & \worst{0} $\to$ \best{16} \\
-Qwen3-4B (4B Peer) & \worst{57.80} & \best{67.14} & \best{+9.34} & \worst{4} $\to$ \best{44} \\
-\bottomrule
-\end{tabular}
-}
-\caption{Cross-Architecture Capacity Scaling on AG News Skewed (10\% Sci/Tech minority, 250 ground truth test support).}
-\label{tab:capacity_scaling}
-\end{table}
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig6_cross_arch_scaling.pdf}
-\caption{Cross-Architecture Capacity Scaling on AG News Skewed: Macro-F1 across models (left) and minority Sci/Tech predictions out of 1,000 test items (right).}
-\label{fig:cross_arch}
-\end{figure*}
-
-\paragraph{Capacity Scaling Observations:}
-\begin{enumerate}
-    \item \textbf{Minority Suppression Across Scales:} Under Standard KD, minority class predictions remain near zero across all three scales: 0 predictions on RoBERTa-base (125M), 0 on Qwen2.5-0.5B (500M), and 4 on Qwen3-4B (4B).
-    \item \textbf{Consistent Recovery Across Scales:} CKD increases minority predictions across all three architectures: 0 $\to$ 29 on RoBERTa-base, 0 $\to$ 16 on Qwen2.5-0.5B, and 4 $\to$ 44 on Qwen3-4B. Macro-F1 improves by +7.00\,pp, +5.69\,pp, and +9.34\,pp respectively.
-\end{enumerate}
-
-\subsection{Calibration Strength ($\beta$) Sensitivity}
-To examine whether target calibration is sensitive to the scaling of the null vector, we parameterized supervisory targets as $\tilde{z}(x) = z_T(x) - \beta W_{\text{null}}$ and evaluated RoBERTa-base across $\beta \in \{0.0, 0.5, 1.0, 1.5\}$ on AG News Skewed. Table~\ref{tab:beta_sweep} summarizes the results.
-At $\beta = 0.0$ (Standard KD) and $\beta = 0.5$ (under-calibration), minority class predictions remain completely suppressed ($0/1,000$ predictions). At $\beta = 1.0$ (default CKD), unigram prompt bias is effectively removed, breaking class collapse and lifting Macro-F1 to 64.22\%. Increasing $\beta$ to $1.5$ (over-calibration) artificially inflates minority predictions ($307/1,000$), severely distorting class boundaries and causing overall accuracy to drop to 55.20\%. This confirms that $\beta = 1.0$ represents the natural, theoretically grounded optimum.
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Calibration Strength ($\beta$)} & \textbf{Macro-F1 (\%)} & \textbf{Accuracy (\%)} & \textbf{Sci/Tech Preds} & \textbf{Status} \\
-\midrule
-$\beta = 0.0$ (Standard KD) & 57.22 & 65.80 & \worst{0 / 1000} & Collapsed \\
-$\beta = 0.5$ (Under-calibrated) & 57.50 & 66.10 & \worst{0 / 1000} & Collapsed \\
-$\beta = 1.0$ (Calibrated KD) & \best{64.22} & \best{69.90} & \best{29 / 1000} & \textbf{Optimal} \\
-$\beta = 1.5$ (Over-calibrated) & \worst{48.93} & \worst{55.20} & 307 / 1000 & Distorted \\
-\bottomrule
-\end{tabular}
-}
-\caption{Calibration Strength ($\beta$) Sweep on RoBERTa-base for AG News Skewed: $\beta = 1.0$ maximizes Macro-F1 while preventing both under-calibration and over-correction.}
-\label{tab:beta_sweep}
-\end{table}
-
-\subsection{Multi-Seed Statistical Validation}
-To verify that the empirical gains are statistically significant and not artifacts of random seed variation, we evaluated three independent random seeds (seeds 42, 43, 44) for RoBERTa-base on AG News Skewed. Table~\ref{tab:multi_seed} reports the mean and standard deviation.
-Across all three seeds, Standard KD predicts the minority class exactly $0$ times ($0.0 \pm 0.0$), achieving a mean Macro-F1 of $56.62 \pm 0.46\%$. Calibrated KD consistently revives minority predictions across all seeds ($36.7 \pm 6.5$), delivering a mean Macro-F1 of $64.82 \pm 0.54\%$ (a net gain of \textbf{+8.19\,pp F1} and \textbf{+4.80\,pp Accuracy}). The gain is over 15 standard deviations above seed variance, confirming robust statistical significance ($p < 0.001$).
-
-\begin{table}[t]
-\centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{lccc}
-\toprule
-\textbf{Configuration} & \textbf{Macro-F1 (\%)} & \textbf{Accuracy (\%)} & \textbf{Sci/Tech Preds} \\
-\midrule
-Standard KD (3 seeds) & \worst{56.62 $\pm$ 0.46} & \worst{65.03 $\pm$ 0.58} & \worst{0.0 $\pm$ 0.0} \\
-Calibrated KD (3 seeds) & \best{64.82 $\pm$ 0.54} & \best{69.83 $\pm$ 0.09} & \best{36.7 $\pm$ 6.5} \\
-\midrule
-\textbf{Net CKD Gain ($\Delta$)} & \textbf{+8.19\,pp} & \textbf{+4.80\,pp} & \textbf{+36.7 preds} \\
-\bottomrule
-\end{tabular}
-}
-\caption{Multi-Seed Statistical Validation: Performance (Mean $\pm$ Std across seeds 42, 43, 44) on AG News Skewed for RoBERTa-base.}
-\label{tab:multi_seed}
-\end{table}
-
-\FloatBarrier
 \section{Related Work}
 
-\paragraph{Verbalizer and Prompt Bias in LLMs:}
-Prompted LLMs are sensitive to option ordering, verbalizer surface forms, and prompt templates \citep{zhao2021calibrate,zheng2024pride}. \citet{zhao2021calibrate} proposed Contextual Calibration to adjust inference predictions using content-free null prompts (e.g., ``N/A''). \citet{zhou2024batch} introduced Batch Calibration, arguing that null prompts can be unstable on multi-sentence inputs and proposing empirical data-mean probability subtraction. Our work applies null-conditioned calibration offline to supervisory soft targets in knowledge distillation rather than to test-time LLM inference, and demonstrates that Batch Calibration degrades on imbalanced data.
+\subsection{Knowledge Distillation from LLMs}
 
-\paragraph{Distillation from LLM Teachers:}
-Distilling LLMs into compact models has gained traction for efficient deployment \citep{hinton2015distilling,liu2019roberta}. \citet{liusie2024permutation} studied option-order bias in multiple-choice tasks, averaging teacher outputs over $M \ge K$ input permutations to train student models. In contrast, our study focuses on semantic class verbalizer bias on text classification tasks, uses a single null evaluation ($O(1)$ task overhead), and examines bias transfer under data skew across both encoder and causal student architectures.
+KD trains a student to match the output probabilities of a teacher \citep{hinton2015distilling}.
+DistilBERT used this idea to compress BERT into a smaller model \citep{sanh2019distilbert}.
+\citet{wang2021want} used GPT-3 as a low-cost labeller and trained smaller models on its labels.
+These works take the teacher's outputs as they are.
+We first remove the teacher's bias, and only then let the student learn from it.
 
-\paragraph{Prior Correction in Supervised Learning:}
-Adjusting classifier outputs for class distribution shift is established in Bayesian decision theory \citep{saerens2002adjusting}. In weak supervision, \citet{smith2022weak} applied contextual calibration to prompted labelers. Our experiments show that subtracting the teacher's linguistic null prior $W_{\text{null}}$ decouples prompt unigram bias from task class distributions.
+\subsection{Calibrating Prompted LLMs}
+
+LLMs can have a favourite option even before they read the input \citep{zheng2024large}.
+\citet{zhao2021calibrate} probe the model with a null prompt and subtract its output at inference.
+Batch calibration instead averages the model's predictions across a dataset to estimate class priors \citep{zhou2024batch}.
+These methods correct the LLM itself at inference.
+Null Calibrated KD utilises the same idea during distillation, so the deployed student needs neither the LLM nor any correction.
+
+\subsection{Methods that Need Prior Knowledge}
+
+There are a few alternatives that rely on known class frequencies, validation statistics, or excessive computation.
+Prior-aware methods use the class distribution of the training set for calibration \citep{menon2021longtail}.
+This is infeasible, as ground truth is unknown in knowledge distillation.
+Permutation-based calibration permutes the option labels and averages out teacher predictions to eliminate option bias.
+This is computationally expensive, as it requires multiple passes per sample through the teacher LLM.
+Post-hoc output calibration trains the student with standard KD and shifts its logits at inference by subtracting its average output.
+It corrects the student's decisions, but not what the student learns.
+Null Calibrated KD needs no class frequencies and only one extra teacher query per task.
+
+\section{Method}
+
+Figure~\ref{fig:pipeline} shows the full pipeline.
+
+\begin{figure}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=4mm and 5mm,
+  box/.style={draw=black!60, rounded corners=2pt, align=center, font=\small, minimum height=9mm, inner sep=3pt, fill=white},
+  key/.style={box, draw=textgreen, fill=cellgreen, thick},
+  arr/.style={-{Stealth[length=2mm]}, thick, black!70},
+  lane/.style={font=\footnotesize\bfseries, text=black!60, anchor=west}]
+  % Row 1: null probe
+  \node[box] (null) {Prompt with\\``N/A''};
+  \node[box, right=of null] (t1) {Teacher\\(frozen)};
+  \node[box, right=of t1] (zn) {$z_{\text{null}}$};
+  % Row 2: targets
+  \node[box, below=10mm of null] (x) {Prompt with\\training text $x$};
+  \node[box, right=of x] (t2) {Teacher\\(frozen)};
+  \node[box, right=of t2] (zr) {$z_{\text{raw}}(x)$};
+  \node[key, right=of zr] (sub) {$\text{softmax}\big(z_{\text{raw}}(x) - z_{\text{null}}\big)$};
+  % Row 3: student
+  \node[box, below=10mm of sub] (kl) {KL loss};
+  \node[box, left=of kl] (stu) {Student};
+  \node[box, left=of stu] (xs) {Training text $x$};
+  % Row 4: deployment
+  \node[box, below=10mm of xs] (new) {New text};
+  \node[box, right=of new] (stu2) {Trained student};
+  \node[box, right=of stu2] (cls) {Predicted class};
+  \draw[arr] (null) -- (t1); \draw[arr] (t1) -- (zn);
+  \draw[arr] (x) -- (t2); \draw[arr] (t2) -- (zr); \draw[arr] (zr) -- (sub);
+  \draw[arr] (zn) -| (sub);
+  \draw[arr] (sub) -- node[right, font=\footnotesize] {$p_{\text{target}}$} (kl);
+  \draw[arr] (xs) -- (stu); \draw[arr] (stu) -- node[above, font=\footnotesize] {$p_{\text{student}}$} (kl);
+  \draw[arr] (new) -- (stu2); \draw[arr] (stu2) -- (cls);
+  \begin{scope}[on background layer]
+    \node[fill=lanegray, rounded corners, fit=(null)(zn), inner sep=4pt, label={[lane, anchor=south west, inner sep=1pt]north west:Once per task}] (l1) {};
+    \node[fill=lanegray, rounded corners, fit=(x)(sub)(kl)(xs), inner sep=4pt, label={[lane, anchor=south west, inner sep=1pt]north west:Training}] {};
+    \node[fill=lanegray, rounded corners, fit=(new)(cls), inner sep=4pt, label={[lane, anchor=south west, inner sep=1pt]north west:Deployment}] {};
+  \end{scope}
+\end{tikzpicture}}
+\caption{Overview of Null Calibrated KD. We subtract the teacher's scores on ``N/A'' from its scores on every training text. Only the student runs at deployment.}
+\label{fig:pipeline}
+\end{figure}
+
+First, we need to extract the teacher model's bias without probing it with an actual input.
+For that, we pass it a null string, \texttt{"N/A"}, using the exact same classification prompt as for normal inference \& knowledge distillation \citep{zhao2021calibrate}.
+The prompt lists each class next to an option letter (A, B, C and so on), as Figure~\ref{fig:prompt} and Appendix~\ref{app:prompts} show.
+We read the teacher's logit for each letter, which is the unnormalised score the model gives to that token.
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox{0.94\columnwidth}{\small\ttfamily
+Classify the news article into one of five categories:\\
+A: Tech\\ B: Business\\ C: Sport\\ D: Entertainment\\ E: Politics\\[4pt]
+Text: \textrm{\textit{input text, or} N/A \textit{for the null probe}}\\
+Respond with ONLY the single letter corresponding to the correct category.\\
+Answer:}}
+\caption{Teacher prompt for BBC News. The null probe uses the same prompt with ``N/A'' as the text.}
+\label{fig:prompt}
+\end{figure}
+
+Because there is no real input to classify, we start with the assumption that whatever the teacher outputs here is its baseline bias.
+We extract these unnormalised logit values for all the candidate classes and call this the `Null' vector.
+\begin{equation}
+z_{\text{null}} = \text{Teacher}(\text{``N/A''})
+\end{equation}
+
+Once we have captured this, we run the teacher model over our unlabelled training set and extract the raw logit vector $z_{\text{raw}}$ for each example.
+Instead of directly plugging them into the loss function, we first perform a simple logit subtraction to get the debiased target.
+\begin{equation}
+\tilde{z} = z_{\text{raw}} - z_{\text{null}}
+\end{equation}
+
+This is a constant-time, $O(1)$ operation per example, which does not impact the compute required or the time taken.
+After this, we apply the softmax function, which turns these logits into actual probabilities.
+\begin{equation}
+p_{\text{target},k} = \text{softmax}(\tilde{z})_k = \frac{\exp(\tilde{z}_k)}{\sum_{j} \exp(\tilde{z}_j)}
+\end{equation}
+
+Now we can train our compact student model (RoBERTa-base) using forward Kullback-Leibler (KL) divergence as our loss function.
+KL divergence measures how far one probability distribution is from another \citep{kullback1951information}.
+It helps in training the student model by bringing the student's predicted probability distribution as close as possible to the teacher's debiased target distribution.
+\begin{equation}
+\mathcal{L} = D_{\text{KL}}(p_{\text{target}} \parallel p_{\text{student}})
+\end{equation}
+
+\section{Experimental Setup}
+
+\subsection{Datasets}
+
+To test this method, we ran the pipeline on 6 different multi-class classification tasks.
+The datasets used are publicly available, and Table~\ref{tab:datasets} lists them.
+We have used a fixed-size subset from each dataset using stratified sampling to preserve natural class skew.
+Stratified sampling keeps the share of each class equal to its share in the full dataset.
+We have selected a standardised split of 75:25 (1,200 training and 400 test) for training and testing.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{llc}
+\toprule
+\textbf{Dataset} & \textbf{Domain} & $K$ \\
+\midrule
+Student Questions\footnotemark & Science subjects & 4 \\
+TREC-6 \citep{li2002learning} & Question types & 6 \\
+App Reviews \citep{grano2017android} & Review ratings & 5 \\
+Twitter Emotion \citep{saravia2018carer} & Emotions & 6 \\
+TweetEval \citep{barbieri2020tweeteval} & Emotions & 4 \\
+BBC News \citep{greene2006practical} & News topics & 5 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Datasets and their number of classes $K$. Each dataset contributes 1,200 training and 400 test examples. Table~\ref{tab:prompts} lists the classes.}
+\label{tab:datasets}
+\end{table}
+\footnotetext{\url{https://huggingface.co/datasets/SetFit/student-question-categories}}
+
+\subsection{Models}
+
+We use the following models.
+\begin{itemize}
+    \item \textbf{Gemma-3-4B-IT} \citep{gemma2025gemma3}: We used this 4-billion-parameter instruction-tuned causal LLM as the teacher model, kept completely frozen in 16-bit precision.
+    \item \textbf{RoBERTa-base} \citep{liu2019roberta}: This masked encoder model (125 million parameters) works as a lightweight student model. It consumes less memory and runs faster.
+\end{itemize}
+Table~\ref{tab:hparams} lists the student's training settings, which are the same for all methods.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ll}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+Optimizer & AdamW, weight decay 0.01 \\
+Learning rate & $2 \times 10^{-5}$ \\
+Schedule & Linear, 10\% warmup \\
+Batch size & 16 \\
+Epochs & 3 \\
+Maximum sequence length & 256 tokens \\
+Gradient clipping & 1.0 \\
+Random seed & 42 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Student training settings, shared by all methods.}
+\label{tab:hparams}
+\end{table}
+
+\subsection{Baselines}
+
+We compare null-calibrated KD against a few existing methods to see if we actually see any improvements.
+\begin{itemize}
+    \item \textbf{Teacher Zero-Shot:} The teacher LLM evaluated both with and without null calibration.
+    \item \textbf{Standard Knowledge Distillation:} Distillation using the teacher's soft probabilities with forward KL divergence, but without calibration.
+    \item \textbf{Batch-Calibrated KD:} The teacher's predictions are averaged across the entire training dataset to estimate class priors. Then we subtract them before computing distillation targets \citep{zhou2024batch}.
+    \item \textbf{Null Calibrated KD:} Our method as explained above.
+\end{itemize}
+
+\input{generated/results_table.tex}
+\begin{figure*}[t]
+\centering
+\resultfig{generated/fig_main_f1_accuracy.pdf}{0.36}
+\caption{Macro-F1 and accuracy of the raw teacher and three distillation methods on all six datasets.}
+\label{fig:main_results}
+\end{figure*}
+\begin{figure*}[t]
+\centering
+\resultfig{generated/fig_class_distributions.pdf}{0.30}
+\caption{Number of test predictions per class on three datasets. The dotted line shows the true number of test examples in each class.}
+\label{fig:class_dist}
+\end{figure*}
+
+\subsection{Metrics}
+
+For capturing this quantitatively, we use \textbf{Macro-F1}.
+F1 combines precision and recall, and Macro-F1 averages the F1 score of every class.
+This helps us to measure fairly across the minority and dominant classes alike.
+It gives equal weight to all K classes, so a model cannot score better by simply over predicting the majority class.
+We also report overall \textbf{Accuracy} as a secondary metric.
+
+\section{Results}
+
+We ran our pipeline across all these datasets and captured the required metrics.
+We answer three research questions (RQs).
+\begin{enumerate}
+    \item[\textbf{RQ1.}] Does null calibration improve the student's Macro-F1 and Accuracy?
+    \item[\textbf{RQ2.}] Does null calibration reduce class collapse?
+    \item[\textbf{RQ3.}] Can null calibration over-correct?
+\end{enumerate}
+
+
+
+
+\subsection{RQ1: Macro-F1 and Accuracy}
+
+Table~\ref{tab:main_results} captures Macro-F1 and Accuracy across all 6 datasets and all different methods, and Figure~\ref{fig:main_results} plots them.
+Null calibrated KD improves Macro-F1 over standard KD on \WinsStd{} out of 6 datasets.
+Macro-F1 increases by \AvgGainStd{} pp on average, with the largest gain on \MaxGainStdData{} (\MaxGainStd{} pp).
+Accuracy increases by \AvgAccGainStd{} pp on average.
+Null calibrated KD also beats batch-calibrated KD on \WinsBatch{} out of 6 datasets.
+The student even beats the raw teacher on \WinsTeacher{} out of 6 datasets.
+
+\subsection{RQ2: Class Collapse}
+
+\input{generated/collapse_table.tex}
+
+Apart from improving Macro-F1 and Accuracy, null calibration reduces the collapse of certain classes and the over-boosting of others.
+Table~\ref{tab:collapse} and Figure~\ref{fig:class_dist} show this.
+We can see that standard KD completely collapses minority classes across multiple tasks.
+It makes 0 predictions for \textit{Politics} on BBC News, \textit{Optimism} on TweetEval, and \textit{Chemistry} on Student Questions.
+Null-calibrated KD actively helps us avoid the same, and it also recovers \textit{Fear} on Twitter Emotion.
+\textit{Surprise} on Twitter Emotion stays at 0 predictions for every method, including the teacher.
+Null calibration also reduces overly boosted classes, such as \textit{Business} on BBC News and \textit{Anger} on TweetEval.
+
+\subsection{RQ3: Over-Correction}
+\label{sec:overcorrection}
+
+The null probe can also over-correct, as Table~\ref{tab:collapse} shows.
+\OverCorrectionText{}
+A very strong null bias can therefore push a class below what the data supports.
+
+\section{Discussion}
+
+The bias in the teacher can have several sources.
+The most common method of KD uses verbalizer options like A, B, C, etc.
+LLMs can have a favourite option even before they read the input.
+\citet{zheng2024large} call this token bias.
+They can also favour options based on their position in the prompt.
+\citet{zhao2021calibrate} report a similar recency bias toward labels at the end of the prompt.
+When we tie these verbalizer options to the classes, we assume that the model relates each verbalizer option to its class.
+
+All these effects mix in the teacher's output, and there is no single way to separate each one.
+The null probe aims to measure their combined effect for one fixed prompt and one fixed option order.
+As such, by subtracting the null logits, we aim to remove the combined prior bias before the student can learn it.
+The Student Questions case shows that this combined estimate can sometimes be too strong.
 
 \section{Conclusion}
 
-Prompt-conditioned teacher verbalizer bias transfers into student models during forward KL distillation across both encoder and causal architectures. On balanced multi-class datasets, Calibrated Knowledge Distillation (CKD) improves student Macro-F1 by correcting target probability skew offline with a single null-prompt evaluation. On imbalanced datasets, Standard KD and Batch Calibration severely suppress minority class predictions, whereas CKD increases minority predictions without human labels.
+LLM teachers have built-in prompt and token biases that can affect knowledge distillation using soft targets.
+It causes smaller student models to learn the bias, and as a result, they sometimes completely collapse on minority classes.
+A single offline probe with a blank prompt (\texttt{N/A}) can capture this bias.
+We subtract these null logits inside the distillation loss function before the student can learn from it.
+Students show better performance, sometimes even better than the teacher.
+Macro-F1 increases by an average of \textbf{\AvgGainStd{}\,pp} on the tested datasets.
+This helps reduce class collapse and overboosting.
+The method needs only one extra teacher query and no human intervention.
+However, a very strong null bias can lead to over-correction, as on Student Questions.
 
-\FloatBarrier
+\section*{Limitations}
+
+Even though this method works, there are a few limitations to it.
+\begin{enumerate}
+    \item If the teacher itself is very bad (near random), then this method cannot manufacture knowledge which was never there to begin with.
+    \item We have limited the scope to multi-class classification tasks. For sequence generation tasks, our method is not applicable.
+    \item In certain cases where the teacher itself has an almost flat distribution (carries low bias), we might see minimal or even negative impact. As such, developers' discretion is advised.
+    \item When the teacher's null bias is very strong, subtracting it can remove a class entirely (Section~\ref{sec:overcorrection}).
+    \item On simple, uniformly balanced tasks or binary tasks, standard KD may already be sufficient.
+    \item We use a single teacher, a single student and a single random seed.
+\end{enumerate}
+
+\section*{Acknowledgments}
+
+We thank Dhruv Kumar (Faculty/Advisor) and Aniket Upadhyay (Mentor).
+This work was written for the Agentic AI course at BITS Pilani.
+
 \bibliography{references}
 \bibliographystyle{acl_natbib}
+
+\appendix
+
+\section{Teacher Prompts}
+\label{app:prompts}
+
+Table~\ref{tab:prompts} lists the task description that opens the prompt for each dataset.
+The prompt then lists the classes next to the letters A, B, C and so on, in the order of the table.
+The prompt then continues with the input text and the instruction shown in Figure~\ref{fig:prompt}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\columnwidth}>{\raggedright\arraybackslash}p{0.64\columnwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Task description} \newline \textit{Classes, in option order A, B, C, \ldots} \\
+\midrule
+Student Questions & Classify the academic question into the correct subject: \newline \textit{Biology, Physics, Maths, Chemistry} \\[3pt]
+TREC-6 & Classify the question into one of six question types: \newline \textit{Abbreviation, Entity, Description, Human, Location, Numeric} \\[3pt]
+App Reviews & Classify the customer app review into one of five star ratings: \newline \textit{1 Star, 2 Stars, 3 Stars, 4 Stars, 5 Stars} \\[3pt]
+Twitter Emotion & Classify the tweet into one of six emotions: \newline \textit{Sadness, Joy, Love, Anger, Fear, Surprise} \\[3pt]
+TweetEval & Classify the tweet into one of four emotions: \newline \textit{Anger, Joy, Optimism, Sadness} \\[3pt]
+BBC News & Classify the news article into one of five categories: \newline \textit{Tech, Business, Sport, Entertainment, Politics} \\[3pt]
+\bottomrule
+\end{tabular}
+\caption{Task descriptions and classes used in the teacher prompts.}
+\label{tab:prompts}
+\end{table}
 
 \end{document}

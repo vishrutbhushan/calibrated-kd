@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llcccccc}
+\toprule
+ & \textbf{Method} & \textbf{Student Questions} & \textbf{TREC-6} & \textbf{App Reviews} & \textbf{Twitter Emotion} & \textbf{TweetEval Emotion} & \textbf{BBC News} \\
+ & & ($K=4$) & ($K=6$) & ($K=5$) & ($K=6$) & ($K=4$) & ($K=5$) \\
+\midrule
+Teacher & Zero-shot, raw & 28.13 (33.75) & \worst{50.15 (52.25)} & \worst{29.69 (48.25)} & 39.80 (53.00) & 45.78 (57.25) & \worst{54.81 (56.00)} \\
+(Gemma-3-4B-IT) & Zero-shot, null-calibrated & 29.08 (33.75) & 52.90 (54.25) & 32.46 (49.25) & \best{40.35 (52.00)} & \best{56.05 (65.00)} & 64.04 (63.25) \\
+\midrule
+Student & Standard KD & \worst{22.86 (32.25)} & 62.28 (59.75) & 30.25 (51.75) & \worst{29.78 (50.50)} & \worst{34.16 (54.25)} & 55.56 (58.50) \\
+(RoBERTa-base) & Batch-Calibrated KD & 23.19 (32.00) & 63.29 (61.00) & 32.04 (52.25) & 31.13 (50.00) & 38.85 (56.50) & 57.13 (60.25) \\
+ & Null Calibrated KD (ours) & \best{37.10 (39.25)} & \best{64.71 (61.75)} & \best{33.24 (53.25)} & 34.46 (50.75) & 55.48 (66.50) & \best{71.40 (70.50)} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Macro-F1 with accuracy in parentheses, both in \%, on the 400 test examples of each dataset. Green marks the highest and red the lowest Macro-F1 in each column.}
+\label{tab:main_results}
+\end{table*}

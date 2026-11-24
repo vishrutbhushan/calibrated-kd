@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{llrrrrr}
+\toprule
+\textbf{Dataset} & \textbf{Class} & \textbf{True} & \textbf{Teacher} & \textbf{Std.} & \textbf{Batch} & \textbf{Null} \\
+\midrule
+Student Questions & Biology & 126 & 100 & 90 & 94 & \textbf{0} \\
+Student Questions & Chemistry & 43 & 11 & \textbf{0} & 7 & 53 \\
+Twitter Emotion & Fear & 48 & 19 & \textbf{0} & \textbf{0} & 5 \\
+Twitter Emotion & Surprise & 14 & \textbf{0} & \textbf{0} & \textbf{0} & \textbf{0} \\
+TweetEval Emotion & Optimism & 36 & 10 & \textbf{0} & 1 & 6 \\
+BBC News & Politics & 75 & 14 & \textbf{0} & \textbf{0} & 25 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Number of test predictions for every class that at least one distillation method never predicts. True is the number of test examples in the class. Std., Batch and Null denote standard, Batch-Calibrated and Null Calibrated KD. Bold marks zero predictions.}
+\label{tab:collapse}
+\end{table}
