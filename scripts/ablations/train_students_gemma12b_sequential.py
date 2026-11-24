@@ -39,7 +39,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_BASE = ROOT / "data" / "datasets" / "natural_benchmarks"
-RESULTS_DIR = ROOT / "outputs" / "results" / "gemma12b_pytorch_kd"
+RESULTS_DIR = ROOT / "outputs" / "ablations" / "6_gemma12b_scaling"
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 STUDENT_MODEL_NAME = "roberta-base"

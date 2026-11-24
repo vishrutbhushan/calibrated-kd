@@ -36,7 +36,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_BASE = ROOT / "data" / "datasets" / "natural_benchmarks"
-RESULTS_DIR = ROOT / "outputs" / "results" / "gemma12b_pytorch_extraction"
+RESULTS_DIR = ROOT / "outputs" / "ablations" / "6_gemma12b_scaling" / "extraction"
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_PATH = "/home/vishrut/.cache/huggingface/hub/models--google--gemma-3-12b-it/snapshots/96b6f1eccf38110c56df3a15bffe176da04bfd80"

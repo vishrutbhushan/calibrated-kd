@@ -42,7 +42,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_BASE = ROOT / "data" / "datasets" / "natural_benchmarks"
-OUTPUT_DIR = ROOT / "outputs" / "results" / "multitask"
+OUTPUT_DIR = ROOT / "outputs" / "ablations" / "2_multitask"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 TEACHER_MODEL_PATH = "/home/vishrut/.cache/huggingface/hub/models--google--gemma-3-4b-it/snapshots/093f9f388b31de276ce2de164bdc2081324b9767"

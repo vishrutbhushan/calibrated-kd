@@ -21,7 +21,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 ROOT = Path(__file__).resolve().parents[2]
 SST2_DIR = ROOT / "data" / "datasets" / "sst2"
-OUT_DIR = ROOT / "results" / "ablations" / "1_cross_architecture"
+OUT_DIR = ROOT / "outputs" / "ablations" / "1_cross_architecture"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 TEACHER_PATH = "/home/vishrut/.cache/huggingface/hub/models--Qwen--Qwen3-4B/snapshots/1cfa9a7208912126459214e8b04321603b3df60c"

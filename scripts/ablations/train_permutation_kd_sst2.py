@@ -37,7 +37,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 ROOT = Path(__file__).resolve().parents[2]
 SST2_DIR = ROOT / "data" / "datasets" / "sst2"
-OUT_DIR = ROOT / "results" / "ablations" / "4_permutation_kd"
+OUT_DIR = ROOT / "outputs" / "ablations" / "4_permutation_kd"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 TEACHER_PATH = "/home/vishrut/.cache/huggingface/hub/models--google--gemma-3-4b-it/snapshots/093f9f388b31de276ce2de164bdc2081324b9767"

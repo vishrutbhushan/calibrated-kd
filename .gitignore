@@ -12,9 +12,10 @@ __pycache__/
 venv/
 ENV/
 
-# Outputs & Experimental Results (Track main_experiments results and figures)
+# Outputs & Experimental Results (Track main_experiments and ablations results)
 /outputs/*
 !/outputs/main_experiments/
+!/outputs/ablations/
 /outputs/main_experiments/cache/
 /results
 /results/

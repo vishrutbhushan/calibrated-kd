@@ -1,0 +1,38 @@
+{
+  "dataset": "AG News Balanced (250/class)",
+  "teacher": "google/gemma-3-4b-it",
+  "student": "roberta-base",
+  "standard_kd": {
+    "passes_per_sample": 1,
+    "total_passes": 1000,
+    "test_acc": 83.1,
+    "macro_f1": 82.8,
+    "worst_f1": 76.5
+  },
+  "permutation_averaged_kd": {
+    "passes_per_sample": 4,
+    "total_passes": 4000,
+    "test_acc": 74.1,
+    "macro_f1": 73.3110948465818,
+    "worst_f1": 58.40220385674931,
+    "per_class_f1": [
+      75.25773195876289,
+      88.03418803418803,
+      71.55025553662692,
+      58.40220385674931
+    ],
+    "counts": [
+      332,
+      218,
+      337,
+      113
+    ]
+  },
+  "calibrated_kd": {
+    "passes_per_sample": "1x (+1 offline)",
+    "total_passes": 1001,
+    "test_acc": 84.5,
+    "macro_f1": 84.3,
+    "worst_f1": 79.2
+  }
+}

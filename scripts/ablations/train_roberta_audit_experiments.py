@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
 BENCHMARK_DIR = DATA_DIR / "benchmarks"
 TARGETS_DIR = DATA_DIR / "teacher_targets" / "skewed"
-RESULTS_DIR = ROOT / "results" / "audit"
+RESULTS_DIR = ROOT / "outputs" / "ablations" / "5_multi_seed"
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_PATH = "roberta-base"

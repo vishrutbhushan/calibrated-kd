@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = ROOT / "outputs" / "results" / "multitask"
+OUTPUT_DIR = ROOT / "outputs" / "ablations" / "2_multitask"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 PYTHON_EXEC = sys.executable
 

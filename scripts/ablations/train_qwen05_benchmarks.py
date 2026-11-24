@@ -38,7 +38,7 @@ if torch.cuda.is_available():
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
-RESULTS_DIR = ROOT / "results" / "qwen05"
+RESULTS_DIR = ROOT / "outputs" / "ablations" / "1_cross_architecture"
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"

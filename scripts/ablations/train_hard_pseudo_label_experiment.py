@@ -37,7 +37,7 @@ DATA_DIR = ROOT / "data"
 TARGETS_NPZ = DATA_DIR / "teacher_targets" / "skewed" / "teacher_targets_agnews_skewed_1000_gemma3_4b.npz"
 TRAIN_CSV = DATA_DIR / "benchmarks" / "skewed" / "agnews_skewed_train_1000.csv"
 TEST_CSV = DATA_DIR / "benchmarks" / "ag_news_test_1000.csv"
-OUT_DIR = ROOT / "results" / "hard_pseudo_label_experiment"
+OUT_DIR = ROOT / "outputs" / "ablations" / "3_hard_vs_soft"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_NAME = "roberta-base"

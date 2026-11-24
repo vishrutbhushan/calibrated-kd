@@ -154,14 +154,14 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 ### Ablation 1: Cross-Architecture Triad (Evaluated Across Distinct Domains & Task Complexities)
 
-| Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset Evaluated | Standard KD Macro-F1 [F1_min] | CKD Macro-F1 [F1_min] | Net Gain ($\Delta$ pp) | Minority Recovery Status |
-| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Skewed** (10% Sci/Tech) | — | — | — | — |
+| Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset Evaluated | Standard KD Macro-F1 (Acc) | CKD Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) | Minority Recovery Status |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
+| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Skewed** (10% Sci/Tech) | 57.77% (65.5%) | **67.12% (71.3%)** | **+9.35 pp** | 5 $\to$ **44 / 250** (+780% recovery) |
 | | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Balanced** (250/class) | — | — | — | — |
-| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Skewed** (Binary Sentiment) | — | — | — | — |
-| | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Balanced** (Binary Sentiment) | — | — | — | — |
-| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Naturally Skewed** (1.6% Abbr) | — | — | — | — |
-| | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Balanced** (200/class) | — | — | — | — |
+| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Skewed** (Binary Sentiment) | 84.74% (85.0%) | **89.00% (89.0%)** | **+4.25 pp** | 74 $\to$ **96 / 100** balanced preds |
+| | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Balanced** (Binary Sentiment) | 80.29% (81.0%) | **88.42% (88.5%)** | **+8.13 pp** | 62 $\to$ **83 / 100** positive preds |
+| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Naturally Skewed** (1.6% Abbr) | 49.51% (66.0%) | **61.46% (73.6%)** | **+11.95 pp** | 4 $\to$ **13** preds on Abbr |
+| | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Balanced** (200/class) | 61.91% (69.2%) | **62.51% (70.6%)** | **+0.60 pp** | 10 $\to$ **18** preds on minority |
 
 ---
 
@@ -169,22 +169,22 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Multi-Task Setup | Evaluated Tasks | Standard KD Raw | Post-Hoc Alone | CKD Raw (Ours) | CKD + Post-Hoc Combined |
 | :--- | :--- | :---: | :---: | :---: | :---: |
-| **Combo 1** | TweetEval Emotion + BBC News | — | — | — | — |
-| **Combo 2** | BBC News + TREC-6 | — | — | — | — |
-| **Combo 3** | Twitter Emotion + TREC-6 | — | — | — | — |
-| **Combo 4** | TweetEval + BBC News + TREC-6 | — | — | — | — |
-| **5-Task Unified** | TweetEval + BBC + PRAXIS + TwEmo + TREC | — | — | — | — |
+| **Combo 1** | TweetEval Emotion + BBC News | 51.49% | **80.35%** | 63.58% | 78.90% |
+| **Combo 2** | BBC News + TREC-6 | 59.28% | 75.11% | 67.39% | **75.24%** |
+| **Combo 3** | Twitter Emotion + TREC-6 | 48.96% | 51.04% | **52.89%** | 51.64% |
+| **Combo 4** | TweetEval + BBC News + TREC-6 | 50.68% | 70.55% | 64.87% | **71.97%** |
+| **5-Task Unified** | TweetEval + BBC + PRAXIS + TwEmo + TREC | 41.39% | 55.46% | 48.18% | **55.58%** |
 
 ---
 
 ### Ablation 3: Hard Label Fine-Tuning ($\text{argmax}$) vs. Soft Label Distillation (KL)
 
-| Distillation Regime | Target Formulation | Loss Function | Macro-F1 (%) | Test Accuracy (%) | Worst-Class F1 ($F1_{\text{min}}$) | Minority Preds |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | — | — | — | — |
-| **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | — | — | — | — |
-| **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | — | — | — | — |
-| **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | — | — | — | — |
+| Distillation Regime | Target Formulation | Loss Function | Macro-F1 (%) | Test Accuracy (%) | Minority Preds (Gold=250) |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 58.02% | 66.60% | 0 (Collapsed) |
+| **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 64.94% | 70.50% | 29 (Recovered) |
+| **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 57.04% | 65.50% | 0 (Collapsed) |
+| **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **66.48%** | **71.10%** | **42 (Best)** |
 
 ---
 
@@ -192,24 +192,24 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Benchmark Dataset | Evaluation Metric | Standard KD ($1\times$ Pass) | Permutation-Averaged KD ($M\times$ Passes) | Calibrated KD (CKD, $1\times$ Pass) |
 | :--- | :--- | :---: | :---: | :---: |
-| **AG News Skewed** | Test Accuracy (%) | — | — | — |
-| | Macro-F1 (%) | — | — | — |
-| | Worst-Class F1 ($F1_{\text{min}}$) | — | — | — |
-| **AG News Balanced** | Test Accuracy (%) | — | — | — |
-| | Macro-F1 (%) | — | — | — |
-| | Worst-Class F1 ($F1_{\text{min}}$) | — | — | — |
-| **SST-2 Balanced** | Test Accuracy (%) | — | — | — |
-| | Macro-F1 (%) | — | — | — |
-| | Worst-Class F1 ($F1_{\text{min}}$) | — | — | — |
+| **AG News Skewed** | Test Accuracy (%) | 65.80% | **75.30%** ($4\times$ passes) | 69.90% |
+| | Macro-F1 (%) | 57.22% | **75.13%** ($4\times$ passes) | 64.22% |
+| | Worst-Class F1 ($F1_{\text{min}}$) | 0.00% | **68.34%** ($4\times$ passes) | 21.00% |
+| **AG News Balanced** | Test Accuracy (%) | 83.10% | 74.10% ($4\times$ passes) | **84.50%** |
+| | Macro-F1 (%) | 82.80% | 73.31% ($4\times$ passes) | **84.30%** |
+| | Worst-Class F1 ($F1_{\text{min}}$) | 76.50% | 58.40% ($4\times$ passes) | **79.20%** |
+| **SST-2 Balanced** | Test Accuracy (%) | **88.00%** | 77.50% ($2\times$ passes) | 87.50% |
+| | Macro-F1 (%) | **87.94%** | 76.41% ($2\times$ passes) | 87.43% |
+| | Worst-Class F1 ($F1_{\text{min}}$) | **87.82%** | 71.34% ($2\times$ passes) | 87.21% |
 
 ---
 
 ### Ablation 5: Multi-Seed Statistical Significance Validation
 
-| Distillation Regime | Seed 42 F1 (%) | Seed 43 F1 (%) | Seed 44 F1 (%) | Mean Macro-F1 $\pm$ Std (%) | Minority Preds (Seeds 42, 43, 44) | Paired $t$-test $p$-value |
+| Distillation Regime | Seed 42 F1 (%) | Seed 43 F1 (%) | Seed 44 F1 (%) | Mean Macro-F1 $\pm$ Std (%) | Minority Preds (Seeds 42, 43, 44) | Mean Gain ($\Delta$ pp) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Standard KD** | — | — | — | — | — | — |
-| **Calibrated KD (CKD, Ours)** | — | — | — | — | — | — |
+| **Standard KD** | 57.22% | 56.09% | 56.56% | $56.62\% \pm 0.46\%$ | 0, 0, 0 (Deterministic Collapse) | Baseline |
+| **Calibrated KD (CKD, Ours)** | 64.22% | 64.70% | 65.53% | **$64.82\% \pm 0.54\%$** | **29, 36, 45 (Recovered)** | **+8.19 pp** |
 
 ---
 
@@ -217,9 +217,9 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Dataset | $K$ | Teacher 12B Raw | Teacher 12B Null-Cal | Student Standard KD | Student Batch-Cal KD | Student CKD (Ours) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Student Questions** | 4 | — | — | — | — | — |
-| **TREC-6** | 6 | — | — | — | — | — |
-| **App Reviews** | 5 | — | — | — | — | — |
-| **Twitter Emotion** | 6 | — | — | — | — | — |
-| **TweetEval Emotion** | 4 | — | — | — | — | — |
-| **BBC News** | 5 | — | — | — | — | — |
+| **Student Questions** | 4 | 27.87% (31.75%) | 28.78% (33.25%) | 29.40% (32.50%) | **29.50%** (32.50%) | 29.12% (32.50%) |
+| **TREC-6** | 6 | 65.52% (64.25%) | 63.62% (62.25%) | 63.70% (66.00%) | **69.19% (70.25%)** | 51.58% (64.00%) |
+| **App Reviews** | 5 | 38.85% (62.25%) | 41.34% (63.00%) | 34.76% (62.00%) | **36.04%** (61.75%) | 35.64% (**63.25%**) |
+| **Twitter Emotion** | 6 | 49.66% (56.00%) | 51.38% (58.25%) | 33.37% (52.75%) | 31.20% (51.25%) | **34.93% (53.00%)** |
+| **TweetEval Emotion** | 4 | 72.95% (77.75%) | 72.55% (77.25%) | 72.81% (78.25%) | **73.98% (79.25%)** | 73.26% (**79.25%**) |
+| **BBC News** | 5 | 89.48% (89.75%) | 89.28% (89.50%) | **93.91% (94.00%)** | 93.62% (93.75%) | 92.62% (92.75%) |
