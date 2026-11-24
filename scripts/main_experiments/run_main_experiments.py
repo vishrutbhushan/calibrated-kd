@@ -279,9 +279,8 @@ def download_and_prepare_dataset(task_name: str) -> None:
                 labels.append(orig_to_new[item["label"]])
 
     elif task_name == "trec6":
-        ds = load_dataset("CogComp/trec")
-        # Map CogComp coarse labels to: 0:ABBR, 1:ENTY, 2:DESC, 3:HUM, 4:LOC, 5:NUM
-        # CogComp/trec default coarse_label: 0:ABBR, 1:ENTY, 2:DESC, 3:HUM, 4:LOC, 5:NUM
+        ds = load_dataset("CogComp/trec", revision="refs/convert/parquet")
+        # CogComp/trec coarse_label: 0:ABBR, 1:ENTY, 2:DESC, 3:HUM, 4:LOC, 5:NUM
         texts = list(ds["train"]["text"]) + list(ds["test"]["text"])
         labels = list(ds["train"]["coarse_label"]) + list(ds["test"]["coarse_label"])
 
