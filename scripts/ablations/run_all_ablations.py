@@ -17,6 +17,7 @@ between runs. All stdout/stderr is streamed to logs/ablations_<timestamp>.log.
 import os
 import sys
 import time
+import argparse
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -76,15 +77,21 @@ ABLATION_STEPS = [
 
 def main() -> None:
     """Runs all ablation steps strictly sequentially and logs to a timestamped file."""
+    parser = argparse.ArgumentParser(description="Run all ablations sequentially.")
+    parser.add_argument("--start_step", type=int, default=1, help="1-indexed step to start from.")
+    args = parser.parse_args()
+
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_path = LOGS_DIR / f"ablations_{timestamp}.log"
 
     total_start = time.time()
-    print(f"Starting sequential ablation suite. Log: {log_path}", flush=True)
+    print(f"Starting sequential ablation suite (from step {args.start_step}). Log: {log_path}", flush=True)
 
     with open(log_path, "w", encoding="utf-8") as log_fp:
         for idx, (label, cmd_args) in enumerate(ABLATION_STEPS, 1):
+            if idx < args.start_step:
+                continue
             banner = f"\n{'=' * 75}\n[{idx}/{len(ABLATION_STEPS)}] {label}\n{'=' * 75}\n"
             print(banner, end="", flush=True)
             log_fp.write(banner)

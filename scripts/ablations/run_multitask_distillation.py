@@ -292,7 +292,7 @@ def train_and_eval_multitask(method_name, task_names, all_task_data, seed=42):
         task_results[task] = metrics
         raw_f1_list.append(metrics["macro_f1"])
 
-        print(f"  [{task}] Macro-F1: {metrics['macro_f1']:.2f}% | Acc: {metrics['acc']:.2f}% | Counts: {metrics['counts']}")
+        print(f"  [{task}] Macro-F1: {metrics['macro_f1']:.2f}% | Acc: {metrics['accuracy']:.2f}% | Counts: {metrics['counts']}")
 
     avg_f1 = float(np.mean(raw_f1_list))
     print(f"  -> Average Macro-F1: {avg_f1:.2f}%")
