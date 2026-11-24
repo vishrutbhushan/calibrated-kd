@@ -164,6 +164,12 @@ class TeeLogger:
         self.terminal.flush()
         self.log_file.flush()
 
+    def isatty(self) -> bool:
+        return False
+
+    def fileno(self) -> int:
+        return self.terminal.fileno()
+
     def close(self):
         self.log_file.close()
 
@@ -550,17 +556,24 @@ def run_benchmark(task_name: str, cache_dir: Path) -> dict:
     train_texts, _, test_texts, test_golds = load_dataset_splits(task_name)
     print(f"  Loaded Train={len(train_texts)}, Test={len(test_texts)}")
 
-    # 1. Extract and cache teacher targets
+    # 1. Extract and cache teacher targets (or reuse if already cached in this output dir)
     cache_path = cache_dir / f"{task_name}_gemma4b_targets.npz"
-    null_logits, test_logits, train_logits = extract_teacher_logits(
-        task_name, config, train_texts, test_texts
-    )
-    np.savez_compressed(
-        cache_path,
-        null_logits=null_logits,
-        test_logits=test_logits,
-        train_logits=train_logits,
-    )
+    if cache_path.exists():
+        print(f"  [INFO] Loading cached teacher targets from {cache_path}")
+        cached = np.load(cache_path)
+        null_logits = cached["null_logits"]
+        test_logits = cached["test_logits"]
+        train_logits = cached["train_logits"]
+    else:
+        null_logits, test_logits, train_logits = extract_teacher_logits(
+            task_name, config, train_texts, test_texts
+        )
+        np.savez_compressed(
+            cache_path,
+            null_logits=null_logits,
+            test_logits=test_logits,
+            train_logits=train_logits,
+        )
 
     # 2. Evaluate Teacher Zero-Shot Baselines
     teacher_raw_metrics = compute_metrics(test_golds, test_logits.argmax(axis=-1), num_classes)
