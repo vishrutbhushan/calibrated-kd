@@ -152,13 +152,13 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 ## Appendix & Ablations
 
-### Ablation 1: Cross-Architecture Triad (Skewed & Natural Benchmarks)
+### Ablation 1: Cross-Architecture Triad
 
-| Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset Evaluated | Standard KD Macro-F1 (Acc) | CKD Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) |
+| Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset | Standard KD Macro-F1 (Acc) | CKD Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: |
-| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News Skewed** (10% Sci/Tech) | 57.72% (65.6%) | **66.94% (71.2%)** | **+9.22 pp** |
-| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2 Skewed** (Binary Sentiment) | 84.74% (85.0%) | **89.00% (89.0%)** | **+4.25 pp** |
-| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6 Naturally Skewed** (1.6% Abbr) | 45.59% (66.2%) | **62.39% (74.2%)** | **+16.80 pp** |
+| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News** | 57.72% (65.6%) | **66.94% (71.2%)** | **+9.22 pp** |
+| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2** | 84.74% (85.0%) | **89.00% (89.0%)** | **+4.25 pp** |
+| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6** | 45.59% (66.2%) | **62.39% (74.2%)** | **+16.80 pp** |
 
 ---
 
@@ -185,11 +185,11 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 ---
 
-### Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News Skewed)
+### Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News)
 
 | Benchmark Dataset | Evaluation Metric | Standard KD ($1\times$ Pass) | Permutation-Averaged KD ($4\times$ Passes) | Calibrated KD (CKD, $1\times$ Pass) |
 | :--- | :--- | :---: | :---: | :---: |
-| **AG News Skewed** | Test Accuracy (%) | 65.80% | **75.30%** | 69.90% |
+| **AG News** | Test Accuracy (%) | 65.80% | **75.30%** | 69.90% |
 | | Macro-F1 (%) | 57.22% | **75.13%** | 64.22% |
 
 ---
