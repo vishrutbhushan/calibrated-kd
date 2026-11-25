@@ -156,9 +156,9 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset | Standard KD Macro-F1 (Acc) | CKD Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: |
-| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **AG News** | 57.72% (65.6%) | **66.94% (71.2%)** | **+9.22 pp** |
-| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **SST-2** | 84.74% (85.0%) | **89.00% (89.0%)** | **+4.25 pp** |
-| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6** | 45.59% (66.2%) | **62.39% (74.2%)** | **+16.80 pp** |
+| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **BBC News** | 57.14% (60.50%) | **65.17% (67.25%)** | **+8.02 pp** |
+| **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **TweetEval Emotion** | 69.29% (77.00%) | **69.85%** (74.75%) | **+0.56 pp** |
+| **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6** | 19.94% (32.75%) | **26.93% (39.75%)** | **+6.99 pp** |
 
 ---
 
@@ -170,46 +170,43 @@ This post was written for the Agentic AI course at BITS Pilani.
 | **Combo 2** | BBC News + TREC-6 | 60.04% | **67.63%** | **+7.59 pp** |
 | **Combo 3** | Twitter Emotion + TREC-6 | 48.96% | **52.89%** | **+3.93 pp** |
 | **Combo 4** | TweetEval + BBC News + TREC-6 | 52.53% | **64.56%** | **+12.04 pp** |
-| **5-Task Unified** | TweetEval + BBC + PRAXIS + TwEmo + TREC | 41.56% | **46.87%** | **+5.31 pp** |
+| **5-Task Unified** | TweetEval + BBC + App Reviews + TwEmo + TREC | 45.29% | **52.95%** | **+7.66 pp** |
 
 ---
 
 ### Ablation 3: Hard Label Fine-Tuning ($\text{argmax}$) vs. Soft Label Distillation (KL)
 
-| Distillation Regime | Target Formulation | Loss Function | Macro-F1 (%) | Test Accuracy (%) |
-| :--- | :--- | :--- | :---: | :---: |
-| **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 58.02% | 66.60% |
-| **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 64.94% | 70.50% |
-| **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 57.04% | 65.50% |
-| **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **66.48%** | **71.10%** |
+| Benchmark Dataset | Distillation Regime | Target Formulation | Loss Function | Macro-F1 (%) | Test Accuracy (%) |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **BBC News** | **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 55.95% | 59.00% |
+| | **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 58.93% | 61.75% |
+| | **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 55.02% | 58.00% |
+| | **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **71.58%** | **70.50%** |
+| **TweetEval Emotion** | **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 32.43% | 53.00% |
+| | **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 47.88% | 64.25% |
+| | **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 34.16% | 54.25% |
+| | **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **55.48%** | **66.50%** |
 
 ---
 
-### Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News)
+### Ablation 4: Permutation-Averaged Teacher Distillation ($4\times$ Passes) vs. CKD ($1\times$ Pass)
 
 | Benchmark Dataset | Evaluation Metric | Standard KD ($1\times$ Pass) | Permutation-Averaged KD ($4\times$ Passes) | Calibrated KD (CKD, $1\times$ Pass) |
 | :--- | :--- | :---: | :---: | :---: |
-| **AG News** | Test Accuracy (%) | 65.80% | **75.30%** | 69.90% |
-| | Macro-F1 (%) | 57.22% | **75.13%** | 64.22% |
+| **TweetEval Emotion** | Macro-F1 (%) | 34.16% | **57.58%** | 55.48% |
+| | Test Accuracy (%) | 54.25% | **74.25%** | 66.50% |
+| **Student Questions** | Macro-F1 (%) | 22.86% | 21.03% | **37.10%** |
+| | Test Accuracy (%) | 32.25% | 29.25% | **39.25%** |
 
 ---
 
-### Ablation 5: Multi-Seed Statistical Significance Validation
+### Ablation 5: Multi-Seed Statistical Significance Validation (Seeds 42, 43, 44)
 
-| Distillation Regime | Seed 42 F1 (%) | Seed 43 F1 (%) | Seed 44 F1 (%) | Mean Macro-F1 $\pm$ Std (%) | Mean Accuracy $\pm$ Std (%) | Mean Gain ($\Delta$ F1 pp) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Standard KD** | 57.22% | 56.09% | 56.56% | $56.62\% \pm 0.46\%$ | $65.03\% \pm 0.58\%$ | Baseline |
-| **Calibrated KD (CKD, Ours)** | 64.22% | 64.70% | 65.53% | **$64.82\% \pm 0.54\%$** | **$69.83\% \pm 0.09\%$** | **+8.19 pp** |
-
----
-
-### Ablation 6: Teacher Model Scaling (Gemma-3-12B-IT $\to$ RoBERTa-base)
-
-| Dataset | $K$ | Teacher 12B Raw | Teacher 12B Null-Cal | Student Standard KD | Student Batch-Cal KD | Student CKD (Ours) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Student Questions** | 4 | 27.87% (31.75%) | 28.78% (33.25%) | **29.67%** (32.75%) | 29.31% (32.25%) | 29.43% (32.75%) |
-| **TREC-6** | 6 | 65.52% (64.25%) | 63.62% (62.25%) | 63.70% (66.00%) | **69.19% (70.25%)** | 51.58% (64.00%) |
-| **App Reviews** | 5 | 38.85% (62.25%) | 41.34% (63.00%) | 34.76% (62.00%) | **35.66%** (61.50%) | 35.64% (**63.25%**) |
-| **Twitter Emotion** | 6 | 49.66% (56.00%) | 51.38% (58.25%) | 33.37% (52.75%) | 31.20% (51.25%) | **34.93% (53.00%)** |
-| **TweetEval Emotion** | 4 | 72.95% (77.75%) | 72.55% (77.25%) | 72.81% (78.25%) | **73.98% (79.25%)** | 73.26% (**79.25%**) |
-| **BBC News** | 5 | 89.48% (89.75%) | 89.28% (89.50%) | 93.35% (93.50%) | **93.65% (93.75%)** | 92.35% (92.50%) |
+| Benchmark Dataset | Standard KD Macro-F1 (Acc) | Batch-Cal KD Macro-F1 (Acc) | CKD (Ours) Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Student Questions** | $22.54 \pm 0.36\%$ ($32.33 \pm 0.12\%$) | $22.76 \pm 0.20\%$ ($31.92 \pm 0.62\%$) | **$36.64 \pm 0.47\%$ ($38.42 \pm 0.59\%$)** | **+14.11 pp** |
+| **TREC-6** | $58.57 \pm 7.56\%$ ($60.17 \pm 1.76\%$) | **$64.09 \pm 0.99\%$ ($61.75 \pm 0.61\%$)** | $58.08 \pm 6.31\%$ ($60.67 \pm 0.92\%$) | -0.50 pp |
+| **App Reviews** | $30.09 \pm 0.22\%$ ($51.92 \pm 1.23\%$) | $31.30 \pm 1.48\%$ ($51.50 \pm 1.62\%$) | **$33.36 \pm 1.31\%$ ($52.17 \pm 1.56\%$)** | **+3.27 pp** |
+| **Twitter Emotion** | $29.30 \pm 0.44\%$ ($48.92 \pm 1.23\%$) | $30.39 \pm 0.57\%$ ($48.92 \pm 0.77\%$) | **$34.44 \pm 0.78\%$ ($51.08 \pm 0.85\%$)** | **+5.14 pp** |
+| **TweetEval Emotion** | $35.42 \pm 1.31\%$ ($55.17 \pm 1.30\%$) | $43.17 \pm 3.09\%$ ($59.25 \pm 2.15\%$) | **$56.54 \pm 2.01\%$ ($68.67 \pm 1.74\%$)** | **+21.13 pp** |
+| **BBC News** | $56.27 \pm 2.64\%$ ($59.25 \pm 2.94\%$) | $58.97 \pm 2.51\%$ ($61.92 \pm 2.97\%$) | **$73.70 \pm 4.23\%$ ($72.42 \pm 4.10\%$)** | **+17.43 pp** |

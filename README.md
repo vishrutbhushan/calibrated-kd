@@ -34,23 +34,19 @@ calibrated-kd/
     ├── data/                           # Step 1: Dataset download & stratified splitting
     │   ├── prepare_natural_benchmarks.py
     │   ├── prepare_3_new_benchmarks.py
-    │   ├── prepare_3_additional_benchmarks.py
-    │   └── prepare_sst2_natural.py
+    │   └── prepare_3_additional_benchmarks.py
     ├── main_experiments/               # Step 2: Section 6 Main 6 Benchmarks (Gemma-3-4B -> RoBERTa-base)
     │   ├── run_main_experiments.py     # Unified sequential runner for all 6 main benchmarks
     │   ├── run_single_benchmark.py
     │   └── run_full_student_questions_benchmark.py
-    ├── ablations/                      # Step 3: Section 11 Ablations & Teacher Scaling
+    ├── ablations/                      # Step 3: Section 11 Ablations (Main 6 Benchmarks Only)
     │   ├── run_all_ablations.py                    # Unified sequential runner for all ablations
-    │   ├── train_skewed_causal.py                  # Ablation 1: Same-size & Small SLM (Skewed)
-    │   ├── train_cross_family_qwen_roberta_sst2_skewed.py # Ablation 1: Cross-family (SST-2 Skewed)
+    │   ├── ablation1_cross_architecture.py         # Ablation 1: Same-size, Cross-family & Small SLM
     │   ├── run_multitask_distillation.py           # Ablation 2: Multi-task unified student backbone
     │   ├── run_all_multitask_experiments.py        # Ablation 2: Multi-task suite wrapper
-    │   ├── train_hard_pseudo_label_experiment.py   # Ablation 3: Hard argmax vs. Soft KL distillation
-    │   ├── train_permutation_kd_experiment.py      # Ablation 4: Permutation-averaged KD (AG News Skewed)
-    │   ├── train_roberta_audit_experiments.py      # Ablation 5: Multi-seed statistical validation
-    │   ├── extract_gemma12b_pytorch_targets.py     # Ablation 6: Gemma-3-12B target extraction
-    │   └── train_students_gemma12b_sequential.py   # Ablation 6: Sequential RoBERTa KD on 12B targets
+    │   ├── ablation3_hard_vs_soft.py               # Ablation 3: Hard argmax vs. Soft KL distillation
+    │   ├── ablation4_permutation_kd.py             # Ablation 4: Permutation-averaged KD vs. CKD
+    │   └── ablation5_multi_seed.py                 # Ablation 5: Multi-seed statistical validation
     └── plotting/                       # Step 4: Publication figures and table graphics
         ├── generate_benchmark_barchart.py
         ├── generate_blog_table_image.py
@@ -70,7 +66,7 @@ pip install torch transformers datasets accelerate peft bitsandbytes scikit-lear
 **Models Used:**
 * **Primary Teacher:** `google/gemma-3-4b-it` (BF16)
 * **Primary Student:** `roberta-base` (125M)
-* **Ablation & Scaling Models:** `Qwen/Qwen3-4B`, `Qwen/Qwen2.5-0.5B-Instruct`, `google/gemma-3-12b-it` (4-bit NF4)
+* **Ablation Models:** `Qwen/Qwen3-4B`, `Qwen/Qwen2.5-0.5B-Instruct`
 
 ---
 
@@ -87,11 +83,6 @@ All main benchmarks use stratified random splits ($N_{\text{train}} = 1,200$, $N
 | **TweetEval Emotion** | 4 | Social Media Affect | `cardiffnlp/tweet_eval` (`emotion`) | https://huggingface.co/datasets/cardiffnlp/tweet_eval |
 | **BBC News** | 5 | Multi-Topic Journalism | `SetFit/bbc-news` | https://huggingface.co/datasets/SetFit/bbc-news |
 
-**Ablation & Diagnostic Datasets:**
-* **AG News ($K=4$, Ablations 1, 3, 4, 5):** https://huggingface.co/datasets/fancyzhx/ag_news
-* **SST-2 ($K=2$, Ablations 1 & 4):** https://huggingface.co/datasets/SetFit/sst2
-* **PRAXIS ($K=5$, Multi-Task Ablation):** https://huggingface.co/datasets/au-hf/praxis
-
 ---
 
 ## Step-by-Step Replication Guide
@@ -104,7 +95,6 @@ Run the data preparation scripts to create the stratified 1,200 Train / 400 Test
 python scripts/data/prepare_natural_benchmarks.py
 python scripts/data/prepare_3_new_benchmarks.py
 python scripts/data/prepare_3_additional_benchmarks.py
-python scripts/data/prepare_sst2_natural.py
 ```
 
 ### Step 2: Run Main Benchmarks (Section 6)
@@ -119,7 +109,7 @@ Results are saved to `outputs/main_experiments/<dataset>_results.json` and `outp
 
 ### Step 3: Run Ablation Studies (Section 11)
 
-Run all ablation experiments (Ablations 1–6) strictly sequentially in a single command (logging to `logs/ablations_<timestamp>.log`):
+Run all ablation experiments (Ablations 1–5, strictly on the Main 6 benchmarks) sequentially in a single command (logging to `logs/ablations_<timestamp>.log`):
 
 ```bash
 python scripts/ablations/run_all_ablations.py
@@ -127,45 +117,30 @@ python scripts/ablations/run_all_ablations.py
 
 Or run individual ablations standalone:
 
-**Ablation 1: Cross-Architecture Triad (Skewed & Natural)**
+**Ablation 1: Cross-Architecture Triad**
 ```bash
-# Config 1: Same-Size (Gemma-3-4B -> Qwen3-4B LoRA on AG News Skewed)
-python scripts/ablations/train_skewed_causal.py --model qwen3 --dataset agnews
-
-# Config 2: Cross-Family (Qwen3-4B -> RoBERTa-base on SST-2 Skewed)
-python scripts/ablations/train_cross_family_qwen_roberta_sst2_skewed.py
-
-# Config 3: Small SLM Compression (Gemma-3-4B -> Qwen2.5-0.5B LoRA on TREC-6 Skewed)
-python scripts/ablations/train_skewed_causal.py --model qwen05 --dataset trec
+python scripts/ablations/ablation1_cross_architecture.py
 ```
 
 **Ablation 2: Multi-Task Distillation (Unified Student Backbone)**
 ```bash
 python scripts/ablations/run_all_multitask_experiments.py
+python scripts/ablations/run_multitask_distillation.py --tasks tweeteval_emotion bbc_news app_reviews twitter_emotion trec6 --combo_id 5
 ```
 
 **Ablation 3: Hard Pseudo-Labels vs. Soft Label Distillation**
 ```bash
-python scripts/ablations/train_hard_pseudo_label_experiment.py
+python scripts/ablations/ablation3_hard_vs_soft.py
 ```
 
-**Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News Skewed)**
+**Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD**
 ```bash
-python scripts/ablations/train_permutation_kd_experiment.py
+python scripts/ablations/ablation4_permutation_kd.py
 ```
 
 **Ablation 5: Multi-Seed Statistical Significance (Seeds 42, 43, 44)**
 ```bash
-python scripts/ablations/train_roberta_audit_experiments.py
-```
-
-**Ablation 6: Teacher Model Scaling (Gemma-3-12B-IT in 4-bit NF4)**
-```bash
-# Stage 1: Extract and cache 12B teacher targets sequentially
-python scripts/ablations/extract_gemma12b_pytorch_targets.py
-
-# Stage 2: Train RoBERTa-base students sequentially from cached targets
-python scripts/ablations/train_students_gemma12b_sequential.py
+python scripts/ablations/ablation5_multi_seed.py
 ```
 
 ### Step 4: Generate Publication Figures & Tables

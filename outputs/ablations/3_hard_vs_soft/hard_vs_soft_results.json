@@ -1,0 +1,38 @@
+{
+  "bbc_news": {
+    "raw_hard": {
+      "macro_f1": 55.94811401707953,
+      "acc": 59.0
+    },
+    "calibrated_hard": {
+      "macro_f1": 58.93023739579139,
+      "acc": 61.75000000000001
+    },
+    "standard_soft_kd": {
+      "macro_f1": 55.0217008797654,
+      "acc": 57.99999999999999
+    },
+    "calibrated_soft_kd": {
+      "macro_f1": 71.5805256141533,
+      "acc": 70.5
+    }
+  },
+  "tweeteval_emotion": {
+    "raw_hard": {
+      "macro_f1": 32.42886499653031,
+      "acc": 53.0
+    },
+    "calibrated_hard": {
+      "macro_f1": 47.88354244092361,
+      "acc": 64.25
+    },
+    "standard_soft_kd": {
+      "macro_f1": 34.157466804525626,
+      "acc": 54.25
+    },
+    "calibrated_soft_kd": {
+      "macro_f1": 55.47912288418617,
+      "acc": 66.5
+    }
+  }
+}

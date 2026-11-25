@@ -8,7 +8,6 @@ paper_structure.md):
   - Ablation 3: Hard Pseudo-Labels vs. Soft Label Distillation
   - Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD
   - Ablation 5: Multi-Seed Statistical Validation (Seeds 42, 43, 44)
-  - Ablation 6: Teacher Model Scaling (Gemma-3-12B-IT -> RoBERTa-base)
 
 Each experiment runs in an isolated subprocess so GPU VRAM is 100% freed
 between runs. All stdout/stderr is streamed to logs/ablations_<timestamp>.log.
@@ -59,10 +58,6 @@ ABLATION_STEPS = [
     (
         "Ablation 5: Multi-Seed Statistical Significance (Main 6, Seeds 42, 43, 44)",
         ["scripts/ablations/ablation5_multi_seed.py"],
-    ),
-    (
-        "Ablation 6: Teacher Model Scaling (Gemma-3-12B -> RoBERTa-base)",
-        ["scripts/ablations/train_students_gemma12b_sequential.py"],
     ),
 ]
 
