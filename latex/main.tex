@@ -55,16 +55,7 @@
 \maketitle
 
 \begin{abstract}
-Large language models (LLMs) are getting better every day at classification tasks.
-But deploying these larger models for a specific classification job requires more compute and longer inference time.
-Knowledge distillation (KD) lets an LLM teacher label an unlabelled training set for a smaller student model.
-However, a teacher can be biased towards a certain class, and a student that learns from it acquires some of that bias.
-In many cases, this leads to a complete class collapse.
-We study the effect of `Null' prompting on the teacher and utilise it to minimise the bias transference.
-A single offline probe with a blank prompt (N/A) captures this bias, and we subtract these null logits inside the distillation loss.
-We test this on 6 multi-class classification tasks with Gemma-3-4B-IT as the teacher and RoBERTa-base as the student.
-Macro-F1 increases by an average of \AvgGainStd{} percentage points (pp) over standard KD, and no human labels are required.
-Removing the teacher's bias in this way makes the student perform better at almost no extra cost.
+In the current world of AI, Large Language Models are getting better everyday at classification tasks.But deploying the larger models for a classification task have longer inference time.Knowledge distillation lets an LLM Teacher model to categorise on an unlabelled training set and then fine-tune  existing small base models(students) like Bert / RoBERTa.In traditional Knowledge Distillation  a teacher can be biased towards a certain class, and a student that learns from it acquires some of that bias.We propose a ad-hoc Calibrated Knowledge distillation method where we study the effect of ‘Null’ prompting on the teacher and minimise the bias transference . A blank prompt (N/A) helps to capture this bias and we subtract the null logits inside distillation loss.We then test this on 6 multi-class classification tasks with Gemma-3-4B-IT as the teacher and RoBERTa-base as the student. With this method we demonstrate that the distilled student performs better at no extra cost !
 \end{abstract}
 
 \section{Introduction}
