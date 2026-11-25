@@ -61,11 +61,17 @@ BENCHMARK_CONFIGS = {
         "verbalizers": ["A", "B", "C", "D", "E"],
         "task_desc": "Classify the news article into one of five categories:\nA: Tech\nB: Business\nC: Sport\nD: Entertainment\nE: Politics"
     },
-    "praxis": {
+    "app_reviews": {
         "num_classes": 5,
-        "class_names": ["Imperative", "Interrogative", "Modal", "Conditional", "Optative"],
+        "class_names": ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"],
         "verbalizers": ["A", "B", "C", "D", "E"],
-        "task_desc": "Classify the dialogue utterance into one of five speech acts:\nA: Imperative\nB: Interrogative\nC: Modal\nD: Conditional\nE: Optative"
+        "task_desc": "Classify the customer app review into one of five star ratings:\nA: 1 Star\nB: 2 Stars\nC: 3 Stars\nD: 4 Stars\nE: 5 Stars"
+    },
+    "student_questions": {
+        "num_classes": 4,
+        "class_names": ["Biology", "Physics", "Maths", "Chemistry"],
+        "verbalizers": ["A", "B", "C", "D"],
+        "task_desc": "Classify the academic question into the correct subject:\nA: Biology\nB: Physics\nC: Maths\nD: Chemistry"
     },
     "twitter_emotion": {
         "num_classes": 6,
@@ -84,7 +90,8 @@ BENCHMARK_CONFIGS = {
 INDIVIDUAL_BASELINE = {
     "tweeteval_emotion": {"std_kd": 34.2, "posthoc": 55.4, "ckd": 55.5, "combined": 68.0},
     "bbc_news":          {"std_kd": 56.3, "posthoc": 86.8, "ckd": 71.5, "combined": 93.1},
-    "praxis":            {"std_kd": 11.9, "posthoc": 18.4, "ckd": 6.7,  "combined": 12.6},
+    "app_reviews":       {"std_kd": 30.25, "ckd": 33.24},
+    "student_questions": {"std_kd": 22.86, "ckd": 37.10},
     "twitter_emotion":   {"std_kd": 29.8, "posthoc": 32.6, "ckd": 34.5, "combined": 43.2},
     "trec6":             {"std_kd": 62.3, "posthoc": 58.9, "ckd": 64.7, "combined": 60.1}
 }

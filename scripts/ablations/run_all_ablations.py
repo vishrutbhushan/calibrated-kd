@@ -27,29 +27,21 @@ LOGS_DIR = ROOT / "logs"
 
 ABLATION_STEPS = [
     (
-        "Ablation 1a: Same-Size Causal (Gemma-4B -> Qwen3-4B on AG News Skewed)",
-        ["scripts/ablations/train_skewed_causal.py", "--model", "qwen3", "--dataset", "agnews"],
-    ),
-    (
-        "Ablation 1b: Cross-Family (Qwen3-4B -> RoBERTa-base on SST-2 Skewed)",
-        ["scripts/ablations/train_cross_family_qwen_roberta_sst2_skewed.py"],
-    ),
-    (
-        "Ablation 1c: Small SLM (Gemma-4B -> Qwen2.5-0.5B on TREC-6 Skewed)",
-        ["scripts/ablations/train_skewed_causal.py", "--model", "qwen05", "--dataset", "trec"],
+        "Ablation 1: Cross-Architecture Triad (BBC News, TweetEval Emotion, TREC-6)",
+        ["scripts/ablations/ablation1_cross_architecture.py"],
     ),
     (
         "Ablation 2a: Multi-Task Distillation (Combos 1-4)",
         ["scripts/ablations/run_all_multitask_experiments.py"],
     ),
     (
-        "Ablation 2b: Multi-Task Distillation (5-Task Unified Suite)",
+        "Ablation 2b: Multi-Task Distillation (5-Task Unified Suite on Main 6)",
         [
             "scripts/ablations/run_multitask_distillation.py",
             "--tasks",
             "tweeteval_emotion",
             "bbc_news",
-            "praxis",
+            "app_reviews",
             "twitter_emotion",
             "trec6",
             "--combo_id",
@@ -57,16 +49,16 @@ ABLATION_STEPS = [
         ],
     ),
     (
-        "Ablation 3: Hard Pseudo-Labels vs. Soft Label Distillation",
-        ["scripts/ablations/train_hard_pseudo_label_experiment.py"],
+        "Ablation 3: Hard Pseudo-Labels vs. Soft Label Distillation (BBC News & TweetEval)",
+        ["scripts/ablations/ablation3_hard_vs_soft.py"],
     ),
     (
-        "Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (AG News Skewed)",
-        ["scripts/ablations/train_permutation_kd_experiment.py"],
+        "Ablation 4: Permutation-Averaged Teacher Distillation vs. CKD (TweetEval & Student Questions)",
+        ["scripts/ablations/ablation4_permutation_kd.py"],
     ),
     (
-        "Ablation 5: Multi-Seed Statistical Significance & Beta Sweep",
-        ["scripts/ablations/train_roberta_audit_experiments.py"],
+        "Ablation 5: Multi-Seed Statistical Significance (Main 6, Seeds 42, 43, 44)",
+        ["scripts/ablations/ablation5_multi_seed.py"],
     ),
     (
         "Ablation 6: Teacher Model Scaling (Gemma-3-12B -> RoBERTa-base)",
