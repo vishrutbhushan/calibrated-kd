@@ -382,7 +382,7 @@ However, a very strong null bias can lead to over-correction, as on Student Ques
 
 Even though this method works, there are a few limitations to it.
 \begin{enumerate}
-    \item If the teacher itself is very bad (near random), then this method cannot manufacture knowledge which was never there to begin with.
+    \item If the teacher itself is very bad (near random), then this method cannot manufacture knowledge which did not exist.
     \item We have limited the scope to multi-class classification tasks. For sequence generation tasks, our method is not applicable.
     \item In certain cases where the teacher itself has an almost flat distribution (carries low bias), we might see minimal or even negative impact. As such, developers' discretion is advised.
     \item When the teacher's null bias is very strong, subtracting it can remove a class entirely (Section~\ref{sec:overcorrection}).
@@ -392,8 +392,7 @@ Even though this method works, there are a few limitations to it.
 
 \section*{Acknowledgments}
 
-We thank Dhruv Kumar (Faculty/Advisor) and Aniket Upadhyay (Mentor).
-This work was written for the Agentic AI course at BITS Pilani.
+We thank Prof.Dhruv Kumar (Faculty/Advisor) and Aniket Upadhyay (Mentor) for their valuable feedbacks and suggestions.
 
 \bibliography{references}
 \bibliographystyle{acl_natbib}
