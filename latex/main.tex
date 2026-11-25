@@ -425,4 +425,171 @@ BBC News & Classify the news article into one of five categories: \newline \text
 \label{tab:prompts}
 \end{table}
 
+\subsection{Full Prompt Template}
+\label{app:prompt_template}
+
+Every teacher call uses the same template, shown in Figure~\ref{fig:app_prompt_template}.
+\texttt{\{task\_desc\}} is the task description of Table~\ref{tab:prompts} followed by one line per class, in the form \texttt{A: Biology}.
+\texttt{\{text\}} is the input text with surrounding whitespace removed, cut to its first 600 characters.
+The full prompt is then cut to 256 tokens from the left, so the instruction at the end is always kept.
+For the null probe, \texttt{\{text\}} is the string \texttt{N/A}, and the probe is run once per task.
+
+\begin{figure}[h]
+\centering
+\fbox{\parbox{0.94\columnwidth}{\small\ttfamily
+\{task\_desc\}\\
+A: \{class 1\}\\ B: \{class 2\}\\ \ldots\\[4pt]
+Text: \{text\}\\
+Respond with ONLY the single letter corresponding to the correct category.\\
+Answer:}}
+\caption{Prompt template shared by all datasets. No chat template or system prompt is added.}
+\label{fig:app_prompt_template}
+\end{figure}
+
+We read the logits of the teacher at the last position of the prompt.
+For each class, we keep the logit of the token for its option letter (\texttt{A}, \texttt{B}, \ldots) and drop every other token.
+These $K$ numbers form $z_{\text{raw}}(x)$ for a training text $x$, and $z_{\text{null}}$ for the null probe.
+The teacher's zero-shot prediction is the class with the highest of these $K$ logits.
+
+Below is the full null probe for Student Questions, exactly as the teacher sees it.
+
+\begin{figure}[h]
+\centering
+\fbox{\parbox{0.94\columnwidth}{\small\ttfamily
+Classify the academic question into the correct subject:\\
+A: Biology\\ B: Physics\\ C: Maths\\ D: Chemistry\\[4pt]
+Text: N/A\\
+Respond with ONLY the single letter corresponding to the correct category.\\
+Answer:}}
+\caption{Null probe prompt for Student Questions.}
+\label{fig:app_null_prompt}
+\end{figure}
+
+\paragraph{Prompts in the ablations.}
+The cross-family setting of Ablation~1 uses Qwen3-4B as the teacher with the same template.
+The causal LoRA students of Ablation~1 also receive the same template, and they are trained to match the target distribution over the option letters.
+Ablation~4 rotates the order of the classes in the option list, so that every class appears once under every letter.
+For a task with four classes, the four orders are $(1,2,3,4)$, $(2,3,4,1)$, $(3,4,1,2)$ and $(4,1,2,3)$.
+The probabilities of each order are mapped back to the original class order and averaged.
+
+\FloatBarrier
+\section{Teacher Bias Measured by the Null Probe}
+\label{app:null_logits}
+
+Table~\ref{tab:app_null_logits} and Figure~\ref{fig:app_null_logits} show the null vector $z_{\text{null}}$ of Gemma-3-4B-IT for each dataset.
+On all six datasets the teacher gives the highest null logit to option \texttt{A}, which is the first class in the list.
+This matches the token and position biases discussed in the main text.
+On BBC News, option \texttt{B} (Business) is almost as high as \texttt{A}, which fits the over-prediction of Business by the raw teacher and standard KD.
+
+\input{generated/app_null_logits.tex}
+
+\begin{figure*}[t]
+\centering
+\resultfig{generated/fig_app_null_logits.pdf}{0.45}
+\caption{Null logits of Gemma-3-4B-IT, centred on their mean for each dataset. Red bars are classes the teacher prefers before reading any input, blue bars are classes it disfavours.}
+\label{fig:app_null_logits}
+\end{figure*}
+
+\FloatBarrier
+\section{Additional Results}
+\label{app:additional}
+
+This section gives the full per-class results of the main experiment (Table~\ref{tab:main_results}).
+Table~\ref{tab:app_per_class_f1} lists the F1 score of every class.
+Table~\ref{tab:app_counts} and Figure~\ref{fig:app_class_dist_all} list how often each method predicts each class, for all six datasets.
+Table~\ref{tab:collapse} in the main text is a subset of Table~\ref{tab:app_counts}.
+
+\input{generated/app_per_class_f1.tex}
+
+\begin{figure*}[t]
+\centering
+\resultfig{generated/fig_app_class_dist_all.pdf}{0.55}
+\caption{Number of test predictions per class on all six datasets. The dotted line shows the true number of test examples in each class.}
+\label{fig:app_class_dist_all}
+\end{figure*}
+
+\input{generated/app_counts.tex}
+
+\FloatBarrier
+\section{Ablation Studies}
+\label{app:ablations}
+
+We run five ablations to test whether the gains of null calibration hold beyond the main setting.
+Unless stated otherwise, every ablation uses the datasets, splits, teacher logits and student settings of the main experiment (Table~\ref{tab:hparams}).
+Each ablation is a separate training run, so numbers for the same method can differ slightly from Table~\ref{tab:main_results}.
+
+\subsection{Ablation 1: Other Architectures}
+\label{app:abl_arch}
+
+We test three other teacher and student pairs, each on one dataset.
+\begin{itemize}
+    \item \textbf{Same-size:} Gemma-3-4B-IT distils into Qwen3-4B, a student of the same size, on BBC News.
+    \item \textbf{Cross-family:} Qwen3-4B is the teacher and RoBERTa-base the student, on TweetEval Emotion. The null probe is run on Qwen3-4B.
+    \item \textbf{Small SLM:} Gemma-3-4B-IT distils into Qwen2.5-0.5B, a small causal LM, on TREC-6.
+\end{itemize}
+The causal students are fine-tuned with LoRA (rank 16, $\alpha = 32$, dropout 0.05) for 2 epochs with learning rate $5 \times 10^{-5}$.
+Table~\ref{tab:app_ablation1} shows that null calibration improves Macro-F1 in all three settings.
+The gain is small in the cross-family setting, where the Qwen3-4B teacher is already strong on TweetEval Emotion, and accuracy drops by 2.25 pp.
+
+\input{generated/app_ablation1.tex}
+
+\subsection{Ablation 2: Multi-Task Distillation}
+\label{app:abl_multitask}
+
+Here one RoBERTa-base encoder learns several tasks at once, with a separate linear classification head for each task.
+Each task keeps its own null vector, which is subtracted from the logits of that task only.
+Table~\ref{tab:app_ablation2} reports the average Macro-F1 over the tasks of each combination, and Table~\ref{tab:app_ablation2_per_task} and Figure~\ref{fig:app_multitask} report each task.
+Null calibration improves the average Macro-F1 in all five combinations, by 3.93 to 15.63 pp.
+It also improves Macro-F1 on every task of every combination.
+
+\input{generated/app_ablation2.tex}
+\input{generated/app_ablation2_per_task.tex}
+
+\begin{figure*}[t]
+\centering
+\resultfig{generated/fig_app_multitask.pdf}{0.30}
+\caption{Ablation 2: Macro-F1 of each task when several tasks share one student.}
+\label{fig:app_multitask}
+\end{figure*}
+
+\subsection{Ablation 3: Hard Labels versus Soft Targets}
+\label{app:abl_hard_soft}
+
+A simpler way to use the teacher is to train on its top class only, as a hard pseudo-label, with cross-entropy loss.
+Table~\ref{tab:app_ablation3} compares hard labels and soft targets, with and without null calibration, on BBC News and TweetEval Emotion.
+Null calibration helps both kinds of target.
+Null-calibrated soft targets give the best Macro-F1 and accuracy on both datasets.
+Calibrated hard labels come second, which shows that the full calibrated distribution carries useful information beyond the top class.
+
+\input{generated/app_ablation3.tex}
+
+\subsection{Ablation 4: Permutation-Averaged Teacher}
+\label{app:abl_permutation}
+
+Permutation averaging removes option bias by asking the teacher once for every order of the options (Appendix~\ref{app:prompt_template}).
+It needs $K$ teacher passes per training example, against one pass for null calibration.
+Table~\ref{tab:app_ablation4} compares the two on the two datasets with four classes.
+On TweetEval Emotion, permutation averaging is better than null calibration by 2.10 pp Macro-F1, at four times the teacher cost.
+On Student Questions, permutation averaging is worse than standard KD, while null calibration improves Macro-F1 by 14.24 pp.
+
+\input{generated/app_ablation4.tex}
+
+\subsection{Ablation 5: Multiple Seeds}
+\label{app:abl_seeds}
+
+We repeat the training of the three student methods with seeds 42, 43 and 44 on all six datasets.
+Table~\ref{tab:app_ablation5} and Figure~\ref{fig:app_multiseed} report the mean and standard deviation.
+Null calibration has the highest mean Macro-F1 on five of six datasets and beats standard KD on every seed of these five.
+TREC-6 is the exception.
+There, standard KD and null calibration both vary strongly across seeds, and batch calibration has the highest mean.
+
+\input{generated/app_ablation5.tex}
+
+\begin{figure*}[t]
+\centering
+\resultfig{generated/fig_app_multiseed.pdf}{0.32}
+\caption{Ablation 5: mean Macro-F1 over three seeds. Error bars show one standard deviation.}
+\label{fig:app_multiseed}
+\end{figure*}
+
 \end{document}

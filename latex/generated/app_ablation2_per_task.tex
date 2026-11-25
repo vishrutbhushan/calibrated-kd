@@ -1,0 +1,32 @@
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{clccc}
+\toprule
+\textbf{Combo} & \textbf{Task} & \textbf{Standard KD} & \textbf{Null-Cal. KD} & \textbf{$\Delta$ F1} \\
+\midrule
+1 & TweetEval Emotion & 43.21 (58.25) & 59.30 (68.75) & \textcolor{textgreen}{+16.09} \\
+ & BBC News & 56.34 (59.50) & 71.51 (70.00) & \textcolor{textgreen}{+15.17} \\
+\midrule
+2 & BBC News & 59.20 (61.00) & 73.52 (72.00) & \textcolor{textgreen}{+14.32} \\
+ & TREC-6 & 60.88 (59.25) & 61.73 (60.00) & \textcolor{textgreen}{+0.86} \\
+\midrule
+3 & Twitter Emotion & 38.62 (53.50) & 43.63 (56.75) & \textcolor{textgreen}{+5.01} \\
+ & TREC-6 & 59.31 (57.75) & 62.15 (59.25) & \textcolor{textgreen}{+2.84} \\
+\midrule
+4 & TweetEval Emotion & 40.49 (56.75) & 57.79 (69.75) & \textcolor{textgreen}{+17.30} \\
+ & BBC News & 58.49 (61.50) & 75.55 (74.25) & \textcolor{textgreen}{+17.06} \\
+ & TREC-6 & 58.60 (56.75) & 60.36 (57.50) & \textcolor{textgreen}{+1.76} \\
+\midrule
+5 & TweetEval Emotion & 43.02 (56.75) & 59.63 (68.25) & \textcolor{textgreen}{+16.62} \\
+ & BBC News & 55.64 (58.50) & 69.27 (68.75) & \textcolor{textgreen}{+13.63} \\
+ & App Reviews & 31.44 (54.25) & 34.15 (53.75) & \textcolor{textgreen}{+2.71} \\
+ & Twitter Emotion & 35.72 (51.50) & 39.21 (52.75) & \textcolor{textgreen}{+3.49} \\
+ & TREC-6 & 60.64 (59.00) & 62.48 (59.25) & \textcolor{textgreen}{+1.84} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Ablation 2, per task: Macro-F1 with accuracy in parentheses, both in \%.}
+\label{tab:app_ablation2_per_task}
+\end{table}

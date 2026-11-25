@@ -1,0 +1,44 @@
+{
+  "config1_same_size": {
+    "dataset": "bbc_news",
+    "teacher": "Gemma-3-4B-IT",
+    "student": "Qwen3-4B (LoRA)",
+    "standard_kd": {
+      "macro_f1": 57.144648376951835,
+      "acc": 60.5
+    },
+    "calibrated_kd": {
+      "macro_f1": 65.16785423636288,
+      "acc": 67.25
+    },
+    "delta_f1": 8.02320585941105
+  },
+  "config2_cross_family": {
+    "dataset": "tweeteval_emotion",
+    "teacher": "Qwen3-4B",
+    "student": "RoBERTa-base",
+    "standard_kd": {
+      "macro_f1": 69.28894758571022,
+      "acc": 77.0
+    },
+    "calibrated_kd": {
+      "macro_f1": 69.85391094443378,
+      "acc": 74.75
+    },
+    "delta_f1": 0.5649633587235598
+  },
+  "config3_small_slm": {
+    "dataset": "trec6",
+    "teacher": "Gemma-3-4B-IT",
+    "student": "Qwen2.5-0.5B (LoRA)",
+    "standard_kd": {
+      "macro_f1": 19.940824282929544,
+      "acc": 32.75
+    },
+    "calibrated_kd": {
+      "macro_f1": 26.93270394577584,
+      "acc": 39.75
+    },
+    "delta_f1": 6.991879662846298
+  }
+}

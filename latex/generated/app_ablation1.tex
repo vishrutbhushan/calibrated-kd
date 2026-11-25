@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llllccc}
+\toprule
+\textbf{Setting} & \textbf{Teacher} & \textbf{Student} & \textbf{Dataset} & \textbf{Standard KD} & \textbf{Null-Cal. KD (ours)} & \textbf{$\Delta$ F1 (pp)} \\
+\midrule
+Same-size & Gemma-3-4B-IT & Qwen3-4B (LoRA) & BBC News & 57.14 (60.50) & \textbf{65.17} (67.25) & \textcolor{textgreen}{+8.02} \\
+Cross-family & Qwen3-4B & RoBERTa-base & TweetEval Emotion & 69.29 (77.00) & \textbf{69.85} (74.75) & \textcolor{textgreen}{+0.56} \\
+Small SLM & Gemma-3-4B-IT & Qwen2.5-0.5B (LoRA) & TREC-6 & 19.94 (32.75) & \textbf{26.93} (39.75) & \textcolor{textgreen}{+6.99} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Ablation 1: other teacher and student architectures. Macro-F1 with accuracy in parentheses, both in \%. The LoRA students are causal LMs trained to predict the option letter.}
+\label{tab:app_ablation1}
+\end{table*}

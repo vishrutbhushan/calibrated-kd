@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l>{\raggedright\arraybackslash}p{0.62\textwidth}lc}
+\toprule
+\textbf{Dataset} & \textbf{Null logits $z_{\text{null}}$ (class~logit)} & \textbf{Favoured class} & \textbf{Gap (max$-$min)} \\
+\midrule
+Student Questions & Biology~16.12, Physics~10.00, Maths~10.19, Chemistry~9.06 & Biology & 7.06 \\
+TREC-6 & Abbreviation~16.00, Entity~12.19, Description~14.06, Human~10.94, Location~11.25, Numeric~11.19 & Abbreviation & 5.06 \\
+App Reviews & 1 Star~15.06, 2 Stars~10.19, 3 Stars~10.50, 4 Stars~8.25, 5 Stars~7.38 & 1 Star & 7.69 \\
+Twitter Emotion & Sadness~16.12, Joy~12.88, Love~12.62, Anger~10.56, Fear~10.25, Surprise~10.06 & Sadness & 6.06 \\
+TweetEval Emotion & Anger~15.56, Joy~9.69, Optimism~10.62, Sadness~9.44 & Anger & 6.12 \\
+BBC News & Tech~16.62, Business~16.50, Sport~12.56, Entertainment~10.94, Politics~10.44 & Tech & 6.19 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Gemma-3-4B-IT logits for each option letter when the prompt contains ``N/A'' instead of a real input. The favoured class is the one the teacher prefers before it reads any text. A larger gap means a stronger prior bias.}
+\label{tab:app_null_logits}
+\end{table*}

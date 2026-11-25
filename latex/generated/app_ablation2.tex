@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{clccc}
+\toprule
+\textbf{Combo} & \textbf{Tasks sharing one student} & \textbf{Standard KD} & \textbf{Null-Cal. KD (ours)} & \textbf{$\Delta$ F1 (pp)} \\
+\midrule
+1 & TweetEval Emotion + BBC News & 49.77 & \textbf{65.40} & \textcolor{textgreen}{+15.63} \\
+2 & BBC News + TREC-6 & 60.04 & \textbf{67.63} & \textcolor{textgreen}{+7.59} \\
+3 & Twitter Emotion + TREC-6 & 48.96 & \textbf{52.89} & \textcolor{textgreen}{+3.93} \\
+4 & TweetEval Emotion + BBC News + TREC-6 & 52.53 & \textbf{64.56} & \textcolor{textgreen}{+12.04} \\
+5 & TweetEval Emotion + BBC News + App Reviews + Twitter Emotion + TREC-6 & 45.29 & \textbf{52.95} & \textcolor{textgreen}{+7.66} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Ablation 2: multi-task distillation into one RoBERTa-base encoder with a separate classification head per task. Macro-F1 (\%) averaged over the tasks of each combination.}
+\label{tab:app_ablation2}
+\end{table*}

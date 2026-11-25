@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lllccc}
+\toprule
+\textbf{Dataset} & \textbf{Regime} & \textbf{Target} & \textbf{Loss} & \textbf{Macro-F1} & \textbf{Accuracy} \\
+\midrule
+BBC News & Raw hard labels & $\arg\max z_{\text{raw}}$ & Cross-entropy & 55.95 & 59.00 \\
+ & Calibrated hard labels & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & Cross-entropy & 58.93 & 61.75 \\
+ & Standard soft KD & $\text{softmax}(z_{\text{raw}})$ & KL & 55.02 & 58.00 \\
+ & Null-Cal. soft KD (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{71.58} & 70.50 \\
+\midrule
+TweetEval Emotion & Raw hard labels & $\arg\max z_{\text{raw}}$ & Cross-entropy & 32.43 & 53.00 \\
+ & Calibrated hard labels & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & Cross-entropy & 47.88 & 64.25 \\
+ & Standard soft KD & $\text{softmax}(z_{\text{raw}})$ & KL & 34.16 & 54.25 \\
+ & Null-Cal. soft KD (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{55.48} & 66.50 \\
+\bottomrule
+\end{tabular}
+\caption{Ablation 3: hard pseudo-labels (the teacher's top class) against soft targets (the teacher's full distribution), with and without null calibration. RoBERTa-base student, results in \%.}
+\label{tab:app_ablation3}
+\end{table*}
