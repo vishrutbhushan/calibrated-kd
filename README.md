@@ -1,4 +1,7 @@
 # Calibrated Knowledge Distillation (CKD)
+
+[![Read on Substack](https://img.shields.io/badge/Read_on_Substack-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://phantomgrad.substack.com/p/7f30df20-7162-4d09-badd-2fe2bcd2747b?postPreview=free&updated=2026-11-26T18%3A57%3A54.095Z&audience=everyone&free_preview=false&freemail=true)
+
 <img width="7075" height="4407" alt="lol" src="https://github.com/user-attachments/assets/98d72fd4-d058-419c-acaf-b79ffa128b9f" />
 
 
