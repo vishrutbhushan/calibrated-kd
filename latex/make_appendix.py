@@ -362,13 +362,11 @@ def ablation5():
             top = rf"{v['f1_mean']:.2f} $\pm$ {v['f1_std']:.2f}"
             cells.append(stack(rf"\textbf{{{top}}}" if v["f1_mean"] == best else top,
                                rf"({v['acc_mean']:.2f} $\pm$ {v['acc_std']:.2f})"))
-        seeds = r["calibrated_kd"]["seeds"]
-        wins = sum(a["macro_f1"] > b["macro_f1"] for a, b in zip(seeds, r["standard_kd"]["seeds"]))
-        rows.append(f"{n} & " + " & ".join(cells) + f" & {delta(r['delta_f1_mean'])} & {wins}/{len(seeds)} \\\\[2pt]")
-    table("app_ablation5.tex", "@{}lccccc@{}",
-          r"\textbf{Dataset} & \textbf{Std. KD} & \textbf{Batch-Cal.} & \textbf{Null-Cal.} & \textbf{$\Delta$ F1} & \textbf{Wins} \\",
+        rows.append(f"{n} & " + " & ".join(cells) + f" & {delta(r['delta_f1_mean'])} \\\\[2pt]")
+    table("app_ablation5.tex", "@{}lcccc@{}",
+          r"\textbf{Dataset} & \textbf{Std. KD} & \textbf{Batch-Cal.} & \textbf{Null-Cal.} & \textbf{$\Delta$ F1} \\",
           rows,
-          r"Ablation 5: mean $\pm$ standard deviation over student seeds 42, 43 and 44. Macro-F1 with accuracy in parentheses, both in \%. The teacher targets are the same for every seed. $\Delta$ F1 is null-calibrated minus standard KD. Wins counts the seeds on which null-calibrated KD has a higher Macro-F1 than standard KD.",
+          r"Ablation 5: mean $\pm$ standard deviation over student seeds 42, 43 and 44. Macro-F1 with accuracy in parentheses, both in \%. The teacher targets are the same for every seed. $\Delta$ F1 is null-calibrated minus standard KD.",
           "tab:app_ablation5", size=r"\scriptsize")
     fig, ax = plt.subplots(figsize=(COLUMN_FIG_W, 3.6))
     style(ax)

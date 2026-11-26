@@ -478,9 +478,8 @@ Table~\ref{tab:collapse} in the main text lists the classes that at least one me
 \section{Ablation Studies}
 \label{app:ablations}
 
-We run five ablations to test whether the gains of null calibration hold beyond the main setting.
-Unless stated otherwise, every ablation uses the datasets, splits, teacher logits and student settings of the main experiment (Table~\ref{tab:hparams}).
-Each ablation is a separate training run, so numbers for the same method can differ slightly from Table~\ref{tab:main_results}.
+We run five ablations to test whether the gains of null calibration still hold true in other conditions.
+We use same datasets, splits, teacher logits and student settings of the main experiment (Table~\ref{tab:hparams}).
 
 \subsection{Ablation 1: Other Architectures}
 \label{app:abl_arch}
@@ -514,8 +513,7 @@ It also improves Macro-F1 on every task of every combination.
 A simpler way to use the teacher is to train on its top class only, as a hard pseudo-label, with cross-entropy loss.
 Table~\ref{tab:app_ablation3} compares hard labels and soft targets, with and without null calibration, on BBC News and TweetEval Emotion.
 Null calibration helps both kinds of target.
-Null-calibrated soft targets give the best Macro-F1 and accuracy on both datasets.
-Calibrated hard labels come second, which shows that the full calibrated distribution carries useful information beyond the top class.
+Also, soft targets gives us better Macro-F1 and accuracy on both datasets which prove that the soft labels carry useful information apart from the single top class.
 
 \input{generated/app_ablation3.tex}
 
