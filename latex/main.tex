@@ -109,7 +109,14 @@ We first remove the teacher's bias, and only then let the student learn from it.
 
 \subsection{Calibrating Prompted LLMs}
 
-LLMs can have a favourite option even before they read the input \citep{zheng2024large}.
+LLMs can have a favourite option even before they read the input \citep{zheng2024large}.The bias in the teacher can have several sources.
+The most common method of KD uses verbalizer options like A, B, C, etc.
+LLMs can have a favourite option even before they read the input.
+\citet{zheng2024large} call this token bias.
+They can also favour options based on their position in the prompt.
+\citet{zhao2021calibrate} report a similar recency bias toward labels at the end of the prompt.
+When we tie these verbalizer options to the classes, we assume that the model relates each verbalizer option to its class.
+
 \citet{zhao2021calibrate} probe the model with a null prompt and subtract its output at inference.
 Batch calibration instead averages the model's predictions across a dataset to estimate class priors \citep{zhou2024batch}.
 These methods correct the LLM itself at inference.
@@ -190,7 +197,10 @@ Answer:}}
 \end{figure}
 
 Because there is no real input to classify, we start with the assumption that whatever the teacher outputs here is its baseline bias.
-We extract these unnormalised logit values for all the candidate classes and call this the `Null' vector.
+We extract these unnormalised logit values for all the candidate classes and call this the `Null' vector.All these effects mix in the teacher's output, and there is no single way to separate each one.
+The null probe aims to measure their combined effect for one fixed prompt and one fixed option order.
+As such, by subtracting the null logits, we aim to remove the combined prior bias before the student can learn it.
+
 \begin{equation}
 z_{\text{null}} = \text{Teacher}(\text{``N/A''})
 \end{equation}
@@ -350,21 +360,8 @@ Null calibration also reduces overly boosted classes, such as \textit{Business} 
 The null probe can also over-correct, as Table~\ref{tab:collapse} shows.
 \OverCorrectionText{}
 A very strong null bias can therefore push a class below what the data supports.
-
-\section{Discussion}
-
-The bias in the teacher can have several sources.
-The most common method of KD uses verbalizer options like A, B, C, etc.
-LLMs can have a favourite option even before they read the input.
-\citet{zheng2024large} call this token bias.
-They can also favour options based on their position in the prompt.
-\citet{zhao2021calibrate} report a similar recency bias toward labels at the end of the prompt.
-When we tie these verbalizer options to the classes, we assume that the model relates each verbalizer option to its class.
-
-All these effects mix in the teacher's output, and there is no single way to separate each one.
-The null probe aims to measure their combined effect for one fixed prompt and one fixed option order.
-As such, by subtracting the null logits, we aim to remove the combined prior bias before the student can learn it.
 The Student Questions case shows that this combined estimate can sometimes be too strong.
+
 
 \section{Conclusion}
 
