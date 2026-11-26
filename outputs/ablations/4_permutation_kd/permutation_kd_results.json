@@ -16,17 +16,17 @@
   },
   "student_questions": {
     "standard_kd": {
-      "macro_f1": 22.860434950598886,
-      "acc": 32.25
+      "macro_f1": 22.15339060643251,
+      "acc": 31.5
     },
     "permutation_averaged_kd": {
       "passes": 4,
-      "macro_f1": 21.028872387365837,
-      "acc": 29.25
+      "macro_f1": 23.085830957894824,
+      "acc": 30.25
     },
     "calibrated_kd": {
-      "macro_f1": 37.09738461042935,
-      "acc": 39.25
+      "macro_f1": 30.815190492979283,
+      "acc": 34.25
     }
   }
 }

@@ -8,10 +8,10 @@
 \textbf{Regime} & \textbf{Target} & \textbf{Loss} & \textbf{F1} & \textbf{Acc.} \\
 \midrule
 \multicolumn{5}{@{}l}{\textit{BBC News}} \\
-\quad Raw hard & $\arg\max z_{\text{raw}}$ & CE & 55.95 & 59.00 \\
-\quad Calibrated hard & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & CE & 58.93 & 61.75 \\
-\quad Standard soft & $\text{softmax}(z_{\text{raw}})$ & KL & 55.02 & 58.00 \\
-\quad Null-cal. soft (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{71.58} & \textbf{70.50} \\
+\quad Raw hard & $\arg\max z_{\text{raw}}$ & CE & 53.48 & 57.25 \\
+\quad Calibrated hard & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & CE & 70.75 & 69.50 \\
+\quad Standard soft & $\text{softmax}(z_{\text{raw}})$ & KL & 52.65 & 56.50 \\
+\quad Null-cal. soft (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{74.45} & \textbf{73.50} \\
 \multicolumn{5}{@{}l}{\textit{TweetEval Emotion}} \\
 \quad Raw hard & $\arg\max z_{\text{raw}}$ & CE & 32.43 & 53.00 \\
 \quad Calibrated hard & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & CE & 47.88 & 64.25 \\

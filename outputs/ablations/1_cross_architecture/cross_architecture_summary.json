@@ -1,17 +1,17 @@
 {
   "config1_same_size": {
-    "dataset": "bbc_news",
+    "dataset": "twitter_emotion",
     "teacher": "Gemma-3-4B-IT",
     "student": "Qwen3-4B (LoRA)",
     "standard_kd": {
-      "macro_f1": 57.144648376951835,
-      "acc": 60.5
+      "macro_f1": 37.00464507348602,
+      "acc": 49.75
     },
     "calibrated_kd": {
-      "macro_f1": 65.16785423636288,
-      "acc": 67.25
+      "macro_f1": 41.32174593681401,
+      "acc": 51.24999999999999
     },
-    "delta_f1": 8.02320585941105
+    "delta_f1": 4.317100863327994
   },
   "config2_cross_family": {
     "dataset": "tweeteval_emotion",

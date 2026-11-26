@@ -66,7 +66,7 @@
 \maketitle
 
 \begin{abstract}
-In the current world of AI, Large Language Models are getting better everyday at classification tasks.But deploying the larger models for a classification task have longer inference time.Knowledge distillation lets an LLM Teacher model to categorise on an unlabelled training set and then fine-tune  existing small base models(students) like Bert / RoBERTa.In traditional Knowledge Distillation  a teacher can be biased towards a certain class, and a student that learns from it acquires some of that bias.We propose a ad-hoc Calibrated Knowledge distillation method where we study the effect of ‘Null’ prompting on the teacher and minimise the bias transference . A blank prompt (N/A) helps to capture this bias and we subtract the null logits inside distillation loss.We then test this on 6 multi-class classification tasks with Gemma-3-4B-IT as the teacher and RoBERTa-base as the student. With this method we demonstrate that the distilled student performs better at no extra cost !
+In the current world of AI, Large Language Models are getting better everyday at classification tasks.But deploying the larger models for a classification task have longer inference time.Knowledge distillation lets an LLM Teacher model to categorise on an unlabelled training set and then fine-tune  existing small base models(students) like Bert / RoBERTa.In traditional Knowledge Distillation  a teacher can be biased towards a certain class, and a student that learns from it acquires some of that bias.We propose a ad-hoc Calibrated Knowledge distillation method where we study the effect of ‘Null’ prompting on the teacher and minimise the bias transference . A blank prompt (N/A) helps to capture this bias and we subtract the null logits inside distillation loss.We then test this on 6 multi-class classification tasks with Gemma-3-4B-IT as the teacher and RoBERTa-base as the student. With this method we demonstrate that the distilled student performs better at almost no extra cost !
 \end{abstract}
 
 \section{Introduction}
@@ -99,7 +99,7 @@ Then, at inference, they subtract the same from the model's output before applyi
 Null Calibrated KD utilises this same concept in the context of knowledge distillation to prevent bias transference.
 We modify the teachers' logits by subtracting the null logits, and then plug them in to the KL divergence loss.
 We set up a testing bench utilising this pipeline and ran it on 6 different multi-class classification tasks.
-Macro-F1 increases by an average of \AvgGainStd{} pp over standard KD, and minority classes no longer collapse in most cases.
+Macro-F1 increases by an average of \AvgGainStd{} pp over standard KD, and minority class collapse is also prevented in most cases.
 
 Our contributions are as follows.
 \begin{itemize}
@@ -114,9 +114,9 @@ Our contributions are as follows.
 
 KD trains a student to match the output probabilities of a teacher \citep{hinton2015distilling}.
 DistilBERT used this idea to compress BERT into a smaller model \citep{sanh2019distilbert}.
-\citet{wang2021want} used GPT-3 as a low-cost labeller and trained smaller models on its labels.
-These works take the teacher's outputs as they are.
-We first remove the teacher's bias, and only then let the student learn from it.
+Work done by \citet{wang2021want} , which uses a GPT-3 model (low-cost labeller) and trained smaller models on the teacher's outputs.
+This was done using hard labels, where the student learns only from the final predicted class.
+Soft labels provide probabilities across all classes so that if a teacher assigns 45\% probability to one class and 40\% to another, the student learns that the second class is also a strong possibility.
 
 \subsection{Calibrating Prompted LLMs}
 
@@ -193,7 +193,7 @@ Null Calibrated KD needs no class frequencies and only one extra teacher query p
 As shown in Figure~\ref{fig:pipeline} we extract the teacher model's bias without probing it with an actual input.
 For that, we pass it a null string, \texttt{"N/A"}, using the exact same classification prompt as for normal inference \& knowledge distillation \citep{zhao2021calibrate}.
 The prompt lists each class next to an option letter (A, B, C and so on), as Figure~\ref{fig:prompt} and Appendix~\ref{app:prompts} show.
-We read the teacher's logit for each letter, which is the unnormalised score the model gives to that token.
+We capture the teacher's logit for each letter corresponding to the possible classes to get the unnormalised score the model gives to that token.
 
 \begin{figure}[t]
 \centering
@@ -222,7 +222,7 @@ Instead of directly plugging them into the loss function, we first perform a sim
 \tilde{z} = z_{\text{raw}} - z_{\text{null}}
 \end{equation}
 
-This is a constant-time, $O(1)$ operation per example, which does not impact the compute required or the time taken.
+This is a constant-time, $O(k)$ operation per example, which does not impact the compute required or the time taken.
 After this, we apply the softmax function, which turns these logits into actual probabilities.
 \begin{equation}
 p_{\text{target},k} = \text{softmax}(\tilde{z})_k = \frac{\exp(\tilde{z}_k)}{\sum_{j} \exp(\tilde{z}_j)}
@@ -241,8 +241,7 @@ It helps in training the student model by bringing the student's predicted proba
 
 To test this method, we ran the pipeline on 6 different multi-class classification tasks.
 The datasets used are publicly available, and Table~\ref{tab:datasets} lists them.
-We have used a fixed-size subset from each dataset using stratified sampling to preserve natural class skew.
-Stratified sampling keeps the share of each class equal to its share in the full dataset.
+We have used a fixed-size subset from each dataset using stratified sampling to preserve natural class skew. It helps us keeps the share of each class equal to it's representation in the full dataset.
 We have selected a standardised split of 75:25 (1,200 training and 400 test) for training and testing.
 
 \begin{table}[t]
@@ -262,7 +261,7 @@ BBC News \citep{greene2006practical} & News topics & 5 \\
 \bottomrule
 \end{tabular}
 }
-\caption{Datasets and their number of classes $K$. Each dataset contributes 1,200 training and 400 test examples. Table~\ref{tab:prompts} lists the classes.}
+\caption{Datasets and their number of classes $K$. Each dataset has 1,200 training and 400 test examples. Table~\ref{tab:prompts} lists the classes.}
 \label{tab:datasets}
 \end{table}
 \footnotetext{\url{https://huggingface.co/datasets/SetFit/student-question-categories}}
@@ -289,7 +288,7 @@ Learning rate & $2 \times 10^{-5}$ \\
 Schedule & Linear, 10\% warmup \\
 Batch size & 16 \\
 Epochs & 3 \\
-Maximum sequence length & 256 tokens \\
+Maximum sequence length & 512 tokens \\
 Gradient clipping & 1.0 \\
 Random seed & 42 \\
 \bottomrule
@@ -386,7 +385,6 @@ Even though this method works, there are a few limitations to it.
     \item We have limited the scope to multi-class classification tasks. For sequence generation tasks, our method is not applicable.
     \item When the teacher's null bias is very strong, subtracting it can remove a class entirely (Section~\ref{sec:overcorrection}).
     \item On simple, uniformly balanced tasks or binary tasks, standard KD may already be sufficient.
-    \item We use a single teacher, a single student and a single random seed.
 \end{enumerate}
 
 \section*{Acknowledgments}
@@ -404,9 +402,10 @@ We thank Prof.Dhruv Kumar (Faculty/Advisor) and Aniket Upadhyay (Mentor) for the
 \section{Teacher Prompts}
 \label{app:prompts}
 
-Table~\ref{tab:prompts} lists the task description that opens the prompt for each dataset.
-The prompt then lists the classes next to the letters A, B, C and so on, in the order of the table.
-The prompt then continues with the input text and the instruction shown in Figure~\ref{fig:prompt}.
+Table~\ref{tab:prompts} lists the task description and classes used in the teacher prompt for each dataset, and Figure~\ref{fig:app_prompt_template} shows the shared template.
+For training and test examples, \texttt{\{text\}} is the full input text; for the null probe, \texttt{\{text\}} is \texttt{N/A}.
+We read the teacher's next-token logits over the option letters (\texttt{A}, \texttt{B}, \ldots) at the end of the prompt.
+For permutation averaging (Ablation~4), we cyclically rotate the class order in the option list across all $K$ shifts and average the mapped probabilities.
 
 \begin{table}[!ht]
 \centering
@@ -427,15 +426,6 @@ BBC News & Classify the news article into one of five categories: \newline \text
 \label{tab:prompts}
 \end{table}
 
-\subsection{Full Prompt Template}
-\label{app:prompt_template}
-
-Every teacher call uses the same template, shown in Figure~\ref{fig:app_prompt_template}.
-\texttt{\{task\_desc\}} is the task description of Table~\ref{tab:prompts} followed by one line per class, in the form \texttt{A: Biology}.
-\texttt{\{text\}} is the input text with surrounding whitespace removed, cut to its first 600 characters.
-The full prompt is then cut to 256 tokens from the left, so the instruction at the end is always kept.
-For the null probe, \texttt{\{text\}} is the string \texttt{N/A}, and the probe is run once per task.
-
 \begin{figure}[!ht]
 \centering
 \fbox{\parbox{0.94\columnwidth}{\small\ttfamily
@@ -444,35 +434,9 @@ A: \{class 1\}\\ B: \{class 2\}\\ \ldots\\[4pt]
 Text: \{text\}\\
 Respond with ONLY the single letter corresponding to the correct category.\\
 Answer:}}
-\caption{Prompt template shared by all datasets. No chat template or system prompt is added.}
+\caption{Prompt template shared by all datasets (\texttt{\{text\}} is \texttt{N/A} for the null probe).}
 \label{fig:app_prompt_template}
 \end{figure}
-
-We read the logits of the teacher at the last position of the prompt.
-For each class, we keep the logit of the token for its option letter (\texttt{A}, \texttt{B}, \ldots) and drop every other token.
-These $K$ numbers form $z_{\text{raw}}(x)$ for a training text $x$, and $z_{\text{null}}$ for the null probe.
-The teacher's zero-shot prediction is the class with the highest of these $K$ logits.
-
-Below is the full null probe for Student Questions, exactly as the teacher sees it.
-
-\begin{figure}[!ht]
-\centering
-\fbox{\parbox{0.94\columnwidth}{\small\ttfamily
-Classify the academic question into the correct subject:\\
-A: Biology\\ B: Physics\\ C: Maths\\ D: Chemistry\\[4pt]
-Text: N/A\\
-Respond with ONLY the single letter corresponding to the correct category.\\
-Answer:}}
-\caption{Null probe prompt for Student Questions.}
-\label{fig:app_null_prompt}
-\end{figure}
-
-\paragraph{Prompts in the ablations.}
-The cross-family setting of Ablation~1 uses Qwen3-4B as the teacher with the same template.
-The causal LoRA students of Ablation~1 also receive the same template, and they are trained to match the target distribution over the option letters.
-Ablation~4 rotates the order of the classes in the option list, so that every class appears once under every letter.
-For a task with four classes, the four orders are $(1,2,3,4)$, $(2,3,4,1)$, $(3,4,1,2)$ and $(4,1,2,3)$.
-The probabilities of each order are mapped back to the original class order and averaged.
 
 \FloatBarrier
 \section{Teacher Bias Measured by the Null Probe}
@@ -558,7 +522,7 @@ Calibrated hard labels come second, which shows that the full calibrated distrib
 \subsection{Ablation 4: Permutation-Averaged Teacher}
 \label{app:abl_permutation}
 
-Permutation averaging removes option bias by asking the teacher once for every order of the options (Appendix~\ref{app:prompt_template}).
+Permutation averaging removes option bias by asking the teacher once for every order of the options (Appendix~\ref{app:prompts}).
 It needs $K$ teacher passes per training example, against one pass for null calibration.
 Table~\ref{tab:app_ablation4} compares the two on the two datasets with four classes.
 On TweetEval Emotion, permutation averaging is better than null calibration by 2.10 pp Macro-F1, at four times the teacher cost.
