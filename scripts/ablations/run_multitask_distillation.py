@@ -129,7 +129,7 @@ def load_data(task_name):
 def format_teacher_prompt(text, config):
     return (
         f"{config['task_desc']}\n\n"
-        f"Text: {text.strip()[:600]}\n"
+        f"Text: {text.strip()}\n"
         "Respond with ONLY the single letter corresponding to the correct category.\nAnswer:"
     )
 
@@ -147,7 +147,6 @@ def get_or_extract_teacher_targets(task_name):
 
     tokenizer = AutoTokenizer.from_pretrained(TEACHER_MODEL_PATH, local_files_only=True)
     tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     verbalizer_ids = [tokenizer.encode(v, add_special_tokens=False)[-1] for v in config["verbalizers"]]
@@ -173,7 +172,7 @@ def get_or_extract_teacher_targets(task_name):
         with torch.no_grad():
             for i in range(0, len(prompts), batch_size):
                 b = prompts[i : i + batch_size]
-                inp = tokenizer(b, return_tensors="pt", padding=True, truncation=True, max_length=256).to(device)
+                inp = tokenizer(b, return_tensors="pt", padding=True, truncation=False).to(device)
                 out = model(**inp)
                 l = out.logits[:, -1, verbalizer_ids].float().cpu().numpy()
                 res.append(l)
@@ -257,7 +256,7 @@ def train_and_eval_multitask(method_name, task_names, all_task_data, seed=42):
                 try:
                     batch = next(task_iters[task])
                     txts, probs = batch
-                    enc = tokenizer(list(txts), padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
+                    enc = tokenizer(list(txts), padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
                     target_p = torch.tensor(np.array(probs), dtype=torch.float32).to(device)
 
                     optimizer.zero_grad()
@@ -289,7 +288,7 @@ def train_and_eval_multitask(method_name, task_names, all_task_data, seed=42):
         with torch.no_grad():
             for i in range(0, len(test_texts), 32):
                 b = test_texts[i : i + 32]
-                enc = tokenizer(b, padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
+                enc = tokenizer(b, padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
                 logits = model(enc["input_ids"], enc["attention_mask"], task)
                 test_logits_chunks.append(logits.cpu().numpy())
         test_logits = np.concatenate(test_logits_chunks, axis=0)

@@ -83,7 +83,7 @@ def train_student(train_texts, train_probs, test_texts, test_golds, num_classes:
     def collate_fn(batch):
         texts = [b[0] for b in batch]
         probs = torch.tensor(np.array([b[1] for b in batch]), dtype=torch.float32)
-        enc = tokenizer(texts, padding=True, truncation=True, max_length=256, return_tensors="pt")
+        enc = tokenizer(texts, padding=True, truncation=True, max_length=512, return_tensors="pt")
         enc["probs"] = probs
         return enc
 
@@ -110,7 +110,7 @@ def train_student(train_texts, train_probs, test_texts, test_golds, num_classes:
     preds = []
     with torch.no_grad():
         for i in range(0, len(test_texts), 32):
-            enc = tokenizer(test_texts[i : i + 32], padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
+            enc = tokenizer(test_texts[i : i + 32], padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
             out = model(input_ids=enc["input_ids"], attention_mask=enc["attention_mask"])
             preds.extend(out.logits.argmax(dim=-1).cpu().tolist())
             del enc, out

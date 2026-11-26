@@ -185,7 +185,7 @@ def load_data(task_name):
 def format_prompt(text, config):
     return (
         f"{config['task_desc']}\n\n"
-        f"Text: {text.strip()[:600]}\n"
+        f"Text: {text.strip()}\n"
         "Respond with ONLY the single letter corresponding to the correct category.\nAnswer:"
     )
 
@@ -197,7 +197,6 @@ def extract_teacher_targets(dataset_name, config, train_texts, test_texts):
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(TEACHER_MODEL_PATH, local_files_only=True)
     tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     verbalizer_ids = [tokenizer.encode(v, add_special_tokens=False)[-1] for v in config["verbalizers"]]
@@ -226,7 +225,7 @@ def extract_teacher_targets(dataset_name, config, train_texts, test_texts):
         with torch.no_grad():
             for i in range(0, len(prompts), batch_size):
                 b = prompts[i : i + batch_size]
-                inp = tokenizer(b, return_tensors="pt", padding=True, truncation=True, max_length=256).to(device)
+                inp = tokenizer(b, return_tensors="pt", padding=True, truncation=False).to(device)
                 out = model(**inp)
                 l = out.logits[:, -1, verbalizer_ids].float().cpu().numpy()
                 res.append(l)
@@ -254,7 +253,7 @@ def train_student_model(train_texts, train_probs, test_texts, test_golds, num_cl
     set_seed(seed)
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(STUDENT_MODEL_NAME, local_files_only=True)
-    max_len = 256
+    max_len = 512
 
     def collate_fn(batch):
         txts = [b[0] for b in batch]

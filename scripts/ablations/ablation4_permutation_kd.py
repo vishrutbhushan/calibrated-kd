@@ -97,7 +97,6 @@ def run_perm_for_dataset(task_name: str, header_desc: str, class_names: list[str
 
     tokenizer = AutoTokenizer.from_pretrained(TEACHER_PATH, local_files_only=True)
     tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     v_ids = [tokenizer.encode(v, add_special_tokens=False)[-1] for v in verbalizers]
@@ -112,14 +111,14 @@ def run_perm_for_dataset(task_name: str, header_desc: str, class_names: list[str
         print(f"  Permutation {p_idx}/4: {perm}...", flush=True)
         opt_lines = "\n".join(f"{verbalizers[j]}: {class_names[perm[j]]}" for j in range(4))
         prompts = [
-            f"{header_desc}\n{opt_lines}\n\nText: {t.strip()[:600]}\n"
+            f"{header_desc}\n{opt_lines}\n\nText: {t.strip()}\n"
             "Respond with ONLY the single letter corresponding to the correct category.\nAnswer:"
             for t in tr_txt
         ]
         perm_logits = []
         with torch.no_grad():
             for i in range(0, len(prompts), 8):
-                enc = tokenizer(prompts[i : i + 8], return_tensors="pt", padding=True, truncation=True, max_length=256).to(device)
+                enc = tokenizer(prompts[i : i + 8], return_tensors="pt", padding=True, truncation=False).to(device)
                 out = model(**enc)
                 perm_logits.append(out.logits[:, -1, v_ids].float().cpu().numpy())
                 del enc, out
@@ -140,7 +139,7 @@ def run_perm_for_dataset(task_name: str, header_desc: str, class_names: list[str
     def collate_fn(batch):
         texts = [b[0] for b in batch]
         probs = torch.tensor(np.array([b[1] for b in batch]), dtype=torch.float32)
-        enc = tok(texts, padding=True, truncation=True, max_length=256, return_tensors="pt")
+        enc = tok(texts, padding=True, truncation=True, max_length=512, return_tensors="pt")
         enc["probs"] = probs
         return enc
 
@@ -167,7 +166,7 @@ def run_perm_for_dataset(task_name: str, header_desc: str, class_names: list[str
     preds = []
     with torch.no_grad():
         for i in range(0, len(te_txt), 32):
-            enc = tok(te_txt[i : i + 32], padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
+            enc = tok(te_txt[i : i + 32], padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
             out = stu(input_ids=enc["input_ids"], attention_mask=enc["attention_mask"])
             preds.extend(out.logits.argmax(dim=-1).cpu().tolist())
             del enc, out

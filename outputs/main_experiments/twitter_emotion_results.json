@@ -81,7 +81,7 @@
       0,
       0
     ],
-    "train_time_sec": 14.1
+    "train_time_sec": 15.1
   },
   "batch_calibrated_kd": {
     "acc": 50.0,
@@ -103,7 +103,7 @@
       0,
       0
     ],
-    "train_time_sec": 14.3
+    "train_time_sec": 15.0
   },
   "calibrated_kd": {
     "acc": 50.74999999999999,
@@ -125,6 +125,6 @@
       5,
       0
     ],
-    "train_time_sec": 14.3
+    "train_time_sec": 15.0
   }
 }

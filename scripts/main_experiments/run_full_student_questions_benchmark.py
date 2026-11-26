@@ -100,7 +100,7 @@ def prompt_mc(text):
     return (
         "Classify the academic question into the correct subject:\n"
         "A: Biology\nB: Physics\nC: Maths\nD: Chemistry\n\n"
-        f"Text: {text.strip()[:600]}\n"
+        f"Text: {text.strip()}\n"
         "Respond with ONLY the single letter corresponding to the correct category.\nAnswer:"
     )
 
@@ -161,7 +161,7 @@ def extract_teacher_all(train_texts, test_texts):
         with torch.no_grad():
             for i in range(0, len(prompts), bs):
                 chunk = prompts[i : i + bs]
-                inp = tok(chunk, return_tensors="pt", padding=True, truncation=True, max_length=256).to(device)
+                inp = tok(chunk, return_tensors="pt", padding=True, truncation=False).to(device)
                 out = model(**inp)
                 res.append(out.logits[:, -1, mc_v_ids].float().cpu().numpy())
                 del inp, out
@@ -189,7 +189,7 @@ def train_student_model(train_texts, train_probs, test_texts, test_golds, num_cl
     set_seed(seed)
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(STUDENT_MODEL_NAME, local_files_only=True)
-    max_len = 256
+    max_len = 512
 
     def collate_fn(batch):
         txts = [b[0] for b in batch]

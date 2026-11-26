@@ -371,7 +371,7 @@ def format_teacher_prompt(text: str, config: dict) -> str:
     """Formats an input text into the multiple-choice single-letter teacher prompt."""
     return (
         f"{config['task_desc']}\n\n"
-        f"Text: {text.strip()[:600]}\n"
+        f"Text: {text.strip()}\n"
         "Respond with ONLY the single letter corresponding to the correct category.\nAnswer:"
     )
 
@@ -392,7 +392,6 @@ def extract_teacher_logits(
 
     tokenizer = AutoTokenizer.from_pretrained(TEACHER_MODEL_PATH, local_files_only=True)
     tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -422,28 +421,47 @@ def extract_teacher_logits(
 
     def run_batches(texts_list: list[str], desc: str) -> np.ndarray:
         prompts = [format_teacher_prompt(t, config) for t in texts_list]
-        logits_chunks = []
-        batch_size = 8
+        # Sort by prompt length and batch within a character budget to avoid truncation or OOM
+        order = sorted(range(len(prompts)), key=lambda idx: len(prompts[idx]))
+        batches = []
+        cur_batch = []
+        max_len_in_batch = 0
+        for idx in order:
+            plen = len(prompts[idx])
+            cand_max = max(max_len_in_batch, plen)
+            if cur_batch and (len(cur_batch) >= 8 or cand_max * (len(cur_batch) + 1) > 8000):
+                batches.append(cur_batch)
+                cur_batch = [idx]
+                max_len_in_batch = plen
+            else:
+                cur_batch.append(idx)
+                max_len_in_batch = cand_max
+        if cur_batch:
+            batches.append(cur_batch)
+
+        logits_out = np.zeros((len(prompts), len(verbalizer_ids)), dtype=np.float32)
+        processed = 0
         with torch.no_grad():
-            for i in range(0, len(prompts), batch_size):
-                batch_prompts = prompts[i : i + batch_size]
+            for b_idx, batch_indices in enumerate(batches):
+                batch_prompts = [prompts[i] for i in batch_indices]
                 enc = tokenizer(
                     batch_prompts,
                     return_tensors="pt",
                     padding=True,
-                    truncation=True,
-                    max_length=256,
+                    truncation=False,
                 ).to(device)
                 out = model(**enc)
                 batch_logits = out.logits[:, -1, verbalizer_ids].float().cpu().numpy()
-                logits_chunks.append(batch_logits)
+                for row_i, orig_i in enumerate(batch_indices):
+                    logits_out[orig_i] = batch_logits[row_i]
                 del enc, out
-                if (i // batch_size) % 50 == 0 or (i + batch_size >= len(prompts)):
+                processed += len(batch_indices)
+                if b_idx % 50 == 0 or processed == len(prompts):
                     print(
-                        f"    [{desc}] {min(i + batch_size, len(prompts))}/{len(prompts)}",
+                        f"    [{desc}] {processed}/{len(prompts)}",
                         flush=True,
                     )
-        return np.concatenate(logits_chunks, axis=0)
+        return logits_out
 
     test_logits = run_batches(test_texts, "Test")
     train_logits = run_batches(train_texts, "Train")
@@ -474,7 +492,7 @@ def train_and_evaluate_student(
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
     tokenizer = AutoTokenizer.from_pretrained(STUDENT_MODEL_NAME, local_files_only=True)
-    max_len = 256
+    max_len = 512
 
     def collate_fn(batch):
         texts = [item[0] for item in batch]

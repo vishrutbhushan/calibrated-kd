@@ -31,7 +31,7 @@ def save_csv(path, texts, labels, prefix):
         writer = csv.writer(f)
         writer.writerow(["sample_id", "text", "label"])
         for idx, (t, l) in enumerate(zip(texts, labels)):
-            clean_text = " ".join(t.strip().split())[:600]
+            clean_text = " ".join(t.strip().split())
             writer.writerow([f"{prefix}_{idx:05d}", clean_text, l])
     print(f"[✓] Saved {len(texts)} samples to {path}")
     counts = Counter(labels)

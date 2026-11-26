@@ -129,7 +129,6 @@ def train_causal_student(
 
     tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
     tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -138,7 +137,7 @@ def train_causal_student(
     def fmt(t: str) -> str:
         return (
             f"{task_desc}\n\n"
-            f"Text: {t.strip()[:600]}\n"
+            f"Text: {t.strip()}\n"
             "Respond with ONLY the single letter corresponding to the correct category.\nAnswer:"
         )
 
@@ -163,7 +162,7 @@ def train_causal_student(
     def collate_fn(batch):
         ps = [b[0] for b in batch]
         pr = torch.tensor(np.array([b[1] for b in batch]), dtype=torch.float32)
-        enc = tokenizer(ps, padding=True, truncation=True, max_length=256, return_tensors="pt")
+        enc = tokenizer(ps, padding=True, truncation=False, return_tensors="pt")
         enc["probs"] = pr
         return enc
 
@@ -193,7 +192,7 @@ def train_causal_student(
     preds = []
     with torch.no_grad():
         for i in range(0, len(test_prompts), 8):
-            enc = tokenizer(test_prompts[i : i + 8], padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
+            enc = tokenizer(test_prompts[i : i + 8], padding=True, truncation=False, return_tensors="pt").to(device)
             out = model(**enc)
             logits = out.logits[:, -1, v_ids].float()
             preds.extend(logits.argmax(dim=-1).cpu().tolist())
@@ -225,7 +224,7 @@ def train_encoder_student(
     def collate_fn(batch):
         texts = [b[0] for b in batch]
         probs = torch.tensor(np.array([b[1] for b in batch]), dtype=torch.float32)
-        enc = tokenizer(texts, padding=True, truncation=True, max_length=256, return_tensors="pt")
+        enc = tokenizer(texts, padding=True, truncation=True, max_length=512, return_tensors="pt")
         enc["probs"] = probs
         return enc
 
@@ -255,7 +254,7 @@ def train_encoder_student(
     preds = []
     with torch.no_grad():
         for i in range(0, len(test_texts), 32):
-            enc = tokenizer(test_texts[i : i + 32], padding=True, truncation=True, max_length=256, return_tensors="pt").to(device)
+            enc = tokenizer(test_texts[i : i + 32], padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
             out = model(input_ids=enc["input_ids"], attention_mask=enc["attention_mask"])
             preds.extend(out.logits.argmax(dim=-1).cpu().tolist())
             del enc, out
@@ -303,7 +302,6 @@ def run_config2_cross_family():
 
     tokenizer = AutoTokenizer.from_pretrained(QWEN3_4B_PATH, local_files_only=True)
     tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     v_ids = [tokenizer.encode(v, add_special_tokens=False)[-1] for v in verbs]
@@ -314,7 +312,7 @@ def run_config2_cross_family():
     model.eval()
 
     def fmt(t: str) -> str:
-        return f"{task_desc}\n\nText: {t.strip()[:600]}\nRespond with ONLY the single letter corresponding to the correct category.\nAnswer:"
+        return f"{task_desc}\n\nText: {t.strip()}\nRespond with ONLY the single letter corresponding to the correct category.\nAnswer:"
 
     with torch.no_grad():
         inp_null = tokenizer(fmt("N/A"), return_tensors="pt").to(device)
@@ -324,7 +322,7 @@ def run_config2_cross_family():
     train_logits = []
     with torch.no_grad():
         for i in range(0, len(tr_txt), 8):
-            enc = tokenizer([fmt(t) for t in tr_txt[i : i + 8]], return_tensors="pt", padding=True, truncation=True, max_length=256).to(device)
+            enc = tokenizer([fmt(t) for t in tr_txt[i : i + 8]], return_tensors="pt", padding=True, truncation=False).to(device)
             out = model(**enc)
             train_logits.append(out.logits[:, -1, v_ids].float().cpu().numpy())
             del enc, out
