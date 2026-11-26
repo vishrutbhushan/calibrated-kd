@@ -1,59 +1,55 @@
-\begin{table*}[t]
+\begin{table}[!ht]
 \centering
-\small
-\resizebox{\textwidth}{!}{
-\begin{tabular}{lccccccc}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{%
+\begin{tabular}{@{}lrrrrrrr@{}}
 \toprule
-\multicolumn{6}{l}{\textit{Student Questions}} \\
- & \textbf{Biology} & \textbf{Physics} & \textbf{Maths} & \textbf{Chemistry} & \textbf{Worst} \\
-Teacher, raw & \textbf{18.58} & 16.59 & 62.54 & 14.81 & 14.81 \\
-Teacher, null-cal. & 4.14 & \textbf{19.83} & 59.02 & 33.33 & 4.14 \\
-Standard KD & 9.26 & 11.48 & 70.71 & \worst{0.00} & 0.00 \\
-Batch-Cal. KD & 8.18 & 10.70 & \textbf{73.87} & \worst{0.00} & 0.00 \\
-Null-Cal. KD (ours) & \worst{0.00} & 15.27 & 66.46 & \textbf{66.67} & 0.00 \\
+\textbf{Method} & \multicolumn{6}{c}{\textbf{F1 of each class}} & \textbf{Worst} \\
 \midrule
-\multicolumn{8}{l}{\textit{TREC-6}} \\
- & \textbf{Abbreviation} & \textbf{Entity} & \textbf{Description} & \textbf{Human} & \textbf{Location} & \textbf{Numeric} & \textbf{Worst} \\
+\textit{Student Questions} & \textit{Biology} & \textit{Physics} & \textit{Maths} & \textit{Chemistry} & & & \textit{Worst} \\
+Teacher, raw & \textbf{18.58} & 16.59 & 62.54 & 14.81 & & & 14.81 \\
+Teacher, null-cal. & 4.14 & \textbf{19.83} & 59.02 & 33.33 & & & 4.14 \\
+Standard KD & 9.26 & 11.48 & 70.71 & \worst{0.00} & & & 0.00 \\
+Batch-Cal. KD & 8.18 & 10.70 & \textbf{73.87} & \worst{0.00} & & & 0.00 \\
+Null-Cal. KD (ours) & \worst{0.00} & 15.27 & 66.46 & \textbf{66.67} & & & 0.00 \\
+\midrule
+\textit{TREC-6} & \textit{Abbr.} & \textit{Entity} & \textit{Desc.} & \textit{Human} & \textit{Location} & \textit{Numeric} & \textit{Worst} \\
 Teacher, raw & 38.46 & 10.94 & 55.28 & 57.83 & 70.59 & 67.83 & 10.94 \\
 Teacher, null-cal. & 43.48 & 19.40 & 58.67 & 54.14 & 72.73 & 68.97 & 19.40 \\
 Standard KD & 76.92 & 22.22 & 59.35 & \textbf{65.14} & 75.44 & 74.60 & 22.22 \\
 Batch-Cal. KD & 75.00 & 27.07 & 61.21 & 64.41 & 76.11 & \textbf{75.97} & 27.07 \\
 Null-Cal. KD (ours) & \textbf{83.33} & \textbf{28.12} & \textbf{65.49} & 62.18 & \textbf{79.67} & 69.49 & 28.12 \\
 \midrule
-\multicolumn{7}{l}{\textit{App Reviews}} \\
- & \textbf{1 Star} & \textbf{2 Stars} & \textbf{3 Stars} & \textbf{4 Stars} & \textbf{5 Stars} & \textbf{Worst} \\
-Teacher, raw & 54.31 & 8.33 & 5.48 & 10.39 & 69.94 & 5.48 \\
-Teacher, null-cal. & \textbf{63.04} & 6.38 & 6.15 & \textbf{15.53} & 71.19 & 6.15 \\
-Standard KD & 56.00 & \textbf{10.53} & \textbf{10.42} & \worst{0.00} & 74.32 & 0.00 \\
-Batch-Cal. KD & 58.22 & 9.23 & 9.30 & 8.57 & 74.86 & 8.57 \\
-Null-Cal. KD (ours) & 62.92 & 6.38 & 7.41 & 13.04 & \textbf{76.44} & 6.38 \\
+\textit{App Reviews} & \textit{1 Star} & \textit{2 Stars} & \textit{3 Stars} & \textit{4 Stars} & \textit{5 Stars} & & \textit{Worst} \\
+Teacher, raw & 54.31 & 8.33 & 5.48 & 10.39 & 69.94 & & 5.48 \\
+Teacher, null-cal. & \textbf{63.04} & 6.38 & 6.15 & \textbf{15.53} & 71.19 & & 6.15 \\
+Standard KD & 56.00 & \textbf{10.53} & \textbf{10.42} & \worst{0.00} & 74.32 & & 0.00 \\
+Batch-Cal. KD & 58.22 & 9.23 & 9.30 & 8.57 & 74.86 & & 8.57 \\
+Null-Cal. KD (ours) & 62.92 & 6.38 & 7.41 & 13.04 & \textbf{76.44} & & 6.38 \\
 \midrule
-\multicolumn{8}{l}{\textit{Twitter Emotion}} \\
- & \textbf{Sadness} & \textbf{Joy} & \textbf{Love} & \textbf{Anger} & \textbf{Fear} & \textbf{Surprise} & \textbf{Worst} \\
+\textit{Twitter Emotion} & \textit{Sadness} & \textit{Joy} & \textit{Love} & \textit{Anger} & \textit{Fear} & \textit{Surprise} & \textit{Worst} \\
 Teacher, raw & \textbf{62.58} & 56.04 & 30.77 & \textbf{44.63} & 44.78 & \worst{0.00} & 0.00 \\
 Teacher, null-cal. & 61.28 & 55.77 & \textbf{35.29} & 42.55 & \textbf{47.22} & \worst{0.00} & 0.00 \\
 Standard KD & 58.47 & \textbf{66.38} & 28.00 & 25.81 & \worst{0.00} & \worst{0.00} & 0.00 \\
 Batch-Cal. KD & 57.65 & 63.11 & 25.00 & 41.03 & \worst{0.00} & \worst{0.00} & 0.00 \\
 Null-Cal. KD (ours) & 57.89 & 64.32 & 32.14 & 41.10 & 11.32 & \worst{0.00} & 0.00 \\
 \midrule
-\multicolumn{6}{l}{\textit{TweetEval Emotion}} \\
- & \textbf{Anger} & \textbf{Joy} & \textbf{Optimism} & \textbf{Sadness} & \textbf{Worst} \\
-Teacher, raw & 67.07 & 62.77 & 34.78 & 18.49 & 18.49 \\
-Teacher, null-cal. & 72.93 & 74.07 & \textbf{38.30} & 38.89 & 38.30 \\
-Standard KD & 65.49 & 65.73 & \worst{0.00} & 5.41 & 0.00 \\
-Batch-Cal. KD & 66.53 & 66.21 & 5.41 & 17.24 & 5.41 \\
-Null-Cal. KD (ours) & \textbf{73.42} & \textbf{74.68} & 23.81 & \textbf{50.00} & 23.81 \\
+\textit{TweetEval Emotion} & \textit{Anger} & \textit{Joy} & \textit{Optimism} & \textit{Sadness} & & & \textit{Worst} \\
+Teacher, raw & 67.07 & 62.77 & 34.78 & 18.49 & & & 18.49 \\
+Teacher, null-cal. & 72.93 & 74.07 & \textbf{38.30} & 38.89 & & & 38.30 \\
+Standard KD & 65.49 & 65.73 & \worst{0.00} & 5.41 & & & 0.00 \\
+Batch-Cal. KD & 66.53 & 66.21 & 5.41 & 17.24 & & & 5.41 \\
+Null-Cal. KD (ours) & \textbf{73.42} & \textbf{74.68} & 23.81 & \textbf{50.00} & & & 23.81 \\
 \midrule
-\multicolumn{7}{l}{\textit{BBC News}} \\
- & \textbf{Tech} & \textbf{Business} & \textbf{Sport} & \textbf{Entertainment} & \textbf{Politics} & \textbf{Worst} \\
-Teacher, raw & 63.49 & 52.51 & 74.67 & 54.17 & 29.21 & 29.21 \\
-Teacher, null-cal. & 66.10 & 57.61 & 78.21 & 66.04 & \textbf{52.25} & 52.25 \\
-Standard KD & 70.80 & 52.30 & 81.29 & 73.39 & \worst{0.00} & 0.00 \\
-Batch-Cal. KD & 71.93 & 53.37 & 83.54 & 76.79 & \worst{0.00} & 0.00 \\
-Null-Cal. KD (ours) & \textbf{72.57} & \textbf{61.13} & \textbf{87.12} & \textbf{86.18} & 50.00 & 50.00 \\
+\textit{BBC News} & \textit{Tech} & \textit{Business} & \textit{Sport} & \textit{Entert.} & \textit{Politics} & & \textit{Worst} \\
+Teacher, raw & 63.49 & 52.51 & 74.67 & 54.17 & 29.21 & & 29.21 \\
+Teacher, null-cal. & 66.10 & 57.61 & 78.21 & 66.04 & \textbf{52.25} & & 52.25 \\
+Standard KD & 70.80 & 52.30 & 81.29 & 73.39 & \worst{0.00} & & 0.00 \\
+Batch-Cal. KD & 71.93 & 53.37 & 83.54 & 76.79 & \worst{0.00} & & 0.00 \\
+Null-Cal. KD (ours) & \textbf{72.57} & \textbf{61.13} & \textbf{87.12} & \textbf{86.18} & 50.00 & & 50.00 \\
 \bottomrule
-\end{tabular}
-}
-\caption{Per-class F1 (\%) on the 400 test examples of each dataset. Bold marks the best method for each class, red marks a class with F1 of 0 (never predicted correctly). Worst is the lowest per-class F1 of the row.}
+\end{tabular}}
+\caption{Per-class F1 (\%) on the 400 test examples of each dataset. Bold marks the best method for each class, red marks a class with F1 of 0. Worst is the lowest per-class F1 of the row.}
 \label{tab:app_per_class_f1}
-\end{table*}
+\end{table}

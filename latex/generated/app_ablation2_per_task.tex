@@ -1,10 +1,11 @@
-\begin{table}[t]
+\begin{table}[!ht]
 \centering
-\small
-\resizebox{\columnwidth}{!}{
-\begin{tabular}{clccc}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{%
+\begin{tabular}{@{}clccc@{}}
 \toprule
-\textbf{Combo} & \textbf{Task} & \textbf{Standard KD} & \textbf{Null-Cal. KD} & \textbf{$\Delta$ F1} \\
+\textbf{\#} & \textbf{Task} & \textbf{Std. KD} & \textbf{Null-Cal.} & \textbf{$\Delta$ F1} \\
 \midrule
 1 & TweetEval Emotion & 43.21 (58.25) & 59.30 (68.75) & \textcolor{textgreen}{+16.09} \\
  & BBC News & 56.34 (59.50) & 71.51 (70.00) & \textcolor{textgreen}{+15.17} \\
@@ -25,8 +26,7 @@
  & Twitter Emotion & 35.72 (51.50) & 39.21 (52.75) & \textcolor{textgreen}{+3.49} \\
  & TREC-6 & 60.64 (59.00) & 62.48 (59.25) & \textcolor{textgreen}{+1.84} \\
 \bottomrule
-\end{tabular}
-}
+\end{tabular}}
 \caption{Ablation 2, per task: Macro-F1 with accuracy in parentheses, both in \%.}
 \label{tab:app_ablation2_per_task}
 \end{table}

@@ -1,20 +1,20 @@
-\begin{table*}[t]
+\begin{table}[!ht]
 \centering
-\small
-\resizebox{\textwidth}{!}{
-\begin{tabular}{lccccc}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{%
+\begin{tabular}{@{}lccccc@{}}
 \toprule
-\textbf{Dataset} & \textbf{Standard KD} & \textbf{Batch-Cal. KD} & \textbf{Null-Cal. KD (ours)} & \textbf{$\Delta$ F1 vs. Std.} & \textbf{Seed wins} \\
+\textbf{Dataset} & \textbf{Std. KD} & \textbf{Batch-Cal.} & \textbf{Null-Cal.} & \textbf{$\Delta$ F1} & \textbf{Wins} \\
 \midrule
-Student Questions & 22.54 $\pm$ 0.36 (32.33 $\pm$ 0.12) & 22.76 $\pm$ 0.20 (31.92 $\pm$ 0.62) & \textbf{36.64 $\pm$ 0.47 (38.42 $\pm$ 0.59)} & \textcolor{textgreen}{+14.11} & 3/3 \\
-TREC-6 & 58.57 $\pm$ 7.56 (60.17 $\pm$ 1.76) & \textbf{64.09 $\pm$ 0.99 (61.75 $\pm$ 0.61)} & 58.08 $\pm$ 6.31 (60.67 $\pm$ 0.92) & \textcolor{textred}{-0.50} & 2/3 \\
-App Reviews & 30.09 $\pm$ 0.22 (51.92 $\pm$ 1.23) & 31.30 $\pm$ 1.48 (51.50 $\pm$ 1.62) & \textbf{33.36 $\pm$ 1.31 (52.17 $\pm$ 1.56)} & \textcolor{textgreen}{+3.27} & 3/3 \\
-Twitter Emotion & 29.30 $\pm$ 0.44 (48.92 $\pm$ 1.23) & 30.39 $\pm$ 0.57 (48.92 $\pm$ 0.77) & \textbf{34.44 $\pm$ 0.78 (51.08 $\pm$ 0.85)} & \textcolor{textgreen}{+5.14} & 3/3 \\
-TweetEval Emotion & 35.42 $\pm$ 1.31 (55.17 $\pm$ 1.30) & 43.17 $\pm$ 3.09 (59.25 $\pm$ 2.15) & \textbf{56.54 $\pm$ 2.01 (68.67 $\pm$ 1.74)} & \textcolor{textgreen}{+21.13} & 3/3 \\
-BBC News & 56.27 $\pm$ 2.64 (59.25 $\pm$ 2.94) & 58.97 $\pm$ 2.51 (61.92 $\pm$ 2.97) & \textbf{73.70 $\pm$ 4.23 (72.42 $\pm$ 4.10)} & \textcolor{textgreen}{+17.43} & 3/3 \\
+Student Questions & \begin{tabular}[c]{@{}c@{}}22.54 $\pm$ 0.36\\(32.33 $\pm$ 0.12)\end{tabular} & \begin{tabular}[c]{@{}c@{}}22.76 $\pm$ 0.20\\(31.92 $\pm$ 0.62)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\textbf{36.64 $\pm$ 0.47}\\(38.42 $\pm$ 0.59)\end{tabular} & \textcolor{textgreen}{+14.11} & 3/3 \\[2pt]
+TREC-6 & \begin{tabular}[c]{@{}c@{}}58.57 $\pm$ 7.56\\(60.17 $\pm$ 1.76)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\textbf{64.09 $\pm$ 0.99}\\(61.75 $\pm$ 0.61)\end{tabular} & \begin{tabular}[c]{@{}c@{}}58.08 $\pm$ 6.31\\(60.67 $\pm$ 0.92)\end{tabular} & \textcolor{textred}{-0.50} & 2/3 \\[2pt]
+App Reviews & \begin{tabular}[c]{@{}c@{}}30.09 $\pm$ 0.22\\(51.92 $\pm$ 1.23)\end{tabular} & \begin{tabular}[c]{@{}c@{}}31.30 $\pm$ 1.48\\(51.50 $\pm$ 1.62)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\textbf{33.36 $\pm$ 1.31}\\(52.17 $\pm$ 1.56)\end{tabular} & \textcolor{textgreen}{+3.27} & 3/3 \\[2pt]
+Twitter Emotion & \begin{tabular}[c]{@{}c@{}}29.30 $\pm$ 0.44\\(48.92 $\pm$ 1.23)\end{tabular} & \begin{tabular}[c]{@{}c@{}}30.39 $\pm$ 0.57\\(48.92 $\pm$ 0.77)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\textbf{34.44 $\pm$ 0.78}\\(51.08 $\pm$ 0.85)\end{tabular} & \textcolor{textgreen}{+5.14} & 3/3 \\[2pt]
+TweetEval Emotion & \begin{tabular}[c]{@{}c@{}}35.42 $\pm$ 1.31\\(55.17 $\pm$ 1.30)\end{tabular} & \begin{tabular}[c]{@{}c@{}}43.17 $\pm$ 3.09\\(59.25 $\pm$ 2.15)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\textbf{56.54 $\pm$ 2.01}\\(68.67 $\pm$ 1.74)\end{tabular} & \textcolor{textgreen}{+21.13} & 3/3 \\[2pt]
+BBC News & \begin{tabular}[c]{@{}c@{}}56.27 $\pm$ 2.64\\(59.25 $\pm$ 2.94)\end{tabular} & \begin{tabular}[c]{@{}c@{}}58.97 $\pm$ 2.51\\(61.92 $\pm$ 2.97)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\textbf{73.70 $\pm$ 4.23}\\(72.42 $\pm$ 4.10)\end{tabular} & \textcolor{textgreen}{+17.43} & 3/3 \\[2pt]
 \bottomrule
-\end{tabular}
-}
-\caption{Ablation 5: mean $\pm$ standard deviation over student seeds 42, 43 and 44. Macro-F1 with accuracy in parentheses, both in \%. The teacher targets are the same for every seed. Seed wins counts the seeds on which null-calibrated KD has a higher Macro-F1 than standard KD.}
+\end{tabular}}
+\caption{Ablation 5: mean $\pm$ standard deviation over student seeds 42, 43 and 44. Macro-F1 with accuracy in parentheses, both in \%. The teacher targets are the same for every seed. $\Delta$ F1 is null-calibrated minus standard KD. Wins counts the seeds on which null-calibrated KD has a higher Macro-F1 than standard KD.}
 \label{tab:app_ablation5}
-\end{table*}
+\end{table}

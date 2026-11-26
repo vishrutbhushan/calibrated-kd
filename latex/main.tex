@@ -397,6 +397,9 @@ We thank Prof.Dhruv Kumar (Faculty/Advisor) and Aniket Upadhyay (Mentor) for the
 \bibliographystyle{acl_natbib}
 
 \appendix
+\raggedbottom
+% Appendix figures are one column wide, so they can sit next to the text.
+\newcommand{\appfig}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\fbox{\parbox[c][0.4\columnwidth][c]{0.95\columnwidth}{\centering\textcolor{red}{Figure placeholder}}}}}
 
 \section{Teacher Prompts}
 \label{app:prompts}
@@ -405,7 +408,7 @@ Table~\ref{tab:prompts} lists the task description that opens the prompt for eac
 The prompt then lists the classes next to the letters A, B, C and so on, in the order of the table.
 The prompt then continues with the input text and the instruction shown in Figure~\ref{fig:prompt}.
 
-\begin{table}[h]
+\begin{table}[!ht]
 \centering
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\columnwidth}>{\raggedright\arraybackslash}p{0.64\columnwidth}}
@@ -433,7 +436,7 @@ Every teacher call uses the same template, shown in Figure~\ref{fig:app_prompt_t
 The full prompt is then cut to 256 tokens from the left, so the instruction at the end is always kept.
 For the null probe, \texttt{\{text\}} is the string \texttt{N/A}, and the probe is run once per task.
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering
 \fbox{\parbox{0.94\columnwidth}{\small\ttfamily
 \{task\_desc\}\\
@@ -452,7 +455,7 @@ The teacher's zero-shot prediction is the class with the highest of these $K$ lo
 
 Below is the full null probe for Student Questions, exactly as the teacher sees it.
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering
 \fbox{\parbox{0.94\columnwidth}{\small\ttfamily
 Classify the academic question into the correct subject:\\
@@ -482,12 +485,12 @@ On BBC News, option \texttt{B} (Business) is almost as high as \texttt{A}, which
 
 \input{generated/app_null_logits.tex}
 
-\begin{figure*}[t]
+\begin{figure}[!ht]
 \centering
-\resultfig{generated/fig_app_null_logits.pdf}{0.45}
+\appfig{generated/fig_app_null_logits.pdf}
 \caption{Null logits of Gemma-3-4B-IT, centred on their mean for each dataset. Red bars are classes the teacher prefers before reading any input, blue bars are classes it disfavours.}
 \label{fig:app_null_logits}
-\end{figure*}
+\end{figure}
 
 \FloatBarrier
 \section{Additional Results}
@@ -495,19 +498,17 @@ On BBC News, option \texttt{B} (Business) is almost as high as \texttt{A}, which
 
 This section gives the full per-class results of the main experiment (Table~\ref{tab:main_results}).
 Table~\ref{tab:app_per_class_f1} lists the F1 score of every class.
-Table~\ref{tab:app_counts} and Figure~\ref{fig:app_class_dist_all} list how often each method predicts each class, for all six datasets.
-Table~\ref{tab:collapse} in the main text is a subset of Table~\ref{tab:app_counts}.
+Figure~\ref{fig:app_class_dist_all} shows how often each method predicts each class, for all six datasets.
+Table~\ref{tab:collapse} in the main text lists the classes that at least one method never predicts.
 
 \input{generated/app_per_class_f1.tex}
 
-\begin{figure*}[t]
+\begin{figure}[!ht]
 \centering
-\resultfig{generated/fig_app_class_dist_all.pdf}{0.55}
+\appfig{generated/fig_app_class_dist_all.pdf}
 \caption{Number of test predictions per class on all six datasets. The dotted line shows the true number of test examples in each class.}
 \label{fig:app_class_dist_all}
-\end{figure*}
-
-\input{generated/app_counts.tex}
+\end{figure}
 
 \FloatBarrier
 \section{Ablation Studies}
@@ -537,19 +538,11 @@ The gain is small in the cross-family setting, where the Qwen3-4B teacher is alr
 
 Here one RoBERTa-base encoder learns several tasks at once, with a separate linear classification head for each task.
 Each task keeps its own null vector, which is subtracted from the logits of that task only.
-Table~\ref{tab:app_ablation2} reports the average Macro-F1 over the tasks of each combination, and Table~\ref{tab:app_ablation2_per_task} and Figure~\ref{fig:app_multitask} report each task.
+Table~\ref{tab:app_ablation2} reports the average Macro-F1 over the tasks of each combination.
 Null calibration improves the average Macro-F1 in all five combinations, by 3.93 to 15.63 pp.
 It also improves Macro-F1 on every task of every combination.
 
 \input{generated/app_ablation2.tex}
-\input{generated/app_ablation2_per_task.tex}
-
-\begin{figure*}[t]
-\centering
-\resultfig{generated/fig_app_multitask.pdf}{0.30}
-\caption{Ablation 2: Macro-F1 of each task when several tasks share one student.}
-\label{fig:app_multitask}
-\end{figure*}
 
 \subsection{Ablation 3: Hard Labels versus Soft Targets}
 \label{app:abl_hard_soft}
@@ -577,18 +570,11 @@ On Student Questions, permutation averaging is worse than standard KD, while nul
 \label{app:abl_seeds}
 
 We repeat the training of the three student methods with seeds 42, 43 and 44 on all six datasets.
-Table~\ref{tab:app_ablation5} and Figure~\ref{fig:app_multiseed} report the mean and standard deviation.
+Table~\ref{tab:app_ablation5} reports the mean and standard deviation.
 Null calibration has the highest mean Macro-F1 on five of six datasets and beats standard KD on every seed of these five.
 TREC-6 is the exception.
 There, standard KD and null calibration both vary strongly across seeds, and batch calibration has the highest mean.
 
 \input{generated/app_ablation5.tex}
-
-\begin{figure*}[t]
-\centering
-\resultfig{generated/fig_app_multiseed.pdf}{0.32}
-\caption{Ablation 5: mean Macro-F1 over three seeds. Error bars show one standard deviation.}
-\label{fig:app_multiseed}
-\end{figure*}
 
 \end{document}

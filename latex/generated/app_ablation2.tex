@@ -1,10 +1,11 @@
-\begin{table*}[t]
+\begin{table}[!ht]
 \centering
-\small
-\resizebox{\textwidth}{!}{
-\begin{tabular}{clccc}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{%
+\begin{tabular}{@{}c>{\raggedright\arraybackslash}p{0.42\columnwidth}ccc@{}}
 \toprule
-\textbf{Combo} & \textbf{Tasks sharing one student} & \textbf{Standard KD} & \textbf{Null-Cal. KD (ours)} & \textbf{$\Delta$ F1 (pp)} \\
+\textbf{\#} & \textbf{Tasks sharing one student} & \textbf{Std. KD} & \textbf{Null-Cal.} & \textbf{$\Delta$ F1} \\
 \midrule
 1 & TweetEval Emotion + BBC News & 49.77 & \textbf{65.40} & \textcolor{textgreen}{+15.63} \\
 2 & BBC News + TREC-6 & 60.04 & \textbf{67.63} & \textcolor{textgreen}{+7.59} \\
@@ -12,8 +13,7 @@
 4 & TweetEval Emotion + BBC News + TREC-6 & 52.53 & \textbf{64.56} & \textcolor{textgreen}{+12.04} \\
 5 & TweetEval Emotion + BBC News + App Reviews + Twitter Emotion + TREC-6 & 45.29 & \textbf{52.95} & \textcolor{textgreen}{+7.66} \\
 \bottomrule
-\end{tabular}
-}
+\end{tabular}}
 \caption{Ablation 2: multi-task distillation into one RoBERTa-base encoder with a separate classification head per task. Macro-F1 (\%) averaged over the tasks of each combination.}
 \label{tab:app_ablation2}
-\end{table*}
+\end{table}

@@ -1,47 +1,50 @@
-\begin{table*}[p]
+\begin{table}[!ht]
 \centering
-\small
-\begin{tabular}{llrrrrrr}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{%
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-\textbf{Dataset} & \textbf{Class} & \textbf{True} & \textbf{Teacher} & \textbf{Teacher+Null} & \textbf{Std.} & \textbf{Batch} & \textbf{Null (ours)} \\
+\textbf{Class} & \textbf{True} & \textbf{Teach.} & \textbf{T.+Null} & \textbf{Std.} & \textbf{Batch} & \textbf{Null} \\
 \midrule
-Student Questions & Biology & 126 & 100 & 19 & 90 & 94 & \textbf{0} \\
- & Physics & 123 & 106 & 119 & 121 & 120 & 139 \\
- & Maths & 108 & 183 & 197 & 189 & 179 & 208 \\
- & Chemistry & 43 & 11 & 65 & \textbf{0} & 7 & 53 \\
-\midrule
-TREC-6 & Abbreviation & 7 & 19 & 16 & 6 & 9 & 5 \\
- & Entity & 91 & 37 & 43 & 35 & 42 & 37 \\
- & Description & 94 & 152 & 131 & 152 & 138 & 132 \\
- & Human & 76 & 90 & 105 & 99 & 101 & 117 \\
- & Location & 62 & 57 & 59 & 52 & 51 & 61 \\
- & Numeric & 70 & 45 & 46 & 56 & 59 & 48 \\
-\midrule
-App Reviews & 1 Star & 68 & 164 & 116 & 157 & 145 & 110 \\
- & 2 Stars & 24 & 48 & 70 & 33 & 41 & 70 \\
- & 3 Stars & 36 & 37 & 29 & 60 & 50 & 18 \\
- & 4 Stars & 55 & 22 & 48 & 1 & 15 & 37 \\
- & 5 Stars & 217 & 129 & 137 & 149 & 149 & 165 \\
-\midrule
-Twitter Emotion & Sadness & 117 & 209 & 180 & 249 & 223 & 187 \\
- & Joy & 135 & 72 & 73 & 94 & 90 & 92 \\
- & Love & 32 & 33 & 36 & 18 & 24 & 24 \\
- & Anger & 54 & 67 & 87 & 39 & 63 & 92 \\
- & Fear & 48 & 19 & 24 & \textbf{0} & \textbf{0} & 5 \\
- & Surprise & 14 & \textbf{0} & \textbf{0} & \textbf{0} & \textbf{0} & \textbf{0} \\
-\midrule
-TweetEval Emotion & Anger & 167 & 331 & 280 & 343 & 335 & 277 \\
- & Joy & 91 & 46 & 71 & 52 & 54 & 67 \\
- & Optimism & 36 & 10 & 11 & \textbf{0} & 1 & 6 \\
- & Sadness & 106 & 13 & 38 & 5 & 10 & 50 \\
-\midrule
-BBC News & Tech & 72 & 54 & 46 & 41 & 42 & 41 \\
- & Business & 92 & 247 & 217 & 256 & 249 & 209 \\
- & Sport & 92 & 58 & 64 & 63 & 66 & 71 \\
- & Entertainment & 69 & 27 & 37 & 40 & 43 & 54 \\
- & Politics & 75 & 14 & 36 & \textbf{0} & \textbf{0} & 25 \\
+\multicolumn{7}{@{}l}{\textit{Student Questions}} \\
+\quad Biology & 126 & 100 & 19 & 90 & 94 & \textbf{0} \\
+\quad Physics & 123 & 106 & 119 & 121 & 120 & 139 \\
+\quad Maths & 108 & 183 & 197 & 189 & 179 & 208 \\
+\quad Chemistry & 43 & 11 & 65 & \textbf{0} & 7 & 53 \\
+\multicolumn{7}{@{}l}{\textit{TREC-6}} \\
+\quad Abbreviation & 7 & 19 & 16 & 6 & 9 & 5 \\
+\quad Entity & 91 & 37 & 43 & 35 & 42 & 37 \\
+\quad Description & 94 & 152 & 131 & 152 & 138 & 132 \\
+\quad Human & 76 & 90 & 105 & 99 & 101 & 117 \\
+\quad Location & 62 & 57 & 59 & 52 & 51 & 61 \\
+\quad Numeric & 70 & 45 & 46 & 56 & 59 & 48 \\
+\multicolumn{7}{@{}l}{\textit{App Reviews}} \\
+\quad 1 Star & 68 & 164 & 116 & 157 & 145 & 110 \\
+\quad 2 Stars & 24 & 48 & 70 & 33 & 41 & 70 \\
+\quad 3 Stars & 36 & 37 & 29 & 60 & 50 & 18 \\
+\quad 4 Stars & 55 & 22 & 48 & 1 & 15 & 37 \\
+\quad 5 Stars & 217 & 129 & 137 & 149 & 149 & 165 \\
+\multicolumn{7}{@{}l}{\textit{Twitter Emotion}} \\
+\quad Sadness & 117 & 209 & 180 & 249 & 223 & 187 \\
+\quad Joy & 135 & 72 & 73 & 94 & 90 & 92 \\
+\quad Love & 32 & 33 & 36 & 18 & 24 & 24 \\
+\quad Anger & 54 & 67 & 87 & 39 & 63 & 92 \\
+\quad Fear & 48 & 19 & 24 & \textbf{0} & \textbf{0} & 5 \\
+\quad Surprise & 14 & \textbf{0} & \textbf{0} & \textbf{0} & \textbf{0} & \textbf{0} \\
+\multicolumn{7}{@{}l}{\textit{TweetEval Emotion}} \\
+\quad Anger & 167 & 331 & 280 & 343 & 335 & 277 \\
+\quad Joy & 91 & 46 & 71 & 52 & 54 & 67 \\
+\quad Optimism & 36 & 10 & 11 & \textbf{0} & 1 & 6 \\
+\quad Sadness & 106 & 13 & 38 & 5 & 10 & 50 \\
+\multicolumn{7}{@{}l}{\textit{BBC News}} \\
+\quad Tech & 72 & 54 & 46 & 41 & 42 & 41 \\
+\quad Business & 92 & 247 & 217 & 256 & 249 & 209 \\
+\quad Sport & 92 & 58 & 64 & 63 & 66 & 71 \\
+\quad Entertainment & 69 & 27 & 37 & 40 & 43 & 54 \\
+\quad Politics & 75 & 14 & 36 & \textbf{0} & \textbf{0} & 25 \\
 \bottomrule
-\end{tabular}
-\caption{Number of test predictions per class for every dataset and method. True is the number of test examples in the class. Bold marks a class that is never predicted.}
+\end{tabular}}
+\caption{Number of test predictions per class for every dataset and method. True is the number of test examples in the class. Teach.\ and T.+Null are the raw and null-calibrated teacher; Std., Batch and Null are the three distillation methods. Bold marks a class that is never predicted.}
 \label{tab:app_counts}
-\end{table*}
+\end{table}

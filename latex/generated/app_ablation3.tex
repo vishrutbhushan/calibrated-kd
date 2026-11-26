@@ -1,21 +1,24 @@
-\begin{table*}[t]
+\begin{table}[!ht]
 \centering
-\small
-\begin{tabular}{lllccc}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\ifdim\width>\columnwidth\columnwidth\else\width\fi}{!}{%
+\begin{tabular}{@{}lllcc@{}}
 \toprule
-\textbf{Dataset} & \textbf{Regime} & \textbf{Target} & \textbf{Loss} & \textbf{Macro-F1} & \textbf{Accuracy} \\
+\textbf{Regime} & \textbf{Target} & \textbf{Loss} & \textbf{F1} & \textbf{Acc.} \\
 \midrule
-BBC News & Raw hard labels & $\arg\max z_{\text{raw}}$ & Cross-entropy & 55.95 & 59.00 \\
- & Calibrated hard labels & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & Cross-entropy & 58.93 & 61.75 \\
- & Standard soft KD & $\text{softmax}(z_{\text{raw}})$ & KL & 55.02 & 58.00 \\
- & Null-Cal. soft KD (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{71.58} & 70.50 \\
-\midrule
-TweetEval Emotion & Raw hard labels & $\arg\max z_{\text{raw}}$ & Cross-entropy & 32.43 & 53.00 \\
- & Calibrated hard labels & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & Cross-entropy & 47.88 & 64.25 \\
- & Standard soft KD & $\text{softmax}(z_{\text{raw}})$ & KL & 34.16 & 54.25 \\
- & Null-Cal. soft KD (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{55.48} & 66.50 \\
+\multicolumn{5}{@{}l}{\textit{BBC News}} \\
+\quad Raw hard & $\arg\max z_{\text{raw}}$ & CE & 55.95 & 59.00 \\
+\quad Calibrated hard & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & CE & 58.93 & 61.75 \\
+\quad Standard soft & $\text{softmax}(z_{\text{raw}})$ & KL & 55.02 & 58.00 \\
+\quad Null-cal. soft (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{71.58} & \textbf{70.50} \\
+\multicolumn{5}{@{}l}{\textit{TweetEval Emotion}} \\
+\quad Raw hard & $\arg\max z_{\text{raw}}$ & CE & 32.43 & 53.00 \\
+\quad Calibrated hard & $\arg\max (z_{\text{raw}} - z_{\text{null}})$ & CE & 47.88 & 64.25 \\
+\quad Standard soft & $\text{softmax}(z_{\text{raw}})$ & KL & 34.16 & 54.25 \\
+\quad Null-cal. soft (ours) & $\text{softmax}(z_{\text{raw}} - z_{\text{null}})$ & KL & \textbf{55.48} & \textbf{66.50} \\
 \bottomrule
-\end{tabular}
-\caption{Ablation 3: hard pseudo-labels (the teacher's top class) against soft targets (the teacher's full distribution), with and without null calibration. RoBERTa-base student, results in \%.}
+\end{tabular}}
+\caption{Ablation 3: hard pseudo-labels (the teacher's top class, cross-entropy loss) against soft targets (the teacher's full distribution, KL loss), with and without null calibration. RoBERTa-base student, Macro-F1 and accuracy in \%.}
 \label{tab:app_ablation3}
-\end{table*}
+\end{table}
