@@ -109,9 +109,9 @@ def style(ax):
         s.set_color("#CBD5E1")
 
 
-def table(name, colspec, header, rows, caption, label, size=r"\footnotesize"):
+def table(name, colspec, header, rows, caption, label, size=r"\footnotesize", pos="!ht"):
     write(name, rf"""
-\begin{{table}}[!ht]
+\begin{{table}}[{pos}]
 \centering
 {size}
 \setlength{{\tabcolsep}}{{4pt}}
@@ -367,7 +367,7 @@ def ablation5():
           r"\textbf{Dataset} & \textbf{Std. KD} & \textbf{Batch-Cal.} & \textbf{Null-Cal.} & \textbf{$\Delta$ F1} \\",
           rows,
           r"Ablation 5: mean $\pm$ standard deviation over student seeds 42, 43 and 44. Macro-F1 with accuracy in parentheses, both in \%. The teacher targets are the same for every seed. $\Delta$ F1 is null-calibrated minus standard KD.",
-          "tab:app_ablation5", size=r"\scriptsize")
+          "tab:app_ablation5", size=r"\scriptsize", pos="H")
     fig, ax = plt.subplots(figsize=(COLUMN_FIG_W, 3.6))
     style(ax)
     x = np.arange(len(DATASETS)); w = 0.26

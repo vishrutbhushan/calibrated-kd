@@ -11,6 +11,7 @@
 \usepackage{array}
 \usepackage{subcaption}
 \usepackage{placeins}
+\usepackage{float}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,fit,backgrounds}
 
@@ -443,9 +444,8 @@ Answer:}}
 \label{app:null_logits}
 
 Table~\ref{tab:app_null_logits} and Figure~\ref{fig:app_null_logits} show the null vector $z_{\text{null}}$ of Gemma-3-4B-IT for each dataset.
-On all six datasets the teacher gives the highest null logit to option \texttt{A}, which is the first class in the list.
-This matches the token and position biases discussed in the main text.
-On BBC News, option \texttt{B} (Business) is almost as high as \texttt{A}, which fits the over-prediction of Business by the raw teacher and standard KD.
+We can see that on all six datasets, the teacher gives the highest null logit to option \texttt{A}, which is the first class in the list.
+On BBC News, option \texttt{B} (Business) is almost as high as \texttt{A}. This can be corroborated by the fact that it over predicts Business class (Teacher and Standard KD student both).
 
 \input{generated/app_null_logits.tex}
 
@@ -486,7 +486,7 @@ We use same datasets, splits, teacher logits and student settings of the main ex
 
 We test three other teacher and student pairs, each on one dataset.
 \begin{itemize}
-    \item \textbf{Same-size:} Gemma-3-4B-IT distils into Qwen3-4B, a student of the same size, on BBC News.
+    \item \textbf{Same-size:} Gemma-3-4B-IT distils into Qwen3-4B, a student of the same size, on Twitter Emotion.
     \item \textbf{Cross-family:} Qwen3-4B is the teacher and RoBERTa-base the student, on TweetEval Emotion. The null probe is run on Qwen3-4B.
     \item \textbf{Small SLM:} Gemma-3-4B-IT distils into Qwen2.5-0.5B, a small causal LM, on TREC-6.
 \end{itemize}
@@ -502,7 +502,7 @@ The gain is small in the cross-family setting, where the Qwen3-4B teacher is alr
 Here one RoBERTa-base encoder learns several tasks at once, with a separate linear classification head for each task.
 Each task keeps its own null vector, which is subtracted from the logits of that task only.
 Table~\ref{tab:app_ablation2} reports the average Macro-F1 over the tasks of each combination.
-Null calibration improves the average Macro-F1 in all five combinations, by 3.93 to 15.63 pp.
+Null calibration improves the average Macro-F1 in all five combinations, by 3.93 to 15.28 pp.
 It also improves Macro-F1 on every task of every combination.
 
 \input{generated/app_ablation2.tex}
@@ -524,7 +524,7 @@ Permutation averaging removes option bias by asking the teacher once for every o
 It needs $K$ teacher passes per training example, against one pass for null calibration.
 Table~\ref{tab:app_ablation4} compares the two on the two datasets with four classes.
 On TweetEval Emotion, permutation averaging is better than null calibration by 2.10 pp Macro-F1, at four times the teacher cost.
-On Student Questions, permutation averaging is worse than standard KD, while null calibration improves Macro-F1 by 14.24 pp.
+On Student Questions, permutation averaging improves over standard KD by only 0.93 pp (while dropping accuracy by 1.25 pp), whereas null calibration improves Macro-F1 by 8.66 pp.
 
 \input{generated/app_ablation4.tex}
 
