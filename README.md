@@ -47,10 +47,14 @@ calibrated-kd/
     │   ├── ablation3_hard_vs_soft.py               # Ablation 3: Hard argmax vs. Soft KL distillation
     │   ├── ablation4_permutation_kd.py             # Ablation 4: Permutation-averaged KD vs. CKD
     │   └── ablation5_multi_seed.py                 # Ablation 5: Multi-seed statistical validation
-    └── plotting/                       # Step 4: Publication figures and table graphics
-        ├── generate_benchmark_barchart.py
-        ├── generate_blog_table_image.py
-        └── plot_3_key_class_distributions.py
+    ├── plotting/                       # Step 4: Publication figures and table graphics
+    │   ├── generate_benchmark_barchart.py
+    │   ├── generate_blog_table_image.py
+    │   └── plot_3_key_class_distributions.py
+    └── blog_plotting/                  # Blog figures with 1-line summary captions
+        ├── blog_table_image.py
+        ├── blog_benchmark_barchart.py
+        └── blog_class_distributions.py
 ```
 
 ---
