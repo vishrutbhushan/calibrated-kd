@@ -85,11 +85,11 @@ Below is the table capturing Macro-F1 and Accuracy across all 6 datasets and all
 
 | Architecture | Method | Student Questions ($K=4$) | TREC-6 ($K=6$) | App Reviews ($K=5$) | Twitter Emotion ($K=6$) | TweetEval Emotion ($K=4$) | BBC News ($K=5$) |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Teacher (Gemma-3-4B-IT)** | Base (Raw Zero-Shot) | 28.13% (33.75%) | 50.15% (52.25%) | 29.69% (48.25%) | 39.80% (53.00%) | 45.78% (57.25%) | 54.81% (56.00%) |
-| **Teacher (Gemma-3-4B-IT)** | Null-Calibrated | 29.08% (33.75%) | 52.90% (54.25%) | 32.46% (49.25%) | 40.35% (52.00%) | 56.05% (65.00%) | 64.04% (63.25%) |
-| **Student (RoBERTa-base)** | Standard KD | 22.86% (32.25%) | 62.28% (59.75%) | 30.25% (51.75%) | 29.78% (50.50%) | 34.16% (54.25%) | 55.56% (58.50%) |
-| **Student (RoBERTa-base)** | Batch-Calibrated KD | 23.19% (32.00%) | 63.29% (61.00%) | 32.04% (52.25%) | 31.13% (50.00%) | 38.85% (56.50%) | 57.13% (60.25%) |
-| **Student (RoBERTa-base)** | **Null Calibrated KD (Ours)** | **37.10% (39.25%)** | **64.71% (61.75%)** | **33.24% (53.25%)** | **34.46% (50.75%)** | **55.48% (66.50%)** | **71.40% (70.50%)** |
+| **Teacher (Gemma-3-4B-IT)** | Base (Raw Zero-Shot) | 26.80% (32.50%) | 50.15% (52.25%) | 30.36% (48.50%) | 39.80% (53.00%) | 45.78% (57.25%) | 52.86% (54.50%) |
+| **Teacher (Gemma-3-4B-IT)** | Null-Calibrated | 28.60% (33.25%) | 52.90% (54.25%) | 33.35% (49.25%) | 40.35% (52.00%) | 56.05% (65.00%) | 62.86% (62.25%) |
+| **Student (RoBERTa-base)** | Standard KD | 22.15% (31.50%) | 62.28% (59.75%) | 31.14% (53.75%) | 29.78% (50.50%) | 34.16% (54.25%) | 51.99% (56.00%) |
+| **Student (RoBERTa-base)** | Batch-Calibrated KD | 22.87% (32.00%) | 63.29% (61.00%) | 31.66% (52.25%) | 31.13% (50.00%) | 38.85% (56.50%) | 61.38% (62.75%) |
+| **Student (RoBERTa-base)** | **Null Calibrated KD (Ours)** | **30.82% (34.25%)** | **64.71% (61.75%)** | **33.59% (53.50%)** | **34.46% (50.75%)** | **55.48% (66.50%)** | **76.16% (75.25%)** |
 
 Apart from seeing substantial improvements in Macro-F1 and Accuracy across all datasets, we also notice that it prevents the collapse of certain classes and also prevents certain classes from getting overly boosted.
 
@@ -156,7 +156,7 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Architecture Configuration | Teacher Model | Student Model & Mode | Benchmark Dataset | Standard KD Macro-F1 (Acc) | CKD Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: |
-| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **BBC News** | 57.14% (60.50%) | **65.17% (67.25%)** | **+8.02 pp** |
+| **1. Same-Size Distillation** | Gemma-3-4B-IT (4B) | Qwen3-4B LoRA (4B) | **Twitter Emotion** | 37.00% (49.75%) | **41.32% (51.25%)** | **+4.32 pp** |
 | **2. Cross-Family Distillation** | Qwen3-4B (4B Causal) | RoBERTa-base (125M Encoder) | **TweetEval Emotion** | 69.29% (77.00%) | **69.85%** (74.75%) | **+0.56 pp** |
 | **3. Small SLM Compression** | Gemma-3-4B-IT (4B) | Qwen2.5-0.5B LoRA (500M) | **TREC-6** | 19.94% (32.75%) | **26.93% (39.75%)** | **+6.99 pp** |
 
@@ -166,11 +166,11 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Multi-Task Setup | Evaluated Tasks | Standard KD (Macro-F1) | CKD (Ours, Macro-F1) | Net Gain ($\Delta$ pp) |
 | :--- | :--- | :---: | :---: | :---: |
-| **Combo 1** | TweetEval Emotion + BBC News | 49.77% | **65.40%** | **+15.63 pp** |
-| **Combo 2** | BBC News + TREC-6 | 60.04% | **67.63%** | **+7.59 pp** |
+| **Combo 1** | TweetEval Emotion + BBC News | 51.04% | **66.32%** | **+15.28 pp** |
+| **Combo 2** | BBC News + TREC-6 | 60.32% | **67.17%** | **+6.85 pp** |
 | **Combo 3** | Twitter Emotion + TREC-6 | 48.96% | **52.89%** | **+3.93 pp** |
-| **Combo 4** | TweetEval + BBC News + TREC-6 | 52.53% | **64.56%** | **+12.04 pp** |
-| **5-Task Unified** | TweetEval + BBC + App Reviews + TwEmo + TREC | 45.29% | **52.95%** | **+7.66 pp** |
+| **Combo 4** | TweetEval + BBC News + TREC-6 | 51.52% | **64.88%** | **+13.36 pp** |
+| **5-Task Unified** | TweetEval + BBC + App Reviews + TwEmo + TREC | 45.57% | **52.78%** | **+7.21 pp** |
 
 ---
 
@@ -178,10 +178,10 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Benchmark Dataset | Distillation Regime | Target Formulation | Loss Function | Macro-F1 (%) | Test Accuracy (%) |
 | :--- | :--- | :--- | :--- | :---: | :---: |
-| **BBC News** | **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 55.95% | 59.00% |
-| | **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 58.93% | 61.75% |
-| | **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 55.02% | 58.00% |
-| | **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **71.58%** | **70.50%** |
+| **BBC News** | **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 53.48% | 57.25% |
+| | **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 70.75% | 69.50% |
+| | **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 52.65% | 56.50% |
+| | **4. Calibrated Soft KD (CKD, Ours)** | $p_T = \text{softmax}((z_T - b_{\text{null}}) / \tau)$ | KL-Divergence | **74.45%** | **73.50%** |
 | **TweetEval Emotion** | **1. Raw Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T)$ | Cross-Entropy | 32.43% | 53.00% |
 | | **2. Calibrated Hard Pseudo-Labels** | $\hat{y} = \arg\max(z_T - b_{\text{null}})$ | Cross-Entropy | 47.88% | 64.25% |
 | | **3. Standard Soft KD** | $p_T = \text{softmax}(z_T / \tau)$ | KL-Divergence | 34.16% | 54.25% |
@@ -195,8 +195,8 @@ This post was written for the Agentic AI course at BITS Pilani.
 | :--- | :--- | :---: | :---: | :---: |
 | **TweetEval Emotion** | Macro-F1 (%) | 34.16% | **57.58%** | 55.48% |
 | | Test Accuracy (%) | 54.25% | **74.25%** | 66.50% |
-| **Student Questions** | Macro-F1 (%) | 22.86% | 21.03% | **37.10%** |
-| | Test Accuracy (%) | 32.25% | 29.25% | **39.25%** |
+| **Student Questions** | Macro-F1 (%) | 22.15% | 23.09% | **30.82%** |
+| | Test Accuracy (%) | 31.50% | 30.25% | **34.25%** |
 
 ---
 
@@ -204,9 +204,9 @@ This post was written for the Agentic AI course at BITS Pilani.
 
 | Benchmark Dataset | Standard KD Macro-F1 (Acc) | Batch-Cal KD Macro-F1 (Acc) | CKD (Ours) Macro-F1 (Acc) | Net Gain ($\Delta$ F1 pp) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Student Questions** | $22.54 \pm 0.36\%$ ($32.33 \pm 0.12\%$) | $22.76 \pm 0.20\%$ ($31.92 \pm 0.62\%$) | **$36.64 \pm 0.47\%$ ($38.42 \pm 0.59\%$)** | **+14.11 pp** |
+| **Student Questions** | $22.31 \pm 0.37\%$ ($31.58 \pm 0.31\%$) | $22.69 \pm 0.21\%$ ($31.58 \pm 0.12\%$) | **$30.89 \pm 3.23\%$ ($33.92 \pm 1.94\%$)** | **+8.59 pp** |
 | **TREC-6** | $58.57 \pm 7.56\%$ ($60.17 \pm 1.76\%$) | **$64.09 \pm 0.99\%$ ($61.75 \pm 0.61\%$)** | $58.08 \pm 6.31\%$ ($60.67 \pm 0.92\%$) | -0.50 pp |
-| **App Reviews** | $30.09 \pm 0.22\%$ ($51.92 \pm 1.23\%$) | $31.30 \pm 1.48\%$ ($51.50 \pm 1.62\%$) | **$33.36 \pm 1.31\%$ ($52.17 \pm 1.56\%$)** | **+3.27 pp** |
+| **App Reviews** | $30.10 \pm 1.17\%$ ($52.92 \pm 1.20\%$) | $30.95 \pm 1.61\%$ ($51.50 \pm 1.24\%$) | **$32.72 \pm 1.26\%$** ($52.25 \pm 0.71\%$) | **+2.62 pp** |
 | **Twitter Emotion** | $29.30 \pm 0.44\%$ ($48.92 \pm 1.23\%$) | $30.39 \pm 0.57\%$ ($48.92 \pm 0.77\%$) | **$34.44 \pm 0.78\%$ ($51.08 \pm 0.85\%$)** | **+5.14 pp** |
 | **TweetEval Emotion** | $35.42 \pm 1.31\%$ ($55.17 \pm 1.30\%$) | $43.17 \pm 3.09\%$ ($59.25 \pm 2.15\%$) | **$56.54 \pm 2.01\%$ ($68.67 \pm 1.74\%$)** | **+21.13 pp** |
-| **BBC News** | $56.27 \pm 2.64\%$ ($59.25 \pm 2.94\%$) | $58.97 \pm 2.51\%$ ($61.92 \pm 2.97\%$) | **$73.70 \pm 4.23\%$ ($72.42 \pm 4.10\%$)** | **+17.43 pp** |
+| **BBC News** | $54.59 \pm 1.15\%$ ($57.92 \pm 0.96\%$) | $62.97 \pm 3.52\%$ ($63.25 \pm 2.86\%$) | **$76.30 \pm 1.87\%$ ($75.00 \pm 2.07\%$)** | **+21.71 pp** |

@@ -139,18 +139,23 @@ def main() -> None:
 
         cached = np.load(CACHE_DIR / f"{task_name}_gemma4b_targets.npz")
         p_std = softmax(cached["train_logits"], axis=-1)
+        p_mean = np.clip(p_std.mean(axis=0, keepdims=True), 1e-12, 1.0)
+        p_mean /= p_mean.sum(axis=-1, keepdims=True)
+        p_batch = softmax(cached["train_logits"] - np.log(p_mean), axis=-1)
         p_ckd = softmax(cached["train_logits"] - cached["null_logits"], axis=-1)
 
-        task_res = {"standard_kd": [], "calibrated_kd": []}
+        task_res = {"standard_kd": [], "batch_calibrated_kd": [], "calibrated_kd": []}
         for seed in SEEDS:
             r_std = train_student(tr_txt, p_std, te_txt, te_y, num_classes, seed)
+            r_batch = train_student(tr_txt, p_batch, te_txt, te_y, num_classes, seed)
             r_ckd = train_student(tr_txt, p_ckd, te_txt, te_y, num_classes, seed)
             task_res["standard_kd"].append(r_std)
+            task_res["batch_calibrated_kd"].append(r_batch)
             task_res["calibrated_kd"].append(r_ckd)
-            print(f"  [{task_name}] Seed {seed}: Std={r_std['macro_f1']:.2f}% ({r_std['acc']:.1f}%) | CKD={r_ckd['macro_f1']:.2f}% ({r_ckd['acc']:.1f}%)", flush=True)
+            print(f"  [{task_name}] Seed {seed}: Std={r_std['macro_f1']:.2f}% ({r_std['acc']:.1f}%) | Batch={r_batch['macro_f1']:.2f}% ({r_batch['acc']:.1f}%) | CKD={r_ckd['macro_f1']:.2f}% ({r_ckd['acc']:.1f}%)", flush=True)
 
         agg = {}
-        for m in ["standard_kd", "calibrated_kd"]:
+        for m in ["standard_kd", "batch_calibrated_kd", "calibrated_kd"]:
             f1s = [x["macro_f1"] for x in task_res[m]]
             accs = [x["acc"] for x in task_res[m]]
             agg[m] = {

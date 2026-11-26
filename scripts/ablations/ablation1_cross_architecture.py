@@ -269,24 +269,24 @@ def train_encoder_student(
 
 
 def run_config1_same_size():
-    """Config 1: Gemma-3-4B -> Qwen3-4B LoRA on BBC News (K=5)."""
+    """Config 1: Gemma-3-4B -> Qwen3-4B LoRA on Twitter Emotion (K=6)."""
     print("\n" + "=" * 75)
-    print("ABLATION 1A: SAME-SIZE (Gemma-3-4B -> Qwen3-4B LoRA) on BBC NEWS")
+    print("ABLATION 1A: SAME-SIZE (Gemma-3-4B -> Qwen3-4B LoRA) on TWITTER EMOTION")
     print("=" * 75)
-    tr_txt, _, te_txt, te_y = load_splits("bbc_news")
-    cached = np.load(CACHE_DIR / "bbc_news_gemma4b_targets.npz")
+    tr_txt, _, te_txt, te_y = load_splits("twitter_emotion")
+    cached = np.load(CACHE_DIR / "twitter_emotion_gemma4b_targets.npz")
     p_std = softmax(cached["train_logits"], axis=-1)
     p_ckd = softmax(cached["train_logits"] - cached["null_logits"], axis=-1)
 
     task_desc = (
-        "Classify the news article into one of five categories:\n"
-        "A: Tech\nB: Business\nC: Sport\nD: Entertainment\nE: Politics"
+        "Classify the tweet into one of six emotions:\n"
+        "A: Sadness\nB: Joy\nC: Love\nD: Anger\nE: Fear\nF: Surprise"
     )
-    verbs = ["A", "B", "C", "D", "E"]
+    verbs = ["A", "B", "C", "D", "E", "F"]
     r_std = train_causal_student(QWEN3_4B_PATH, task_desc, verbs, tr_txt, p_std, te_txt, te_y, 2, 16, "Qwen3-4B Std KD")
     r_ckd = train_causal_student(QWEN3_4B_PATH, task_desc, verbs, tr_txt, p_ckd, te_txt, te_y, 2, 16, "Qwen3-4B CKD")
-    print(f"  [BBC News Same-Size] Std: {r_std['macro_f1']:.2f}% ({r_std['acc']:.2f}%) | CKD: {r_ckd['macro_f1']:.2f}% ({r_ckd['acc']:.2f}%)")
-    return {"dataset": "bbc_news", "teacher": "Gemma-3-4B-IT", "student": "Qwen3-4B (LoRA)", "standard_kd": r_std, "calibrated_kd": r_ckd, "delta_f1": r_ckd["macro_f1"] - r_std["macro_f1"]}
+    print(f"  [Twitter Emotion Same-Size] Std: {r_std['macro_f1']:.2f}% ({r_std['acc']:.2f}%) | CKD: {r_ckd['macro_f1']:.2f}% ({r_ckd['acc']:.2f}%)")
+    return {"dataset": "twitter_emotion", "teacher": "Gemma-3-4B-IT", "student": "Qwen3-4B (LoRA)", "standard_kd": r_std, "calibrated_kd": r_ckd, "delta_f1": r_ckd["macro_f1"] - r_std["macro_f1"]}
 
 
 def run_config2_cross_family():

@@ -26,7 +26,7 @@ LOGS_DIR = ROOT / "logs"
 
 ABLATION_STEPS = [
     (
-        "Ablation 1: Cross-Architecture Triad (BBC News, TweetEval Emotion, TREC-6)",
+        "Ablation 1: Cross-Architecture Triad (Twitter Emotion, TweetEval Emotion, TREC-6)",
         ["scripts/ablations/ablation1_cross_architecture.py"],
     ),
     (
