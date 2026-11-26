@@ -146,7 +146,6 @@ Null Calibrated KD needs no class frequencies and only one extra teacher query p
 
 \section{Method}
 
-Figure~\ref{fig:pipeline} shows the full pipeline.
 
 \begin{figure}[t]
 \centering
@@ -190,7 +189,8 @@ Figure~\ref{fig:pipeline} shows the full pipeline.
 \label{fig:pipeline}
 \end{figure}
 
-First, we need to extract the teacher model's bias without probing it with an actual input.
+
+As shown in Figure~\ref{fig:pipeline} we extract the teacher model's bias without probing it with an actual input.
 For that, we pass it a null string, \texttt{"N/A"}, using the exact same classification prompt as for normal inference \& knowledge distillation \citep{zhao2021calibrate}.
 The prompt lists each class next to an option letter (A, B, C and so on), as Figure~\ref{fig:prompt} and Appendix~\ref{app:prompts} show.
 We read the teacher's logit for each letter, which is the unnormalised score the model gives to that token.
@@ -271,8 +271,8 @@ BBC News \citep{greene2006practical} & News topics & 5 \\
 
 We use the following models.
 \begin{itemize}
-    \item \textbf{Gemma-3-4B-IT} \citep{gemma2025gemma3}: We used this 4-billion-parameter instruction-tuned causal LLM as the teacher model, kept completely frozen in 16-bit precision.
-    \item \textbf{RoBERTa-base} \citep{liu2019roberta}: This masked encoder model (125 million parameters) works as a lightweight student model. It consumes less memory and runs faster.
+    \item \textbf{Gemma-3-4B-IT} \citep{gemma2025gemma3}:  4-billion-parameter instruction-tuned causal LLM as the teacher model, kept completely frozen in 16-bit precision.
+    \item \textbf{RoBERTa-base} \citep{liu2019roberta}: RoBERTa is a  masked encoder model (125 million parameters) works as a lightweight student model and consumes less memory and runs faster.
 \end{itemize}
 Table~\ref{tab:hparams} lists the student's training settings, which are the same for all methods.
 
@@ -335,14 +335,6 @@ We also report overall \textbf{Accuracy} as a secondary metric.
 
 We ran our pipeline across all these datasets and captured the required metrics.
 We answer three research questions (RQs).
-\begin{enumerate}
-    \item[\textbf{RQ1.}] Does null calibration improve the student's Macro-F1 and Accuracy?
-    \item[\textbf{RQ2.}] Does null calibration reduce class collapse?
-    \item[\textbf{RQ3.}] Can null calibration over-correct?
-\end{enumerate}
-
-
-
 
 \subsection{RQ1: Macro-F1 and Accuracy}
 
@@ -392,7 +384,6 @@ Even though this method works, there are a few limitations to it.
 \begin{enumerate}
     \item If the teacher itself is very bad (near random), then this method cannot manufacture knowledge which did not exist.
     \item We have limited the scope to multi-class classification tasks. For sequence generation tasks, our method is not applicable.
-    \item In certain cases where the teacher itself has an almost flat distribution (carries low bias), we might see minimal or even negative impact. As such, developers' discretion is advised.
     \item When the teacher's null bias is very strong, subtracting it can remove a class entirely (Section~\ref{sec:overcorrection}).
     \item On simple, uniformly balanced tasks or binary tasks, standard KD may already be sufficient.
     \item We use a single teacher, a single student and a single random seed.
